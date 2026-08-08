@@ -14,7 +14,7 @@
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
   .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
   button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyTitleBtn { background: #6b7280; }
+  #copyTitleBtn, #copyProductNameBtn { background: #6b7280; }
   #msg { font-size: 13px; color: #02a94e; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
@@ -28,9 +28,10 @@
 <div class="bar">
   <div class="bar-title">
     <h1 id="titleText">아이닉 분유포트 iEK01, 새벽 수유 전쟁 끝내는 법</h1>
-    <div class="product-name">엑셀 상품명: 아이닉 자동출수 분유포트 올케어 5세대 주전자형 iEK01</div>
+    <div class="product-name">엑셀 상품명: <span id="productNameText">아이닉 자동출수 분유포트 올케어 5세대 주전자형 iEK01</span></div>
   </div>
   <button id="copyTitleBtn" type="button">제목 복사</button>
+  <button id="copyProductNameBtn" type="button">제품명 복사</button>
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <span id="msg"></span>
 </div>
@@ -272,19 +273,29 @@ https://naver.me/xAf1lDHp
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
-  document.getElementById('copyTitleBtn').addEventListener('click', function () {
+  function copyPlainText(text, label) {
     msg.textContent = '';
-    var titleText = document.getElementById('titleText').textContent;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(titleText).then(function () {
-        msg.textContent = '제목이 복사됐습니다.';
+      navigator.clipboard.writeText(text).then(function () {
+        msg.textContent = label + '이(가) 복사됐습니다.';
       }).catch(function () {
-        msg.textContent = '제목 복사가 차단됐습니다. 제목을 직접 선택해서 복사해주세요.';
+        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 제목을 직접 선택해서 복사해주세요.';
+      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
     }
+  }
+
+  document.getElementById('copyTitleBtn').addEventListener('click', function () {
+    copyPlainText(document.getElementById('titleText').textContent, '제목');
   });
+
+  var productNameBtn = document.getElementById('copyProductNameBtn');
+  if (productNameBtn) {
+    productNameBtn.addEventListener('click', function () {
+      copyPlainText(document.getElementById('productNameText').textContent, '제품명');
+    });
+  }
 })();
 </script>
 </body>
