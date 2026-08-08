@@ -47,37 +47,10 @@
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
-  // Selecting text on the live, non-editable #post and calling execCommand is what the
-  // page used to do, and on iOS/Android it silently degrades to a plain-text-only copy —
-  // formatting and images both vanish, which is exactly what was being reported. Mobile
-  // browsers only run execCommand's *rich* copy path reliably from inside a contenteditable
-  // element. So this builds a hidden contenteditable holder and copies from that instead —
-  // the same technique already proven working in the app's own copy button (index.html).
-  function copyViaSelection(html) {
-    var holder = document.createElement('div');
-    holder.contentEditable = 'true';
-    holder.innerHTML = html;
-    holder.style.cssText =
-      'position:fixed;left:0;top:0;opacity:0;pointer-events:none;white-space:pre-wrap;max-height:100vh;overflow:hidden;';
-    document.body.appendChild(holder);
-
-    var range = document.createRange();
-    range.selectNodeContents(holder);
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    var ok = false;
-    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-    sel.removeAllRanges();
-    holder.remove();
-    return ok;
-  }
-
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
-  // even when every scripted copy attempt above was blocked.
+  // even when the scripted copy attempt above was rejected or silently downgraded.
   function showManualCopyBox(html) {
     manualBox.innerHTML = html;
     manualBox.style.display = 'block';
@@ -101,16 +74,19 @@
     var html = clone.innerHTML;
     var text = post.innerText;
 
-    // Tried in this order, nothing awaited before any of them — every clipboard mechanism,
-    // this one included, only works when called synchronously inside the click handler.
-    // execCommand-via-contenteditable goes first because it's the one path that also works
-    // over plain http:// (this page is https, but keeping the order consistent with the
-    // app's own proven copy button avoids re-discovering this the hard way twice).
-    if (copyViaSelection(html)) {
-      msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
-      return;
-    }
-
+    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
+    // HTML on mobile. This page is always served over https, so it's always available where
+    // the browser supports it at all — there's no plain-http case here that would need a
+    // fallback API.
+    //
+    // document.execCommand('copy') used to be tried first, even from inside a hidden
+    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+    // execCommand('copy') returns true — reporting success — while silently copying
+    // plain text only, images and formatting both dropped. Because it "succeeded", the
+    // code never fell through to the manual copy box below, which is the one path that
+    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
+    // execCommand triggered from script cannot). So: real API or the manual box — nothing
+    // in between that can lie about whether it worked.
     if (navigator.clipboard && window.ClipboardItem) {
       navigator.clipboard.write([
         new ClipboardItem({
@@ -127,7 +103,7 @@
     }
 
     showManualCopyBox(html);
-    msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
   });
 
   // The saved page already carries each picture inline, so the save panel reuses those
