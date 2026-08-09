@@ -250,9 +250,7 @@ https://naver.me/5g4TnkrF
     var html = titleP.outerHTML + post.innerHTML;
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
-    var text = document.getElementById('titleText').textContent + '
-
-' + bodyText;
+    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
 
     // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
     // HTML on mobile. This page is always served over https, so it's always available where
