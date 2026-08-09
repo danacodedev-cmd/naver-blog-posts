@@ -15,6 +15,7 @@
   .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
   button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
   #copyTitleBtn, #copyProductNameBtn { background: #6b7280; }
+  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
   #msg { font-size: 13px; color: #02a94e; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
@@ -26,6 +27,7 @@
 </head>
 <body>
 <div class="bar">
+  <a class="back-btn" href="./index.html">← 목록</a>
   <div class="bar-title">
     <h1 id="titleText">소형 일반형냉장고 112L, 원룸에 딱 맞는 크기 고민 끝</h1>
     <div class="product-name">엑셀 상품명: <span id="productNameText">소형 미니 사무실 신혼 원룸 2도어 예쁜 인테리어 112L 냉장고 메탈실버</span></div>
@@ -212,9 +214,22 @@ https://naver.me/5GcUk0Sg
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     msg.textContent = '';
-    var html = post.innerHTML;
+    // Built via DOM APIs (not string concatenation) so the title's own text is safely
+    // escaped the same way the rest of #post already is.
+    var titleP = document.createElement('p');
+    titleP.setAttribute('style', 'text-align:center;margin:0 0 20px;');
+    var titleB = document.createElement('b');
+    var titleSpan = document.createElement('span');
+    titleSpan.setAttribute('style', 'font-size:20px;');
+    titleSpan.textContent = document.getElementById('titleText').textContent;
+    titleB.appendChild(titleSpan);
+    titleP.appendChild(titleB);
+    var html = titleP.outerHTML + post.innerHTML;
     var plainSource = document.getElementById('plainSource');
-    var text = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var text = document.getElementById('titleText').textContent + '
+
+' + bodyText;
 
     // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
     // HTML on mobile. This page is always served over https, so it's always available where
