@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>도노 드라이기, 항공모터가 뭔지 모르고 사면 소음 스트레스 그대로예요 (BLDC 저소음 드라이어 정리)</title>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
+  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .bar-title { flex: 1; min-width: 200px; }
+  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
+     (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
+  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
+  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  #copyProductNameBtn { background: #6b7280; }
+  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #e5e7eb; color: #333; }
+  #publishToggle.published { background: #03c75a; color: #fff; }
+  #msg { font-size: 13px; color: #02a94e; }
+  #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
+  #post img { max-width: 100%; height: auto; }
+  #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
+  #manualCopyBox { display: none; width: 100%; max-width: 700px; margin: 12px auto 40px; max-height: 50vh;
+    overflow: auto; padding: 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; }
+  #manualCopyBox img { max-width: 100%; }
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+  <div class="bar-title">
+    <h1 id="titleText">도노 드라이기, 항공모터가 뭔지 모르고 사면 소음 스트레스 그대로예요 (BLDC 저소음 드라이어 정리)</h1>
+    <div class="product-name">엑셀 상품명: <span id="productNameText">도노 헤어 드라이기 bldc 항공모터 저소음 드라이어 미용실 전문가용 헤어드라이어 음이온</span></div>
+  </div>
+  <button id="copyProductNameBtn" type="button">제품명 복사</button>
+  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="publishToggle" type="button">발행 전</button>
+  <span id="msg"></span>
+</div>
+<div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">드라이기 하나 바꾼다고 뭐가 그렇게 달라질까</p><p style="text-align:center;margin:0;color:#000000;">싶으실 텐데요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">매일 아침저녁으로 쓰는 물건이라서 소음, 무게,</p><p style="text-align:center;margin:0;color:#000000;">건조 속도 하나하나가 생각보다 크게 느껴집니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">드라이기 소음, 모터가 다 결정합니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 드라이기가 시끄러운 이유는 대부분 AC모터를</p><p style="text-align:center;margin:0;color:#000000;">쓰기 때문입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">AC모터는 구조가 단순한 만큼 소리도 크고 진동도</p><p style="text-align:center;margin:0;color:#000000;">있는 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">도노 드라이기는 BLDC 항공모터를 씁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">항공기 부품에 쓰이는 방식과 같은 원리로 회전수를</p><p style="text-align:center;margin:0;color:#000000;">정밀하게 제어해서,</p><p style="text-align:center;margin:0;color:#000000;">같은 바람 세기에서도 소음이 줄어드는 구조입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">늦은 밤이나 이른 아침,</p><p style="text-align:center;margin:0;color:#000000;">가족이 자고 있을 때 머리를 말려야 하는 상황이라면 이</p><p style="text-align:center;margin:0;color:#000000;">차이가 크게 느껴질 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">음이온 기능은 왜 붙어 있을까</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">드라이기에 음이온 기능이 있으면 정전기가 덜 생깁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">모발 표면의 수분 밸런스를 잡아주는 역할을 해서,</p><p style="text-align:center;margin:0;color:#000000;">건조 후 머리카락이 뜨는 느낌이 줄어듭니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">특히 단발이나 곱슬머리처럼 정전기에 민감한 스타일일수록</p><p style="text-align:center;margin:0;color:#000000;">체감이 더 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미용실에서 쓰는 전문가용 드라이기에 음이온 기능이</p><p style="text-align:center;margin:0;color:#000000;">기본으로 들어가는 이유도 여기에 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">밤늦게 머리 말릴 때마다 소리 때문에 눈치 보셨다면<br>어떤 모터를 쓰는지부터 확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FBM4qU6c</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">무게와 손목 피로도</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">BLDC 모터는 크기를 줄이면서도 힘을 유지할 수</p><p style="text-align:center;margin:0;color:#000000;">있어서, 본체 무게를 줄이는 데도 유리합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">긴 머리를 오래 말리는 분이라면 손목에 걸리는 부담이</p><p style="text-align:center;margin:0;color:#000000;">적은지가 중요한 체크 포인트입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">드라이기는 매일 쓰는 물건이라 소음과<br>무게 차이가 시간이 갈수록<br>크게 느껴집니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격 보고 판단하는 기준</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 99,800원에서 30% 할인된 69,800원에</p><p style="text-align:center;margin:0;color:#000000;">나와 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전문가용 모터를 쓰는 제품군에서 이 가격대라면,</p><p style="text-align:center;margin:0;color:#000000;">모터 방식과 음이온 기능이 실제로 있는지부터 확인하고</p><p style="text-align:center;margin:0;color:#000000;">비교해보는 게 순서입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">밤에 조용히 머리 말리고 싶은 분,</p><p style="text-align:center;margin:0;color:#000000;">손목 부담을 줄이고 싶은 분이라면 이 두 가지만</p><p style="text-align:center;margin:0;color:#000000;">체크해도 판단이 어렵지 않습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아침마다 드라이기 소리에 신경 쓰던 시간,<br>이제 줄일 수 있습니다.<br>지금 조건 자세히 보러 가보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 도노 헤어 드라이기 bldc 항공모터 저소음 드라이어 미용실 전문가용 헤어드라이어 음이온<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FBM4qU6c</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#도노드라이기 #음이온드라이기 #BLDC드라이기 #저소음드라이기 #항공모터드라이기 #드라이기추천 #전문가용드라이어 #가벼운드라이기 #강풍드라이기 #헤어드라이기선택 #미용실드라이기 #신혼집가전</span></p></div></div>
+<div id="manualCopyBox" contenteditable="true"></div>
+<!-- generator.js's flattenToPlainText() output, verbatim — see buildStandalonePage's
+     comment for why this has to be the copy source instead of the rendered DOM's text. -->
+<div id="plainSource" style="display:none" aria-hidden="true">드라이기 하나 바꾼다고 뭐가 그렇게 달라질까
+싶으실 텐데요.
+
+
+매일 아침저녁으로 쓰는 물건이라서 소음, 무게,
+건조 속도 하나하나가 생각보다 크게 느껴집니다.
+
+
+드라이기 소음, 모터가 다 결정합니다
+
+
+일반 드라이기가 시끄러운 이유는 대부분 AC모터를
+쓰기 때문입니다.
+
+
+AC모터는 구조가 단순한 만큼 소리도 크고 진동도
+있는 편입니다.
+
+
+도노 드라이기는 BLDC 항공모터를 씁니다.
+
+
+항공기 부품에 쓰이는 방식과 같은 원리로 회전수를
+정밀하게 제어해서,
+같은 바람 세기에서도 소음이 줄어드는 구조입니다.
+
+
+늦은 밤이나 이른 아침,
+가족이 자고 있을 때 머리를 말려야 하는 상황이라면 이
+차이가 크게 느껴질 수 있습니다.
+
+
+음이온 기능은 왜 붙어 있을까
+
+
+드라이기에 음이온 기능이 있으면 정전기가 덜 생깁니다.
+
+
+모발 표면의 수분 밸런스를 잡아주는 역할을 해서,
+건조 후 머리카락이 뜨는 느낌이 줄어듭니다.
+
+
+특히 단발이나 곱슬머리처럼 정전기에 민감한 스타일일수록
+체감이 더 큽니다.
+
+
+미용실에서 쓰는 전문가용 드라이기에 음이온 기능이
+기본으로 들어가는 이유도 여기에 있습니다.
+
+
+밤늦게 머리 말릴 때마다 소리 때문에 눈치 보셨다면
+어떤 모터를 쓰는지부터 확인해보시는 게 좋습니다.
+
+https://naver.me/FBM4qU6c
+
+
+무게와 손목 피로도
+
+
+BLDC 모터는 크기를 줄이면서도 힘을 유지할 수
+있어서, 본체 무게를 줄이는 데도 유리합니다.
+
+
+긴 머리를 오래 말리는 분이라면 손목에 걸리는 부담이
+적은지가 중요한 체크 포인트입니다.
+
+
+드라이기는 매일 쓰는 물건이라 소음과
+무게 차이가 시간이 갈수록
+크게 느껴집니다.
+
+
+가격 보고 판단하는 기준
+
+
+정가 99,800원에서 30% 할인된 69,800원에
+나와 있습니다.
+
+
+전문가용 모터를 쓰는 제품군에서 이 가격대라면,
+모터 방식과 음이온 기능이 실제로 있는지부터 확인하고
+비교해보는 게 순서입니다.
+
+
+밤에 조용히 머리 말리고 싶은 분,
+손목 부담을 줄이고 싶은 분이라면 이 두 가지만
+체크해도 판단이 어렵지 않습니다.
+
+
+아침마다 드라이기 소리에 신경 쓰던 시간,
+이제 줄일 수 있습니다.
+지금 조건 자세히 보러 가보세요.
+
+https://naver.me/FBM4qU6c
+
+
+#도노드라이기 #음이온드라이기 #BLDC드라이기 #저소음드라이기 #항공모터드라이기 #드라이기추천 #전문가용드라이어 #가벼운드라이기 #강풍드라이기 #헤어드라이기선택 #미용실드라이기 #신혼집가전</div>
+
+<script>
+(function () {
+  var post = document.getElementById('post');
+  var msg = document.getElementById('msg');
+  var manualBox = document.getElementById('manualCopyBox');
+
+  // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
+  // "복사" is a native OS gesture the browser handles directly (not something our JS
+  // triggers), so it picks up the real rich content — text, formatting, and images —
+  // even when the scripted copy attempt above was rejected or silently downgraded.
+  function showManualCopyBox(html) {
+    manualBox.innerHTML = html;
+    manualBox.style.display = 'block';
+    manualBox.scrollIntoView({ block: 'nearest' });
+    var range = document.createRange();
+    range.selectNodeContents(manualBox);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    msg.textContent = '';
+    // Built via DOM APIs (not string concatenation) so the title's own text is safely
+    // escaped the same way the rest of #post already is.
+    var titleP = document.createElement('p');
+    titleP.setAttribute('style', 'text-align:center;margin:0 0 20px;');
+    var titleB = document.createElement('b');
+    var titleSpan = document.createElement('span');
+    titleSpan.setAttribute('style', 'font-size:20px;');
+    titleSpan.textContent = document.getElementById('titleText').textContent;
+    titleB.appendChild(titleSpan);
+    titleP.appendChild(titleB);
+    var html = titleP.outerHTML + post.innerHTML;
+    var plainSource = document.getElementById('plainSource');
+    var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+
+    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
+    // HTML on mobile. This page is always served over https, so it's always available where
+    // the browser supports it at all — there's no plain-http case here that would need a
+    // fallback API.
+    //
+    // document.execCommand('copy') used to be tried first, even from inside a hidden
+    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+    // execCommand('copy') returns true — reporting success — while silently copying
+    // plain text only, images and formatting both dropped. Because it "succeeded", the
+    // code never fell through to the manual copy box below, which is the one path that
+    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
+    // execCommand triggered from script cannot). So: real API or the manual box — nothing
+    // in between that can lie about whether it worked.
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        })
+      ]).then(function () {
+        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+      }).catch(function () {
+        showManualCopyBox(html);
+        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+      });
+      return;
+    }
+
+    showManualCopyBox(html);
+    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+  });
+
+  // Plain text only, so this works even where the rich-copy button above can't (e.g. the
+  // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
+  function copyPlainText(text, label) {
+    msg.textContent = '';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        msg.textContent = label + '이(가) 복사됐습니다.';
+      }).catch(function () {
+        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      });
+    } else {
+      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+    }
+  }
+
+  var productNameBtn = document.getElementById('copyProductNameBtn');
+  if (productNameBtn) {
+    productNameBtn.addEventListener('click', function () {
+      copyPlainText(document.getElementById('productNameText').textContent, '제품명');
+    });
+  }
+
+  // Publish status has no backend to live in on a static site — tracked in this browser's
+  // localStorage instead, keyed by this exact page's path so the list pages (which resolve
+  // each link to the same absolute path) agree on the same status either way.
+  var publishBtn = document.getElementById('publishToggle');
+  var publishKey = 'nbp_published_' + location.pathname;
+  function renderPublishState() {
+    var done = false;
+    try { done = localStorage.getItem(publishKey) === '1'; } catch (e) {}
+    publishBtn.textContent = done ? '✅ 발행완료' : '발행 전';
+    publishBtn.classList.toggle('published', done);
+  }
+  publishBtn.addEventListener('click', function () {
+    var done = false;
+    try { done = localStorage.getItem(publishKey) === '1'; } catch (e) {}
+    try { localStorage.setItem(publishKey, done ? '0' : '1'); } catch (e) {}
+    renderPublishState();
+  });
+  renderPublishState();
+  // Same bfcache-restore gap as the list pages' publishListScript — a back/forward
+  // navigation here can otherwise show a stale button until a manual reload.
+  window.addEventListener('pageshow', renderPublishState);
+})();
+</script>
+</body>
+</html>
