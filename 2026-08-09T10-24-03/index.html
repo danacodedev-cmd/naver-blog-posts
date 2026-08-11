@@ -7,13 +7,38 @@
  body { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #111; }
  h1 { font-size: 18px; } li { margin: 10px 0; line-height: 1.5; }
  a { color: #02a94e; } .hint { color: #666; font-size: 13px; }
+
+  .post-row { display: flex; align-items: center; gap: 8px; }
+  .post-row .pub-check { flex-shrink: 0; width: 15px; height: 15px; cursor: pointer; margin: 0; }
+  .post-row.published a { color: #999; text-decoration: line-through; }
+  .post-row .pub-label { display: none; font-size: 11px; color: #03c75a; font-weight: 700; margin-left: auto; flex-shrink: 0; }
+  .post-row.published .pub-label { display: inline; }
 </style></head>
 <body>
 <h1>2026. 8. 9. 오후 7:24:03 생성 결과 (5편)</h1>
-<p class="hint">글을 열고 "본문 복사 (이미지 포함)" 버튼을 누른 뒤 네이버 블로그 본문에 붙여넣으세요.</p>
-<ol><li><a href="./01-테팔-스팀다리미-fv6642k0-다림질-미루던-옷-몇-장-있으세요.html">1. 테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</a></li>
-<li><a href="./02-몽트라드-냉풍기-mtf-2000w-에어컨-안-닿는-방-여름나기.html">2. 몽트라드 냉풍기 MTF-2000W, 에어컨 안 닿는 방 여름나기</a></li>
-<li><a href="./03-올스텐-에어프라이어-22l-3년마다-코팅-새로-사는-분들-보세요.html">3. 올스텐 에어프라이어 22L, 3년마다 코팅 새로 사는 분들 보세요</a></li>
-<li><a href="./04-오아-고데기매직기-무선-미니-고데기-앞머리-눌림-30초면-끝나는-이유.html">4. 오아 고데기/매직기 무선 미니 고데기, 앞머리 눌림 30초면 끝나는 이유</a></li>
-<li><a href="./05-카누-캡슐-pod머신-브리즈-커피값-계산해보고-결정하세요.html">5. 카누 캡슐 POD머신 브리즈, 커피값 계산해보고 결정하세요</a></li></ol>
+<p class="hint">글을 열고 "본문 복사 (이미지 포함)" 버튼을 누른 뒤 네이버 블로그 본문에 붙여넣으세요. 체크박스로 발행 여부를 표시할 수 있어요.</p>
+<ol><li class="post-row"><input type="checkbox" class="pub-check"><a href="./01-테팔-스팀다리미-fv6642k0-다림질-미루던-옷-몇-장-있으세요.html">1. 테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</a><span class="pub-label">발행완료</span></li>
+<li class="post-row"><input type="checkbox" class="pub-check"><a href="./02-몽트라드-냉풍기-mtf-2000w-에어컨-안-닿는-방-여름나기.html">2. 몽트라드 냉풍기 MTF-2000W, 에어컨 안 닿는 방 여름나기</a><span class="pub-label">발행완료</span></li>
+<li class="post-row"><input type="checkbox" class="pub-check"><a href="./03-올스텐-에어프라이어-22l-3년마다-코팅-새로-사는-분들-보세요.html">3. 올스텐 에어프라이어 22L, 3년마다 코팅 새로 사는 분들 보세요</a><span class="pub-label">발행완료</span></li>
+<li class="post-row"><input type="checkbox" class="pub-check"><a href="./04-오아-고데기매직기-무선-미니-고데기-앞머리-눌림-30초면-끝나는-이유.html">4. 오아 고데기/매직기 무선 미니 고데기, 앞머리 눌림 30초면 끝나는 이유</a><span class="pub-label">발행완료</span></li>
+<li class="post-row"><input type="checkbox" class="pub-check"><a href="./05-카누-캡슐-pod머신-브리즈-커피값-계산해보고-결정하세요.html">5. 카누 캡슐 POD머신 브리즈, 커피값 계산해보고 결정하세요</a><span class="pub-label">발행완료</span></li></ol>
+<script>(function () {
+  function keyFor(href) {
+    try { return 'nbp_published_' + new URL(href, location.href).pathname; }
+    catch (e) { return null; }
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.post-row'), function (row) {
+    var a = row.querySelector('a');
+    var cb = row.querySelector('.pub-check');
+    if (!a || !cb) return;
+    var key = keyFor(a.getAttribute('href'));
+    if (!key) return;
+    try { cb.checked = localStorage.getItem(key) === '1'; } catch (e) {}
+    row.classList.toggle('published', cb.checked);
+    cb.addEventListener('change', function () {
+      try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch (e) {}
+      row.classList.toggle('published', cb.checked);
+    });
+  });
+})();</script>
 </body></html>
