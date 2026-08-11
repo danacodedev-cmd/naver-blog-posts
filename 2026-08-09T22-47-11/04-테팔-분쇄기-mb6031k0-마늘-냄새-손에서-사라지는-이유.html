@@ -14,7 +14,7 @@
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
   .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
   button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyTitleBtn, #copyProductNameBtn { background: #6b7280; }
+  #copyProductNameBtn { background: #6b7280; }
   .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
   #publishToggle { background: #e5e7eb; color: #333; }
   #publishToggle.published { background: #03c75a; color: #fff; }
@@ -34,7 +34,6 @@
     <h1 id="titleText">테팔 분쇄기 MB6031K0, 마늘 냄새 손에서 사라지는 이유</h1>
     <div class="product-name">엑셀 상품명: <span id="productNameText">테팔 대용량 유리 이유식 마늘 다지기 초페오 MB6031K0</span></div>
   </div>
-  <button id="copyTitleBtn" type="button">제목 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="publishToggle" type="button">발행 전</button>
@@ -294,10 +293,6 @@ https://naver.me/GJZmB6Av
       msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
     }
   }
-
-  document.getElementById('copyTitleBtn').addEventListener('click', function () {
-    copyPlainText(document.getElementById('titleText').textContent, '제목');
-  });
 
   var productNameBtn = document.getElementById('copyProductNameBtn');
   if (productNameBtn) {
