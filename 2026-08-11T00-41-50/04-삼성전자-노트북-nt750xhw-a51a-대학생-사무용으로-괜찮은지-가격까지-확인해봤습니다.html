@@ -313,6 +313,9 @@ https://naver.me/5g4TnkrF
     renderPublishState();
   });
   renderPublishState();
+  // Same bfcache-restore gap as the list pages' publishListScript — a back/forward
+  // navigation here can otherwise show a stale button until a manual reload.
+  window.addEventListener('pageshow', renderPublishState);
 })();
 </script>
 </body>
