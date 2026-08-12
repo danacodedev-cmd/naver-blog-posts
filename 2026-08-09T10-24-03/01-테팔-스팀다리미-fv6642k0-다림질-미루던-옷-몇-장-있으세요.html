@@ -46,20 +46,29 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
-  /* Collapsed by default. The first candidate is the one that gets used almost every time,
-     and it is already displayed as the heading — showing all three open meant the same
-     sentence appeared twice on screen and the other two took up room nobody asked for. */
-  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
-    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
-  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
-  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
-  #titlePicker.open { display: flex; }
-  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
-    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
-  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
-  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
-  .title-opt.active .tp-num { color: #2563eb; }
+  /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
+     which of the three titles to publish — took a tap to even see. They are the page's main
+     content, so they are laid out as such, and the selected one doubles as the heading:
+     showing a separate <h1> above the list repeated the same sentence twice on screen. */
+  .tp-label { font-size: 12px; color: #adb5bd; font-weight: 600; margin: 12px 0 7px; }
+  #titlePicker { display: flex; flex-direction: column; gap: 7px; }
+  .title-opt { position: relative; background: #fff; color: #495057; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 11px 12px 11px 34px; font-size: 13.5px; font-weight: 500;
+    text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt .tp-num { position: absolute; left: 12px; top: 11px; width: 17px; height: 17px;
+    border-radius: 50%; background: #f1f3f5; color: #adb5bd; font-size: 11px; font-weight: 700;
+    line-height: 17px; text-align: center; }
+  .title-opt .tp-mark { display: none; }
+  .title-opt.active { background: #f4f9ff; border-color: #2563eb; color: #12408f; font-weight: 700;
+    box-shadow: 0 0 0 1px #2563eb inset; }
+  .title-opt.active .tp-num { background: #2563eb; color: #fff; }
+  .title-opt.active .tp-mark { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px;
+    background: #2563eb; color: #fff; font-size: 10.5px; font-weight: 700; vertical-align: 2px; white-space: nowrap; }
+  /* The copy script reads the selected title from here. It stays in the DOM as the page's
+     real heading for assistive tech, but is not painted — the highlighted row above is what
+     a sighted reader sees, and printing it twice was the original complaint. */
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 </style>
 </head>
 <body>
@@ -68,10 +77,10 @@
     <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
     <button id="publishToggle" type="button">발행 전</button>
   </div>
-  <h1 id="titleText">테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</h1>
+  <h1 id="titleText" class="visually-hidden">테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</h1>
   <div class="product-name">엑셀 상품명: <span id="productNameText">테팔 무선 스팀다리미 프리무브 파워 FV6642K0</span></div>
-  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
-<div id="titlePicker"><button type="button" class="title-opt active" data-title="테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요"><span class="tp-num">1</span> 테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</button><button type="button" class="title-opt" data-title="테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질"><span class="tp-num">2</span> 테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질</button><button type="button" class="title-opt" data-title="다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답"><span class="tp-num">3</span> 다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답</button></div>
+  <div class="tp-label">제목 — 누르면 그 제목으로 복사됩니다</div>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요"><span class="tp-num">1</span><span class="tp-text">테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질"><span class="tp-num">2</span><span class="tp-text">테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답"><span class="tp-num">3</span><span class="tp-text">다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
@@ -366,26 +375,16 @@ https://naver.me/GbyXIS9t
   // each link to the same absolute path) agree on the same status either way.
   // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
   // building the clipboard payload, so the chosen title travels with the body automatically.
-  var picker = document.getElementById('titlePicker');
-  var titleToggle = document.getElementById('titleToggle');
-  if (titleToggle) {
-    titleToggle.addEventListener('click', function () {
-      var open = picker.classList.toggle('open');
-      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-
+  // Picking a title only rewrites the hidden heading element — the copy handler reads its
+  // text when assembling the clipboard payload, so the choice travels with the body without
+  // any further wiring.
   var titleOpts = document.querySelectorAll('.title-opt');
   Array.prototype.forEach.call(titleOpts, function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('titleText').textContent = btn.getAttribute('data-title');
-      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
-      // the list open would just repeat it.
-      picker.classList.remove('open');
-      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
-      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
+      say('이 제목으로 복사됩니다.');
     });
   });
 
