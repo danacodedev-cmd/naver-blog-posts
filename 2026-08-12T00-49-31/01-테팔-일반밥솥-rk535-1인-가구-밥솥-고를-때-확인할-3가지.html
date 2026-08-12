@@ -7,18 +7,30 @@
 <title>테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지</title>
 <style>
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
-  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .bar-title { flex: 1; min-width: 200px; }
-  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
   /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
-  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
-  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyProductNameBtn { background: #2563eb; }
-  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-  #publishToggle { background: #e5e7eb; color: #333; }
-  #publishToggle.published { background: #03c75a; color: #fff; }
-  #msg { font-size: 13px; color: #02a94e; }
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 14px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
   #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
@@ -34,26 +46,38 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
-  #titlePicker { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
-  #titlePicker .tp-label { font-size: 11px; color: #94a3b8; }
-  .title-opt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px;
-    padding: 7px 10px; font-size: 12.5px; font-weight: 500; text-align: left; line-height: 1.45; cursor: pointer; }
-  .title-opt.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  /* Collapsed by default. The first candidate is the one that gets used almost every time,
+     and it is already displayed as the heading — showing all three open meant the same
+     sentence appeared twice on screen and the other two took up room nobody asked for. */
+  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
+  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #titlePicker.open { display: flex; }
+  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
+  .title-opt.active .tp-num { color: #2563eb; }
 </style>
 </head>
 <body>
-<div class="bar">
-  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
-  <div class="bar-title">
-    <h1 id="titleText">테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지</h1>
-    <div class="product-name">엑셀 상품명: <span id="productNameText">테팔 미니밥솥 팝솥 소형 전기밥솥 1인용 2인용 자취생 솥밥 RK535 화이트</span></div>
-    <div id="titlePicker"><span class="tp-label">제목 후보 3개 — 눌러서 선택</span><button type="button" class="title-opt active" data-title="테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지">테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지</button><button type="button" class="title-opt" data-title="자취방 밥솥 고민 끝내는 법, 테팔 미니밥솥 팝솥 RK535 (1인용·2인용)">자취방 밥솥 고민 끝내는 법, 테팔 미니밥솥 팝솥 RK535 (1인용·2인용)</button><button type="button" class="title-opt" data-title="큰 밥솥 자리만 차지한다면, 테팔 팝솥 RK535로 바꿔야 하는 이유">큰 밥솥 자리만 차지한다면, 테팔 팝솥 RK535로 바꿔야 하는 이유</button></div>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <h1 id="titleText">테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">테팔 미니밥솥 팝솥 소형 전기밥솥 1인용 2인용 자취생 솥밥 RK535 화이트</span></div>
+  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지"><span class="tp-num">1</span> 테팔 일반밥솥 RK535, 1인 가구 밥솥 고를 때 확인할 3가지</button><button type="button" class="title-opt" data-title="자취방 밥솥 고민 끝내는 법, 테팔 미니밥솥 팝솥 RK535 (1인용·2인용)"><span class="tp-num">2</span> 자취방 밥솥 고민 끝내는 법, 테팔 미니밥솥 팝솥 RK535 (1인용·2인용)</button><button type="button" class="title-opt" data-title="큰 밥솥 자리만 차지한다면, 테팔 팝솥 RK535로 바꿔야 하는 이유"><span class="tp-num">3</span> 큰 밥솥 자리만 차지한다면, 테팔 팝솥 RK535로 바꿔야 하는 이유</button></div>
+</div>
+<div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
-  <button id="publishToggle" type="button">발행 전</button>
-  <span id="msg"></span>
 </div>
+<div id="msg"></div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">자취방 주방에 6인용 밥솥 하나 떡 놓여 있고,</p><p style="text-align:center;margin:0;color:#000000;">매번 밥은 반 공기만 남는 상황.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">씻기도 귀찮고 자리도 아깝고,</p><p style="text-align:center;margin:0;color:#000000;">그렇다고 즉석밥만 먹기는 애매하고.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 고민이면 미니밥솥 쪽으로</p><p style="text-align:center;margin:0;color:#000000;">눈이 갈 시기가 된 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면 이 제품은</p><p style="text-align:center;margin:0;color:#000000;">혼자 살거나 둘이 사는 집,</p><p style="text-align:center;margin:0;color:#000000;">주방이 좁은 집에 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족 단위로 밥을 많이 하는 집이면</p><p style="text-align:center;margin:0;color:#000000;">용량이 안 맞아서 오히려 불편합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/01-1.jpg" alt="테팔 일반밥솥 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 주방이 좁아서 밥솥 자리부터 고민이라면</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 디자인 하나로 주방 분위기가 달라지나요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 가격, 다른 테팔 소형가전과 비교하면</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 눌어붙지 않게 쓰려면</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">주방이 좁아서 밥솥 자리부터 고민이라면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 밥솥은 본체도 크고</p><p style="text-align:center;margin:0;color:#000000;">받침대까지 자리를 잡아먹습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">1인용·2인용으로 나온 미니밥솥은</p><p style="text-align:center;margin:0;color:#000000;">그 자리 문제를 먼저 해결해줍니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상 위, 싱크대 옆 좁은 틈에도</p><p style="text-align:center;margin:0;color:#000000;">올릴 수 있는 크기라서</p><p style="text-align:center;margin:0;color:#000000;">자취방·기숙사·원룸에서 특히 유리합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">밥을 많이 먹는 편이라면</p><p style="text-align:center;margin:0;color:#000000;">2인분 이상 지어놓고 나눠 먹는 방식으로</p><p style="text-align:center;margin:0;color:#000000;">써야 한다는 점은 미리 알아두시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/01-2.jpg" alt="테팔 일반밥솥 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">디자인 하나로 주방 분위기가 달라지나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">화이트 컬러라 어디에 둬도</p><p style="text-align:center;margin:0;color:#000000;">튀지 않고 무난하게 어울립니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 밥솥이 만족도에서 크게 갈리는 지점이</p><p style="text-align:center;margin:0;color:#000000;">바로 디자인입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">실용성만 보고 사는 밥솥이 아니라</p><p style="text-align:center;margin:0;color:#000000;">주방에 예쁘게 놓고 쓰는 가전으로</p><p style="text-align:center;margin:0;color:#000000;">접근하는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">작은 가전 하나가 주방<br>분위기를 바꿉니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">주방 한쪽에 큰 밥솥 자리만 차지하고 있다면<br>지금 크기랑 가격 한 번 비교해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G5kOlK5O</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격, 다른 테팔 소형가전과 비교하면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 129,000원에서</p><p style="text-align:center;margin:0;color:#000000;">31% 내려온 89,000원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드 소형가전 라인과 놓고 보면</p><p style="text-align:center;margin:0;color:#000000;">이 가격이 감이 잡힙니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/01-3.jpg" alt="테팔 일반밥솥 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>제품</b></p><p style="text-align:center;margin:0;color:#000000;">가격</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>테팔 미니밥솥 RK535</b></p><p style="text-align:center;margin:0;color:#000000;">89,000원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>테팔 에브리데이 인덕션 IH2108KR</b></p><p style="text-align:center;margin:0;color:#000000;">120,900원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>테팔 와이드 2단 전기찜기 VC1451K0</b></p><p style="text-align:center;margin:0;color:#000000;">89,000원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>테팔 미니 그릴 GC5718KO</b></p><p style="text-align:center;margin:0;color:#000000;">52,000원</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">밥솥 하나만 필요하면 89,000원 선에서 끝나고,</p><p style="text-align:center;margin:0;color:#000000;">조리 기구까지 같이 갖추고 싶으면</p><p style="text-align:center;margin:0;color:#000000;">찜기나 그릴을 더하는 식으로</p><p style="text-align:center;margin:0;color:#000000;">단계별로 늘려가도 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">눌어붙지 않게 쓰려면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소형 밥솥은 열이 빨리 오르는 만큼</p><p style="text-align:center;margin:0;color:#000000;">밥물 양 조절에 민감합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">처음 몇 번은 계량컵 눈금대로</p><p style="text-align:center;margin:0;color:#000000;">정확히 맞춰서 지어보고,</p><p style="text-align:center;margin:0;color:#000000;">그다음부터 취향에 맞게</p><p style="text-align:center;margin:0;color:#000000;">물 양을 조절하는 게 실패가 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">혼자 먹는 밥이라도 매번 눌어붙으면</p><p style="text-align:center;margin:0;color:#000000;">피곤해지는 건 똑같습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">솥밥처럼 눌은밥 즐기는 분이면</p><p style="text-align:center;margin:0;color:#000000;">오히려 이 특성이 장점으로 쓰입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전기밥솥 하나 놓을 자리와</p><p style="text-align:center;margin:0;color:#000000;">밥 양만 맞으면</p><p style="text-align:center;margin:0;color:#000000;">나머지는 크게 고민할 게 없는 제품입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">자취방 주방, 밥솥 하나로 답 나올 수 있습니다.<br>아래에서 구성이랑 가격 확인해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 테팔 미니밥솥 팝솥 소형 전기밥솥 1인용 2인용 자취생 솥밥 RK535 화이트<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G5kOlK5O</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격과 재고는 수시로 바뀌니 링크에서 최신 정보를 확인해주세요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#테팔미니밥솥 #테팔팝솥 #소형전기밥솥추천 #1인용밥솥 #2인용밥솥 #자취생밥솥 #미니밥솥가격 #자취필수템 #솥밥기계 #RK535 #자취생전자제품 #1인가구밥솥</span></p></div></div>
 <div id="refs">
   <h2>참고한 상위 노출 글 3개</h2>
@@ -225,6 +249,13 @@ https://naver.me/G5kOlK5O
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
@@ -241,7 +272,7 @@ https://naver.me/G5kOlK5O
   }
 
   document.getElementById('copyBtn').addEventListener('click', function () {
-    msg.textContent = '';
+    say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
     var titleP = document.createElement('p');
@@ -277,30 +308,30 @@ https://naver.me/G5kOlK5O
           'text/plain': new Blob([text], { type: 'text/plain' })
         })
       ]).then(function () {
-        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
       }).catch(function () {
         showManualCopyBox(html);
-        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
 
     showManualCopyBox(html);
-    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
   });
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
   function copyPlainText(text, label) {
-    msg.textContent = '';
+    say('');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        msg.textContent = label + '이(가) 복사됐습니다.';
+        say(label + '이(가) 복사됐습니다.');
       }).catch(function () {
-        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
     }
   }
 
@@ -316,13 +347,26 @@ https://naver.me/G5kOlK5O
   // each link to the same absolute path) agree on the same status either way.
   // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
   // building the clipboard payload, so the chosen title travels with the body automatically.
+  var picker = document.getElementById('titlePicker');
+  var titleToggle = document.getElementById('titleToggle');
+  if (titleToggle) {
+    titleToggle.addEventListener('click', function () {
+      var open = picker.classList.toggle('open');
+      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   var titleOpts = document.querySelectorAll('.title-opt');
   Array.prototype.forEach.call(titleOpts, function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('titleText').textContent = btn.getAttribute('data-title');
-      msg.textContent = '제목이 바뀌었습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.';
+      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
+      // the list open would just repeat it.
+      picker.classList.remove('open');
+      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
+      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
     });
   });
 

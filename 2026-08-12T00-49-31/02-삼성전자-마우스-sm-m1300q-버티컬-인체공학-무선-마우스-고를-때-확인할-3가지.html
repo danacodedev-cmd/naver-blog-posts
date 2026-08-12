@@ -7,18 +7,30 @@
 <title>삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지</title>
 <style>
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
-  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .bar-title { flex: 1; min-width: 200px; }
-  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
   /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
-  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
-  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyProductNameBtn { background: #2563eb; }
-  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-  #publishToggle { background: #e5e7eb; color: #333; }
-  #publishToggle.published { background: #03c75a; color: #fff; }
-  #msg { font-size: 13px; color: #02a94e; }
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 14px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
   #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
@@ -34,26 +46,38 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
-  #titlePicker { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
-  #titlePicker .tp-label { font-size: 11px; color: #94a3b8; }
-  .title-opt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px;
-    padding: 7px 10px; font-size: 12.5px; font-weight: 500; text-align: left; line-height: 1.45; cursor: pointer; }
-  .title-opt.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  /* Collapsed by default. The first candidate is the one that gets used almost every time,
+     and it is already displayed as the heading — showing all three open meant the same
+     sentence appeared twice on screen and the other two took up room nobody asked for. */
+  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
+  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #titlePicker.open { display: flex; }
+  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
+  .title-opt.active .tp-num { color: #2563eb; }
 </style>
 </head>
 <body>
-<div class="bar">
-  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
-  <div class="bar-title">
-    <h1 id="titleText">삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지</h1>
-    <div class="product-name">엑셀 상품명: <span id="productNameText">삼성전자 무선 버티컬마우스 SM-M1300Q 멀티페어링 블루투스 인체공학 블랙</span></div>
-    <div id="titlePicker"><span class="tp-label">제목 후보 3개 — 눌러서 선택</span><button type="button" class="title-opt active" data-title="삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지">삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지</button><button type="button" class="title-opt" data-title="손목 시큰거려서 마우스 바꾸신다면, 삼성 SM-M1300Q 멀티페어링 버티컬마우스 확인법">손목 시큰거려서 마우스 바꾸신다면, 삼성 SM-M1300Q 멀티페어링 버티컬마우스 확인법</button><button type="button" class="title-opt" data-title="손목 통증 때문에 마우스 고민 중이라면 놓치기 쉬운 삼성전자 SM-M1300Q (사무실용 무선마우스)">손목 통증 때문에 마우스 고민 중이라면 놓치기 쉬운 삼성전자 SM-M1300Q (사무실용 무선마우스)</button></div>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <h1 id="titleText">삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">삼성전자 무선 버티컬마우스 SM-M1300Q 멀티페어링 블루투스 인체공학 블랙</span></div>
+  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지"><span class="tp-num">1</span> 삼성전자 마우스 SM-M1300Q, 버티컬 인체공학 무선 마우스 고를 때 확인할 3가지</button><button type="button" class="title-opt" data-title="손목 시큰거려서 마우스 바꾸신다면, 삼성 SM-M1300Q 멀티페어링 버티컬마우스 확인법"><span class="tp-num">2</span> 손목 시큰거려서 마우스 바꾸신다면, 삼성 SM-M1300Q 멀티페어링 버티컬마우스 확인법</button><button type="button" class="title-opt" data-title="손목 통증 때문에 마우스 고민 중이라면 놓치기 쉬운 삼성전자 SM-M1300Q (사무실용 무선마우스)"><span class="tp-num">3</span> 손목 통증 때문에 마우스 고민 중이라면 놓치기 쉬운 삼성전자 SM-M1300Q (사무실용 무선마우스)</button></div>
+</div>
+<div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
-  <button id="publishToggle" type="button">발행 전</button>
-  <span id="msg"></span>
 </div>
+<div id="msg"></div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">모니터 보다가 손목이 시큰거려서</p><p style="text-align:center;margin:0;color:#000000;">마우스를 옆으로 밀어놓은 채</p><p style="text-align:center;margin:0;color:#000000;">손을 반대로 얹어본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그러다 다시 원래 자세로 돌아오고,</p><p style="text-align:center;margin:0;color:#000000;">며칠 지나면 또 그러고.</p><p style="text-align:center;margin:0;color:#000000;">손목 각도 자체가 문제라면 마우스를</p><p style="text-align:center;margin:0;color:#000000;">바꾸는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/02-1.jpg" alt="삼성전자 마우스 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 손목이 시큰거리는 이유, 각도 문제일 수 있습니다</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 조용한 사무실에서 클릭 소리 신경 쓰인다면</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 여러 기기 오가며 쓰신다면 멀티페어링 확인하세요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 가격은 지금 어느 정도인가</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 이 마우스가 맞는 경우, 아닌 경우</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">손목이 시큰거리는 이유, 각도 문제일 수 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 마우스는 손을 눌러서 아래로 향하게 만듭니다.</p><p style="text-align:center;margin:0;color:#000000;">이 자세가 오래 쌓이면 손목 안쪽 신경이 눌리는</p><p style="text-align:center;margin:0;color:#000000;">느낌으로 이어집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">버티컬마우스는 손을 세워서 쓰는 구조입니다.</p><p style="text-align:center;margin:0;color:#000000;">악수하듯 손을 자연스럽게 세운 채</p><p style="text-align:center;margin:0;color:#000000;">클릭하게 되어 있어서,</p><p style="text-align:center;margin:0;color:#000000;">손목이 꺾이는 각도 자체가 줄어듭니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">SM-M1300Q도 이 버티컬 구조를 쓴 모델입니다.</p><p style="text-align:center;margin:0;color:#000000;">매일 몇 시간씩 마우스를 붙잡고 있는 자리라면</p><p style="text-align:center;margin:0;color:#000000;">각도 하나만 바꿔도 체감이 다를 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/02-2.jpg" alt="삼성전자 마우스 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">조용한 사무실에서 클릭 소리 신경 쓰인다면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사무실이나 도서관처럼 조용한 공간에서</p><p style="text-align:center;margin:0;color:#000000;">마우스 클릭 소리가 유난히 크게 들릴 때가 있습니다.</p><p style="text-align:center;margin:0;color:#000000;">옆자리 눈치를 보면서 클릭을 참게 되는</p><p style="text-align:center;margin:0;color:#000000;">경우도 있고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은 저소음 클릭 구조를 적용했습니다.</p><p style="text-align:center;margin:0;color:#000000;">소리 자체를 줄이는 방향으로 설계된 제품이라,</p><p style="text-align:center;margin:0;color:#000000;">공용 공간에서 쓰기에는 부담이 덜한 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/02-3.jpg" alt="삼성전자 마우스 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">손목 각도 때문에 마우스를 몇 번씩 바꿔보신 분이라면<br>이 구조가 맞는지 직접 확인해보시는 게 빠릅니다</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GKIapWnw</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">여러 기기 오가며 쓰신다면 멀티페어링 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노트북 하나, 데스크탑 하나</p><p style="text-align:center;margin:0;color:#000000;">번갈아 쓰시는 분들 많습니다.</p><p style="text-align:center;margin:0;color:#000000;">그때마다 마우스 연결을 다시 잡는 게</p><p style="text-align:center;margin:0;color:#000000;">번거로우셨을 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">SM-M1300Q는 멀티페어링을 지원합니다.</p><p style="text-align:center;margin:0;color:#000000;">여러 기기에 미리 등록해두면</p><p style="text-align:center;margin:0;color:#000000;">버튼 하나로 연결 대상을 바꿀 수 있는 구조입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">블루투스 방식이라 별도 리시버가 없어도 됩니다.</p><p style="text-align:center;margin:0;color:#000000;">다만 리시버 방식보다 페어링 초기 설정이</p><p style="text-align:center;margin:0;color:#000000;">한 단계 더 필요하다는 점은 미리</p><p style="text-align:center;margin:0;color:#000000;">알아두시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/02-4.jpg" alt="삼성전자 마우스 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격은 지금 어느 정도인가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가는 52,300원이고</p><p style="text-align:center;margin:0;color:#000000;">지금은 10% 할인된 46,900원에 나와 있습니다.</p><p style="text-align:center;margin:0;color:#000000;">버티컬 구조와 멀티페어링을 같이 갖춘</p><p style="text-align:center;margin:0;color:#000000;">무선 마우스치고는</p><p style="text-align:center;margin:0;color:#000000;">큰 부담 없이 시작할 수 있는 가격대입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/02-5.jpg" alt="삼성전자 마우스 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">손목 각도를 바꾸는 것만으로 통증이<br>줄어드는 경우가 실제로 있습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이 마우스가 맞는 경우, 아닌 경우</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">매일 컴퓨터 앞에 오래 앉아 있고</p><p style="text-align:center;margin:0;color:#000000;">손목이나 팔목에 통증이 반복되는 자리라면</p><p style="text-align:center;margin:0;color:#000000;">버티컬 구조 자체가 해답이 될 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여러 기기를 오가며 쓰는 자리도 잘 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">반대로 마우스를 아주 가볍게, 짧게만 쓰는 자리라면</p><p style="text-align:center;margin:0;color:#000000;">굳이 각도를 바꾸는 구조까지는 필요 없을 수도 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">버티컬 마우스는 처음 잡을 때 손에 익는 시간이</p><p style="text-align:center;margin:0;color:#000000;">좀 필요합니다.</p><p style="text-align:center;margin:0;color:#000000;">일반 마우스에서 바로 바꾼 첫날은</p><p style="text-align:center;margin:0;color:#000000;">클릭 위치가 낯설게 느껴질 수 있다는 점은 감안하고</p><p style="text-align:center;margin:0;color:#000000;">보시면 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">조용한 사무실에서 눈치 안 보고 클릭하고 싶으셨다면<br>지금 가격이랑 재고 상태 한번 보고 오세요</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 삼성전자 무선 버티컬마우스 SM-M1300Q 멀티페어링 블루투스 인체공학 블랙<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GKIapWnw</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#삼성무선마우스 #버티컬마우스추천 #인체공학마우스 #블루투스마우스 #멀티페어링마우스 #손목통증마우스 #오피스마우스추천 #무선마우스가격비교</span></p></div></div>
 <div id="refs">
   <h2>참고한 상위 노출 글 1개</h2>
@@ -207,6 +231,13 @@ https://naver.me/GKIapWnw
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
@@ -223,7 +254,7 @@ https://naver.me/GKIapWnw
   }
 
   document.getElementById('copyBtn').addEventListener('click', function () {
-    msg.textContent = '';
+    say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
     var titleP = document.createElement('p');
@@ -259,30 +290,30 @@ https://naver.me/GKIapWnw
           'text/plain': new Blob([text], { type: 'text/plain' })
         })
       ]).then(function () {
-        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
       }).catch(function () {
         showManualCopyBox(html);
-        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
 
     showManualCopyBox(html);
-    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
   });
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
   function copyPlainText(text, label) {
-    msg.textContent = '';
+    say('');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        msg.textContent = label + '이(가) 복사됐습니다.';
+        say(label + '이(가) 복사됐습니다.');
       }).catch(function () {
-        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
     }
   }
 
@@ -298,13 +329,26 @@ https://naver.me/GKIapWnw
   // each link to the same absolute path) agree on the same status either way.
   // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
   // building the clipboard payload, so the chosen title travels with the body automatically.
+  var picker = document.getElementById('titlePicker');
+  var titleToggle = document.getElementById('titleToggle');
+  if (titleToggle) {
+    titleToggle.addEventListener('click', function () {
+      var open = picker.classList.toggle('open');
+      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   var titleOpts = document.querySelectorAll('.title-opt');
   Array.prototype.forEach.call(titleOpts, function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('titleText').textContent = btn.getAttribute('data-title');
-      msg.textContent = '제목이 바뀌었습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.';
+      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
+      // the list open would just repeat it.
+      picker.classList.remove('open');
+      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
+      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
     });
   });
 

@@ -7,18 +7,30 @@
 <title>한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</title>
 <style>
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
-  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .bar-title { flex: 1; min-width: 200px; }
-  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
   /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
-  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
-  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyProductNameBtn { background: #2563eb; }
-  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-  #publishToggle { background: #e5e7eb; color: #333; }
-  #publishToggle.published { background: #03c75a; color: #fff; }
-  #msg { font-size: 13px; color: #02a94e; }
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 14px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
   #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
@@ -34,26 +46,38 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
-  #titlePicker { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
-  #titlePicker .tp-label { font-size: 11px; color: #94a3b8; }
-  .title-opt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px;
-    padding: 7px 10px; font-size: 12.5px; font-weight: 500; text-align: left; line-height: 1.45; cursor: pointer; }
-  .title-opt.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  /* Collapsed by default. The first candidate is the one that gets used almost every time,
+     and it is already displayed as the heading — showing all three open meant the same
+     sentence appeared twice on screen and the other two took up room nobody asked for. */
+  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
+  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #titlePicker.open { display: flex; }
+  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
+  .title-opt.active .tp-num { color: #2563eb; }
 </style>
 </head>
 <body>
-<div class="bar">
-  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
-  <div class="bar-title">
-    <h1 id="titleText">한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</h1>
-    <div class="product-name">엑셀 상품명: <span id="productNameText">[N배송] 한일 믹서기 초고속 진공 블렌더 대형 대용량 AirX 26년 신제품</span></div>
-    <div id="titlePicker"><span class="tp-label">제목 후보 3개 — 눌러서 선택</span><button type="button" class="title-opt active" data-title="한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지">한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</button><button type="button" class="title-opt" data-title="믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까">믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까</button><button type="button" class="title-opt" data-title="한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)">한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)</button></div>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <h1 id="titleText">한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">[N배송] 한일 믹서기 초고속 진공 블렌더 대형 대용량 AirX 26년 신제품</span></div>
+  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지"><span class="tp-num">1</span> 한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</button><button type="button" class="title-opt" data-title="믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까"><span class="tp-num">2</span> 믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까</button><button type="button" class="title-opt" data-title="한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)"><span class="tp-num">3</span> 한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)</button></div>
+</div>
+<div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
-  <button id="publishToggle" type="button">발행 전</button>
-  <span id="msg"></span>
 </div>
+<div id="msg"></div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">아침에 바나나랑 두유 넣고 갈다가</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">믹서기 뚜껑 틈으로 다 튀어본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거품만 잔뜩 생기고 재료는 안 갈리고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">설거지거리만 늘어난 그 기억.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한일 믹서기 AirX 초고속 진공 블렌더는</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 상황을 겨냥해서 나온 제품입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 매일 갈아 마시는 사람이나</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대가족이라 한 번에 많이 만들어야 하는 집에 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">하루 한두 번, 소량만 가는 1인 가구라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">굳이 대용량·진공 기능까지 필요한지는</p><p style="text-align:center;margin:0;color:#000000;">따져봐야 합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" alt="한일 믹서기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 진공 블렌더가 다른 이유</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 대용량, 누구한테 필요한가</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 뜨거운 재료, 그냥 넣어도 될까</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 26년형 신제품이라는 점</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">진공 블렌더가 다른 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 믹서기는 재료를 갈 때 공기가 같이 섞입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 스무디를 만들면 거품이 뜨고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">색이 빨리 변하고, 맛도 묻힙니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 블렌더는 믹싱 전에 통 안 공기를 빼는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">산화를 줄여서 재료 본연의 색과 맛이</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">더 오래, 더 진하게 남는 구조입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과일·채소를 많이 넣는 분들에게 체감이</p><p style="text-align:center;margin:0;color:#000000;">큰 부분입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">대용량, 누구한테 필요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대형·대용량으로 나온 제품인 만큼</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번에 갈 수 있는 양이</p><p style="text-align:center;margin:0;color:#000000;">일반형보다 넉넉합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족이 많거나, 한 번 갈아서 며칠 나눠 먹는 방식이면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 용량이 오히려 시간을 줄여줍니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 매번 한 컵 정도만 마신다면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">큰 통을 씻는 수고가 더 크게 느껴질 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">용량은 실사용 패턴과 맞춰서 판단하시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아침마다 갈아 마시는 게 습관이라면<br>재료 손질부터 세척까지 얼마나 줄어드는지 직접<br>보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GFsz6oHN</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">뜨거운 재료, 그냥 넣어도 될까</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">뜨거운 국물이나 갓 삶은 재료를</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바로 넣고 돌리면 통 안 압력이 올라가면서</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과열되거나 뚜껑이 들뜨는 위험이 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 블렌더일수록 밀폐가 잘 되기 때문에</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 부분은 더 신경 써야 하는 지점입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">뜨거운 재료는 한 김 식히고 넣거나,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">중간중간 멈춰서 열을 빼주는 습관이 필요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">작은 습관이지만 모터와 통 수명에</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">직접 영향을 주는 부분이라 그냥 넘기지</p><p style="text-align:center;margin:0;color:#000000;">않는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">26년형 신제품이라는 점</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기존 모델을 써보다가 바꾸는 경우라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이번 신제품이 어떤 부분을 개선했는지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">먼저 확인하는 게 순서입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드라도 연식이 바뀌면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칼날 구조나 진공 방식이 달라지는 경우가 있어서,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">신제품이라는 이유만으로 무조건 낫다고</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">단정하기보다는 실제 구성을 살펴보는 편이 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격은 한일공식스토어 기준으로 확인하는 게</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가장 정확합니다. 정가 대비 얼마나 내려왔는지가</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 제품을 지금 살지, 다음 할인을 기다릴지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결정하는 실질적인 기준이 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">매일 쓰는 가전일수록,<br>한 번 잘 고르는 게</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">나중에 바꾸는 것보다<br>훨씬 이득입니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주방에서 매일 손이 가는 가전이라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 기능과 용량이 실생활에서 어떻게 쓰이는지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미리 그려보고 결정하시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">매번 씻기 귀찮아서 미루던 그 스무디,<br>이번엔 제대로 된 걸로 시작해보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 한일 믹서기 초고속 진공 블렌더 대형 대용량 AirX 26년 신제품<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GFsz6oHN</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#한일믹서기초고속 #진공블렌더추천 #대용량믹서기 #한일블렌더가격 #초고속블렌더비교 #대형믹서기추천 #블렌더대용량 #한일AirX #믹서기용량추천 #진공믹서기효과</span></p></div></div>
 <div id="refs">
   <h2>참고한 상위 노출 글 2개</h2>
@@ -263,6 +287,13 @@ https://naver.me/GFsz6oHN
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
@@ -279,7 +310,7 @@ https://naver.me/GFsz6oHN
   }
 
   document.getElementById('copyBtn').addEventListener('click', function () {
-    msg.textContent = '';
+    say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
     var titleP = document.createElement('p');
@@ -315,30 +346,30 @@ https://naver.me/GFsz6oHN
           'text/plain': new Blob([text], { type: 'text/plain' })
         })
       ]).then(function () {
-        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
       }).catch(function () {
         showManualCopyBox(html);
-        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
 
     showManualCopyBox(html);
-    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
   });
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
   function copyPlainText(text, label) {
-    msg.textContent = '';
+    say('');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        msg.textContent = label + '이(가) 복사됐습니다.';
+        say(label + '이(가) 복사됐습니다.');
       }).catch(function () {
-        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
     }
   }
 
@@ -354,13 +385,26 @@ https://naver.me/GFsz6oHN
   // each link to the same absolute path) agree on the same status either way.
   // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
   // building the clipboard payload, so the chosen title travels with the body automatically.
+  var picker = document.getElementById('titlePicker');
+  var titleToggle = document.getElementById('titleToggle');
+  if (titleToggle) {
+    titleToggle.addEventListener('click', function () {
+      var open = picker.classList.toggle('open');
+      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   var titleOpts = document.querySelectorAll('.title-opt');
   Array.prototype.forEach.call(titleOpts, function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('titleText').textContent = btn.getAttribute('data-title');
-      msg.textContent = '제목이 바뀌었습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.';
+      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
+      // the list open would just repeat it.
+      picker.classList.remove('open');
+      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
+      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
     });
   });
 

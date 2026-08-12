@@ -7,18 +7,30 @@
 <title>필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법</title>
 <style>
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
-  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .bar-title { flex: 1; min-width: 200px; }
-  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
   /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
-  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
-  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyProductNameBtn { background: #2563eb; }
-  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-  #publishToggle { background: #e5e7eb; color: #333; }
-  #publishToggle.published { background: #03c75a; color: #fff; }
-  #msg { font-size: 13px; color: #02a94e; }
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 14px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
   #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
@@ -34,20 +46,38 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* Collapsed by default. The first candidate is the one that gets used almost every time,
+     and it is already displayed as the heading — showing all three open meant the same
+     sentence appeared twice on screen and the other two took up room nobody asked for. */
+  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
+  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #titlePicker.open { display: flex; }
+  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
+  .title-opt.active .tp-num { color: #2563eb; }
 </style>
 </head>
 <body>
-<div class="bar">
-  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
-  <div class="bar-title">
-    <h1 id="titleText">필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법</h1>
-    <div class="product-name">엑셀 상품명: <span id="productNameText">필립스 전동칫솔 올 뉴 소닉케어 화이트닝 5500+플루 바디스크럽 증정 네이비블루</span></div>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <h1 id="titleText">필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">필립스 전동칫솔 올 뉴 소닉케어 화이트닝 5500+플루 바디스크럽 증정 네이비블루</span></div>
+  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법"><span class="tp-num">1</span> 필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법</button><button type="button" class="title-opt" data-title="필립스 소닉케어 5500 네이비블루, 칫솔모 교체주기까지 따져보는 실사용 기준 (바디스크럽 증정)"><span class="tp-num">2</span> 필립스 소닉케어 5500 네이비블루, 칫솔모 교체주기까지 따져보는 실사용 기준 (바디스크럽 증정)</button><button type="button" class="title-opt" data-title="전동칫솔 처음 사신다면, 필립스 소닉케어 5500으로 시작해도 되는 이유"><span class="tp-num">3</span> 전동칫솔 처음 사신다면, 필립스 소닉케어 5500으로 시작해도 되는 이유</button></div>
+</div>
+<div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
-  <button id="publishToggle" type="button">발행 전</button>
-  <span id="msg"></span>
 </div>
+<div id="msg"></div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">전동칫솔을 처음 들이는 분들이 제일 먼저 걱정하는 건</p><p style="text-align:center;margin:0;color:#000000;">배터리보다 내구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">몇 달 쓰고 진동이 약해지거나 충전이 잘 안 되는</p><p style="text-align:center;margin:0;color:#000000;">경우를 걱정하시는 거죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필립스 소닉케어 5500+는 이 부분에서 브랜드 자체</p><p style="text-align:center;margin:0;color:#000000;">이력이 긴 제품군에 속합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔에 처음 돈을 쓰는 분이라면 무난하게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이미 프리미엄 라인을 써보셨고 구강세정기까지 원하신다면</p><p style="text-align:center;margin:0;color:#000000;">이 모델은 살짝 아쉬울 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" alt="필립스 전동칫솔 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">내구성, 왜 유독 이 제품에서 신경 쓰이는가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 매일 두세 번,</p><p style="text-align:center;margin:0;color:#000000;">짧게는 1년 넘게 쓰는 물건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 진동 모터와 배터리 내구성이 실제 만족도를 가장</p><p style="text-align:center;margin:0;color:#000000;">크게 가릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소닉케어 라인은 오래 써온 사용자층이 많은 만큼 부품</p><p style="text-align:center;margin:0;color:#000000;">안정성 검증이 상대적으로 오래된 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 어떤 제품이든 헤드 부분은 소모품이라 관리 방식에</p><p style="text-align:center;margin:0;color:#000000;">따라 체감이 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">물기를 완전히 말리지 않고 보관하면 내구성 저하가</p><p style="text-align:center;margin:0;color:#000000;">빨라지니,</p><p style="text-align:center;margin:0;color:#000000;">사용 후 헤드를 흔들어 물기를 털어내는 정도는</p><p style="text-align:center;margin:0;color:#000000;">챙기시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260420_50/1776659114828PEie6_JPEG/19673692661241342_1653714137.jpg?type=o1000" alt="필립스 전동칫솔 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">칫솔모 교체, 생각보다 중요한 유지비 항목</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 본체 가격만 보고 끝내면 안 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칫솔모를 얼마나 자주,</p><p style="text-align:center;margin:0;color:#000000;">얼마에 바꿔야 하는지가 실제 유지비를 결정합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필립스 소닉케어 센서티브 초미세모 HX6052/14는</p><p style="text-align:center;margin:0;color:#000000;">23,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">치아와 잇몸이 예민한 편이라면 이 초미세모로 교체해서</p><p style="text-align:center;margin:0;color:#000000;">쓰는 걸 고려해볼 만합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칫솔모는 통상 3개월 주기로 교체하는 게 권장되니,</p><p style="text-align:center;margin:0;color:#000000;">본체 가격에 이 소모품 비용을 한 번 더 더해서</p><p style="text-align:center;margin:0;color:#000000;">계산해보시는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">칫솔모 교체 비용까지 계산해보고 싶으시면 아래에서<br>구성을 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5eDvlIOV</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">다른 소닉케어 라인과 가격 차이</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드 안에서도 라인업 차이가 꽤 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">올인원 칫솔모 세트 프레스티지 9900은</p><p style="text-align:center;margin:0;color:#000000;">374,900원이고,</p><p style="text-align:center;margin:0;color:#000000;">구강세정기까지 포함된 다이아몬드클린9000</p><p style="text-align:center;margin:0;color:#000000;">스페셜에디션은 229,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세정기 기능이나 자동 압력센서까지 필요한 게 아니라면,</p><p style="text-align:center;margin:0;color:#000000;">5500+ 정도에서 시작해도 기본적인 관리</p><p style="text-align:center;margin:0;color:#000000;">기능은 충족됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 잇몸 관리 데이터를 앱으로 확인하고 싶거나 여러</p><p style="text-align:center;margin:0;color:#000000;">헤드를 번갈아 쓰고 싶으시다면 상위 라인</p><p style="text-align:center;margin:0;color:#000000;">쪽이 더 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260420_150/1776659121123Fa7e1_JPEG/2902919220678506_1663888364.jpg?type=o1000" alt="필립스 전동칫솔 사용 예시 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">전동칫솔은 헤드 교체 비용까지<br>포함해서 계산해야 진짜<br>가격이 보입니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">배송과 구성, 확인하고 넘어갈 부분</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배송은 제품 특성상 파손 위험이 크지 않은 품목이라 큰</p><p style="text-align:center;margin:0;color:#000000;">이슈는 적은 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 구성품 확인은 받는 즉시 하시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바디스크럽 증정이 포함된 구성이라,</p><p style="text-align:center;margin:0;color:#000000;">박스 안에 본체와 충전대, 헤드,</p><p style="text-align:center;margin:0;color:#000000;">증정품이 모두 들어있는지 개봉 시점에</p><p style="text-align:center;margin:0;color:#000000;">체크하시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 초기 불량 여부를 며칠 안에 판단해야 교환이</p><p style="text-align:center;margin:0;color:#000000;">수월하니,</p><p style="text-align:center;margin:0;color:#000000;">받은 날 한 번 충전하고 진동 세기를 확인해두시는</p><p style="text-align:center;margin:0;color:#000000;">게 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔을 오래,</p><p style="text-align:center;margin:0;color:#000000;">부담 없이 쓰고 싶다면 결국 본체 내구성과 소모품</p><p style="text-align:center;margin:0;color:#000000;">비용을 같이 보는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">138,900원이라는 가격이 23% 할인된 조건인</p><p style="text-align:center;margin:0;color:#000000;">만큼, 지금 구성을 한 번 확인해보셔도 좋겠습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">몇 년 쓸 칫솔인지 궁금하시다면 지금 구성과 가격을<br>같이 보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 필립스 전동칫솔 올 뉴 소닉케어 화이트닝 5500+플루 바디스크럽 증정 네이비블루<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5eDvlIOV</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#필립스소닉케어5500후기 #필립스전동칫솔추천 #음파전동칫솔내돈내산 #필립스화이트닝전동칫솔 #전동칫솔입문용추천 #필립스소닉케어가격 #치아미백전동칫솔 #필립스전동칫솔교체헤드 #전동칫솔잇몸관리 #필립스칫솔세트</span></p></div></div>
 <div id="refs">
   <h2>참고한 상위 노출 글 3개</h2>
@@ -215,6 +245,13 @@ https://naver.me/5eDvlIOV
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
@@ -231,7 +268,7 @@ https://naver.me/5eDvlIOV
   }
 
   document.getElementById('copyBtn').addEventListener('click', function () {
-    msg.textContent = '';
+    say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
     var titleP = document.createElement('p');
@@ -267,30 +304,30 @@ https://naver.me/5eDvlIOV
           'text/plain': new Blob([text], { type: 'text/plain' })
         })
       ]).then(function () {
-        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
       }).catch(function () {
         showManualCopyBox(html);
-        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
 
     showManualCopyBox(html);
-    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
   });
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
   function copyPlainText(text, label) {
-    msg.textContent = '';
+    say('');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        msg.textContent = label + '이(가) 복사됐습니다.';
+        say(label + '이(가) 복사됐습니다.');
       }).catch(function () {
-        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
     }
   }
 
@@ -304,17 +341,51 @@ https://naver.me/5eDvlIOV
   // Publish status has no backend to live in on a static site — tracked in this browser's
   // localStorage instead, keyed by this exact page's path so the list pages (which resolve
   // each link to the same absolute path) agree on the same status either way.
+  // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
+  // building the clipboard payload, so the chosen title travels with the body automatically.
+  var picker = document.getElementById('titlePicker');
+  var titleToggle = document.getElementById('titleToggle');
+  if (titleToggle) {
+    titleToggle.addEventListener('click', function () {
+      var open = picker.classList.toggle('open');
+      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  var titleOpts = document.querySelectorAll('.title-opt');
+  Array.prototype.forEach.call(titleOpts, function (btn) {
+    btn.addEventListener('click', function () {
+      Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('titleText').textContent = btn.getAttribute('data-title');
+      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
+      // the list open would just repeat it.
+      picker.classList.remove('open');
+      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
+      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
+    });
+  });
+
   var publishBtn = document.getElementById('publishToggle');
   var publishKey = 'nbp_published_' + location.pathname;
+  // The spreadsheet's value is the starting point; once this browser records a choice, that
+  // choice wins — the person tapping the button is looking at the post right now.
+  var sheetPublished = false;
   function renderPublishState() {
-    var done = false;
-    try { done = localStorage.getItem(publishKey) === '1'; } catch (e) {}
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
     publishBtn.textContent = done ? '✅ 발행완료' : '발행 전';
     publishBtn.classList.toggle('published', done);
   }
   publishBtn.addEventListener('click', function () {
-    var done = false;
-    try { done = localStorage.getItem(publishKey) === '1'; } catch (e) {}
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
     try { localStorage.setItem(publishKey, done ? '0' : '1'); } catch (e) {}
     renderPublishState();
   });

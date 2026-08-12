@@ -7,18 +7,30 @@
 <title>한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</title>
 <style>
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
-  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .bar-title { flex: 1; min-width: 200px; }
-  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
   /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
      (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
-  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
-  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
-  #copyProductNameBtn { background: #2563eb; }
-  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-  #publishToggle { background: #e5e7eb; color: #333; }
-  #publishToggle.published { background: #03c75a; color: #fff; }
-  #msg { font-size: 13px; color: #02a94e; }
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 14px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
   #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
   #post img { max-width: 100%; height: auto; }
   #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
@@ -34,26 +46,38 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
-  #titlePicker { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
-  #titlePicker .tp-label { font-size: 11px; color: #94a3b8; }
-  .title-opt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px;
-    padding: 7px 10px; font-size: 12.5px; font-weight: 500; text-align: left; line-height: 1.45; cursor: pointer; }
-  .title-opt.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  /* Collapsed by default. The first candidate is the one that gets used almost every time,
+     and it is already displayed as the heading — showing all three open meant the same
+     sentence appeared twice on screen and the other two took up room nobody asked for. */
+  #titleToggle { margin-top: 10px; background: none; color: #868e96; padding: 4px 0; font-size: 12.5px;
+    font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+  #titleToggle .chev { transition: transform .15s; font-size: 10px; }
+  #titleToggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  #titlePicker { display: none; flex-direction: column; gap: 6px; margin-top: 8px; }
+  #titlePicker.open { display: flex; }
+  .title-opt { background: #fff; color: #495057; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 10px 12px; font-size: 13px; font-weight: 500; text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt.active { background: #f0f7ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+  .title-opt .tp-num { display: inline-block; min-width: 15px; color: #adb5bd; font-weight: 700; }
+  .title-opt.active .tp-num { color: #2563eb; }
 </style>
 </head>
 <body>
-<div class="bar">
-  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
-  <div class="bar-title">
-    <h1 id="titleText">한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</h1>
-    <div class="product-name">엑셀 상품명: <span id="productNameText">한일전자 파테크 에어소닉 가벼운 BLDC 음이온 헤어드라이어, PD-L9350</span></div>
-    <div id="titlePicker"><span class="tp-label">제목 후보 3개 — 눌러서 선택</span><button type="button" class="title-opt active" data-title="한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지">한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</button><button type="button" class="title-opt" data-title="손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요">손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요</button><button type="button" class="title-opt" data-title="여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)">여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)</button></div>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <h1 id="titleText">한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">한일전자 파테크 에어소닉 가벼운 BLDC 음이온 헤어드라이어, PD-L9350</span></div>
+  <button id="titleToggle" type="button" aria-expanded="false" aria-controls="titlePicker">다른 제목 후보 2개 <span class="chev">▼</span></button>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지"><span class="tp-num">1</span> 한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</button><button type="button" class="title-opt" data-title="손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요"><span class="tp-num">2</span> 손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요</button><button type="button" class="title-opt" data-title="여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)"><span class="tp-num">3</span> 여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)</button></div>
+</div>
+<div class="actionbar">
   <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
-  <button id="publishToggle" type="button">발행 전</button>
-  <span id="msg"></span>
 </div>
+<div id="msg"></div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">머리 말리다가 팔이 먼저 아파서</p><p style="text-align:center;margin:0;color:#000000;">중간에 내려놓은 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">숱 많은 머리는 바람이 약하면</p><p style="text-align:center;margin:0;color:#000000;">말리는 시간이 배로 늘어나고,</p><p style="text-align:center;margin:0;color:#000000;">그 시간만큼 팔도 같이 버텨야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 이 제품은</p><p style="text-align:center;margin:0;color:#000000;">&quot;오래 들고 말려야 하는 사람&quot;한테 맞는</p><p style="text-align:center;margin:0;color:#000000;">드라이기입니다.</p><p style="text-align:center;margin:0;color:#000000;">반대로 파워만 세면 무게는 상관없다는 분이라면</p><p style="text-align:center;margin:0;color:#000000;">2300W짜리 PD-H4300 쪽이 더</p><p style="text-align:center;margin:0;color:#000000;">맞을 수 있어요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" alt="한일전자 드라이어 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 왜 무게가 먼저 문제인가</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· BLDC 모터, 뭐가 다른가요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 음이온 기능, 정전기에 정말 도움되나요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 같은 브랜드 다른 모델과 가격 비교</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 사기 전에 한 가지만 확인하세요</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">왜 무게가 먼저 문제인가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">드라이기 성능은 보통 바람 세기로만 따지는데,</p><p style="text-align:center;margin:0;color:#000000;">실제로 체감이 큰 건 무게입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">500g 넘는 드라이기를 5분만 들고 있어도</p><p style="text-align:center;margin:0;color:#000000;">손목과 어깨가 먼저 신호를 보내거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PD-L9350은 BLDC 모터를 써서</p><p style="text-align:center;margin:0;color:#000000;">같은 출력을 내면서도 무게를 줄인 구조입니다.</p><p style="text-align:center;margin:0;color:#000000;">모터가 작고 가벼워지면</p><p style="text-align:center;margin:0;color:#000000;">드라이기 전체 무게도 같이 내려가는 원리예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">BLDC 모터, 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 모터(AC 모터)는 크기가 커지고</p><p style="text-align:center;margin:0;color:#000000;">그만큼 드라이기 몸체도 무거워집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">BLDC 모터는 전자식으로 제어해서</p><p style="text-align:center;margin:0;color:#000000;">모터 자체가 작고 가벼운데도</p><p style="text-align:center;margin:0;color:#000000;">바람 세기는 유지하는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미용실용 고가 드라이기들이</p><p style="text-align:center;margin:0;color:#000000;">대부분 BLDC를 쓰는 이유가 이거예요.</p><p style="text-align:center;margin:0;color:#000000;">파테크 라인 중에서도 NEO SENSE</p><p style="text-align:center;margin:0;color:#000000;">T15(99,000원)는</p><p style="text-align:center;margin:0;color:#000000;">같은 BLDC지만 출력을 더 올린 상위 모델이고,</p><p style="text-align:center;margin:0;color:#000000;">PD-L9350은 가볍게 매일 쓰는 용도에</p><p style="text-align:center;margin:0;color:#000000;">맞춘 구성입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-2.jpg" alt="한일전자 드라이어 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">머리 말릴 때마다 손목이 먼저 지치셨다면,<br>무게랑 바람 세기 지금 같이 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GuCBu6kd</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">음이온 기능, 정전기에 정말 도움되나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">음이온 드라이어는 머리카락 표면의</p><p style="text-align:center;margin:0;color:#000000;">정전기를 줄여주는 방식으로 작동합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">겨울철 머리카락이 붕 뜨거나</p><p style="text-align:center;margin:0;color:#000000;">정전기로 엉키는 게 스트레스였다면</p><p style="text-align:center;margin:0;color:#000000;">체감할 수 있는 기능이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이건 모발 상태나 습도에 따라</p><p style="text-align:center;margin:0;color:#000000;">효과 차이가 날 수 있는 부분이라,</p><p style="text-align:center;margin:0;color:#000000;">&quot;드라이 시간을 줄여주는 핵심 기능&quot;으로</p><p style="text-align:center;margin:0;color:#000000;">기대하기보다는 마무리를 도와주는 보조 기능으로</p><p style="text-align:center;margin:0;color:#000000;">보는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">같은 브랜드 다른 모델과 가격 비교</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>모델</b></p><p style="text-align:center;margin:0;color:#000000;">가격 · 특징</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-L9350 (이 제품)</b></p><p style="text-align:center;margin:0;color:#000000;">49,900원 · BLDC, 경량, 음이온</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-H4300</b></p><p style="text-align:center;margin:0;color:#000000;">23,900원 · 2300W 고출력형</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-Y2008</b></p><p style="text-align:center;margin:0;color:#000000;">24,900원 · 1800W 접이식, 여행용</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>NEO SENSE T15</b></p><p style="text-align:center;margin:0;color:#000000;">99,000원 · BLDC 상위 라인</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격만 보면 PD-H4300이나</p><p style="text-align:center;margin:0;color:#000000;">PD-Y2008이</p><p style="text-align:center;margin:0;color:#000000;">더 저렴해 보이지만,</p><p style="text-align:center;margin:0;color:#000000;">그 모델들은 무게보다 출력이나 휴대성에</p><p style="text-align:center;margin:0;color:#000000;">초점을 맞춘 구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무게를 줄이면서 바람 세기도 챙기고 싶다면</p><p style="text-align:center;margin:0;color:#000000;">그 사이 지점에 있는 게 PD-L9350이고,</p><p style="text-align:center;margin:0;color:#000000;">정가 79,000원에서 37% 내려온</p><p style="text-align:center;margin:0;color:#000000;">49,900원이라는 점도 이 라인 안에서는</p><p style="text-align:center;margin:0;color:#000000;">꽤 큰 폭입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-3.jpg" alt="한일전자 드라이어 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 한 가지만 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전원 커버 분리가 되는 구조인지는</p><p style="text-align:center;margin:0;color:#000000;">청소할 때 차이가 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">드라이기 안쪽에 먼지가 쌓이면</p><p style="text-align:center;margin:0;color:#000000;">바람 세기가 서서히 떨어지는데,</p><p style="text-align:center;margin:0;color:#000000;">커버가 분리되는 모델은 이 청소가</p><p style="text-align:center;margin:0;color:#000000;">훨씬 간단해집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">화려한 기능이 많은 드라이기보다는</p><p style="text-align:center;margin:0;color:#000000;">매일 켜고 끄는 데 부담 없는 무게와</p><p style="text-align:center;margin:0;color:#000000;">꾸준한 바람 세기가 더 오래 갑니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">매일 쓰는 물건은 스펙보다 무게가<br>먼저 체감됩니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">숱 많은 머리라 바람 세기가 걱정이라면,</p><p style="text-align:center;margin:0;color:#000000;">이 부분만 실물 스펙표로 한 번 더 확인하고</p><p style="text-align:center;margin:0;color:#000000;">결정하시면 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아직도 예전 드라이기로 시간 씨름하고 계신다면,<br>이번엔 무게부터 바꿔보는 것도 방법입니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 한일전자 파테크 에어소닉 가벼운 BLDC 음이온 헤어드라이어, PD-L9350<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GuCBu6kd</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격과 재고는 수시로 바뀌니 링크에서 최신 정보를 확인해주세요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#가벼운드라이어 #BLDC드라이기 #음이온드라이기 #헤어드라이어추천 #파테크드라이기 #드라이기가성비 #빠른드라이기 #저소음드라이기 #드라이기비교 #휴대용드라이어</span></p></div></div>
 <div id="refs">
   <h2>참고한 상위 노출 글 3개</h2>
@@ -239,6 +263,13 @@ https://naver.me/GuCBu6kd
   var msg = document.getElementById('msg');
   var manualBox = document.getElementById('manualCopyBox');
 
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
   // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
   // "복사" is a native OS gesture the browser handles directly (not something our JS
   // triggers), so it picks up the real rich content — text, formatting, and images —
@@ -255,7 +286,7 @@ https://naver.me/GuCBu6kd
   }
 
   document.getElementById('copyBtn').addEventListener('click', function () {
-    msg.textContent = '';
+    say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
     var titleP = document.createElement('p');
@@ -291,30 +322,30 @@ https://naver.me/GuCBu6kd
           'text/plain': new Blob([text], { type: 'text/plain' })
         })
       ]).then(function () {
-        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
       }).catch(function () {
         showManualCopyBox(html);
-        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
 
     showManualCopyBox(html);
-    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
   });
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
   function copyPlainText(text, label) {
-    msg.textContent = '';
+    say('');
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        msg.textContent = label + '이(가) 복사됐습니다.';
+        say(label + '이(가) 복사됐습니다.');
       }).catch(function () {
-        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
       });
     } else {
-      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
     }
   }
 
@@ -330,13 +361,26 @@ https://naver.me/GuCBu6kd
   // each link to the same absolute path) agree on the same status either way.
   // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
   // building the clipboard payload, so the chosen title travels with the body automatically.
+  var picker = document.getElementById('titlePicker');
+  var titleToggle = document.getElementById('titleToggle');
+  if (titleToggle) {
+    titleToggle.addEventListener('click', function () {
+      var open = picker.classList.toggle('open');
+      titleToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   var titleOpts = document.querySelectorAll('.title-opt');
   Array.prototype.forEach.call(titleOpts, function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById('titleText').textContent = btn.getAttribute('data-title');
-      msg.textContent = '제목이 바뀌었습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.';
+      // Collapse on pick: the chosen title is already shown as the heading above, so leaving
+      // the list open would just repeat it.
+      picker.classList.remove('open');
+      if (titleToggle) titleToggle.setAttribute('aria-expanded', 'false');
+      say('제목을 바꿨습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.');
     });
   });
 
