@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>아이닉 스탠드형선풍기 iSC02, 무선 거실선풍기 고를 때 확인할 3가지</title>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
+  .bar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .bar-title { flex: 1; min-width: 200px; }
+  .bar h1 { font-size: 15px; margin: 0; font-weight: 700; }
+  /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
+     (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
+  .product-name { font-size: 12px; color: #999; margin-top: 2px; user-select: none; -webkit-user-select: none; }
+  button { background: #03c75a; color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  #copyProductNameBtn { background: #2563eb; }
+  .back-btn { background: #e5e7eb; color: #333; border: 0; border-radius: 6px; padding: 9px 14px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #e5e7eb; color: #333; }
+  #publishToggle.published { background: #03c75a; color: #fff; }
+  #msg { font-size: 13px; color: #02a94e; }
+  #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
+  #post img { max-width: 100%; height: auto; }
+  #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
+  #manualCopyBox { display: none; width: 100%; max-width: 700px; margin: 12px auto 40px; max-height: 50vh;
+    overflow: auto; padding: 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; }
+  #manualCopyBox img { max-width: 100%; }
+  /* 참고한 상위 글 목록. #post 밖에 두는 게 핵심입니다 — "본문 복사"는 #post만 읽으므로
+     이 링크들은 네이버에 붙여넣는 내용에 절대 섞이지 않습니다. */
+  #refs { max-width: 700px; margin: 0 auto 40px; padding: 14px 18px; background: #fff;
+    border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 13px; color: #555; }
+  #refs h2 { font-size: 13px; margin: 0 0 8px; color: #64748b; font-weight: 700; }
+  #refs ol { margin: 0; padding-left: 18px; }
+  #refs li { margin: 5px 0; line-height: 1.5; }
+  #refs a { color: #2563eb; }
+  #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  #titlePicker { display: flex; flex-direction: column; gap: 5px; margin-top: 7px; }
+  #titlePicker .tp-label { font-size: 11px; color: #94a3b8; }
+  .title-opt { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px;
+    padding: 7px 10px; font-size: 12.5px; font-weight: 500; text-align: left; line-height: 1.45; cursor: pointer; }
+  .title-opt.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+  <div class="bar-title">
+    <h1 id="titleText">아이닉 스탠드형선풍기 iSC02, 무선 거실선풍기 고를 때 확인할 3가지</h1>
+    <div class="product-name">엑셀 상품명: <span id="productNameText">아이닉 BLDC 저소음 에어 무선 써큘레이터 iSC02 가정용 거실용 리모컨 스탠드 선풍기</span></div>
+    <div id="titlePicker"><span class="tp-label">제목 후보 3개 — 눌러서 선택</span><button type="button" class="title-opt active" data-title="아이닉 스탠드형선풍기 iSC02, 무선 거실선풍기 고를 때 확인할 3가지">아이닉 스탠드형선풍기 iSC02, 무선 거실선풍기 고를 때 확인할 3가지</button><button type="button" class="title-opt" data-title="무선 써큘레이터 찾고 있다면, 아이닉 iSC02 저소음선풍기 놓치면 아쉬운 포인트">무선 써큘레이터 찾고 있다면, 아이닉 iSC02 저소음선풍기 놓치면 아쉬운 포인트</button><button type="button" class="title-opt" data-title="거실선풍기 콘센트 없이 옮겨 쓰는 법, 아이닉 iSC02와 iC01 뭐가 다를까">거실선풍기 콘센트 없이 옮겨 쓰는 법, 아이닉 iSC02와 iC01 뭐가 다를까</button></div>
+  </div>
+  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyProductNameBtn" type="button">제품명 복사</button>
+  <button id="publishToggle" type="button">발행 전</button>
+  <span id="msg"></span>
+</div>
+<div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">에어컨 없는 주방에서</p><p style="text-align:center;margin:0;color:#000000;">요리하다 더워서</p><p style="text-align:center;margin:0;color:#000000;">부채질만 하다 손 아파본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">선풍기 있는 방으로 옮기려 해도</p><p style="text-align:center;margin:0;color:#000000;">콘센트 위치 때문에</p><p style="text-align:center;margin:0;color:#000000;">선 길이부터 재보게 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면,</p><p style="text-align:center;margin:0;color:#000000;">아이닉 iSC02는 콘센트 신경 안 쓰고</p><p style="text-align:center;margin:0;color:#000000;">거실·주방·침실 옮겨가며 쓰는 용도에 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">반대로 손에 쥐고 다니는 초소형 휴대용 미니팬을 찾는 거라면</p><p style="text-align:center;margin:0;color:#000000;">스탠드형이라 무게가 있어서 그 용도는 아닙니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/03-1.jpg" alt="아이닉 스탠드형선풍기 배터리 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 무선인데 강풍이 되는 이유</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· iC01이랑 뭐가 다른가요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 충전은 얼마나 자주 해야 하나요</span></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#555555;">· 실내에서 하루 종일 틀어놓을 계획이라면</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">무선인데 강풍이 되는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">휴대용 미니팬은 크기가 작을수록 배터리도</p><p style="text-align:center;margin:0;color:#000000;">작아져서 강풍으로 오래 쓰기 어렵습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">iSC02는 손에 들고 다니는 타입이 아니라</p><p style="text-align:center;margin:0;color:#000000;">스탠드형입니다.</p><p style="text-align:center;margin:0;color:#000000;">그만큼 배터리 용량과 모터 출력을 더 여유 있게</p><p style="text-align:center;margin:0;color:#000000;">넣을 수 있는 구조예요.</p><p style="text-align:center;margin:0;color:#000000;">BLDC 모터를 쓰는 것도 이런 이유입니다.</p><p style="text-align:center;margin:0;color:#000000;">같은 출력이라도 소음이 덜하고,</p><p style="text-align:center;margin:0;color:#000000;">저소음선풍기·무소음선풍기 태그가 붙는 근거가</p><p style="text-align:center;margin:0;color:#000000;">여기 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">iC01이랑 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드에 79,000원짜리 iC01도 있어서</p><p style="text-align:center;margin:0;color:#000000;">헷갈릴 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/03-2.jpg" alt="아이닉 스탠드형선풍기 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>모델</b></p><p style="text-align:center;margin:0;color:#000000;">가격</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>iC01</b></p><p style="text-align:center;margin:0;color:#000000;">79,000원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>iSC02 (본 상품)</b></p><p style="text-align:center;margin:0;color:#000000;">169,000원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>iSC02 1+1</b></p><p style="text-align:center;margin:0;color:#000000;">328,000원</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격 차이가 큰 만큼 배터리 용량과 출력 등급에서</p><p style="text-align:center;margin:0;color:#000000;">차이가 있다고 보시면 됩니다.</p><p style="text-align:center;margin:0;color:#000000;">방 하나만 쓸 거면 iC01로도 충분할 수 있지만,</p><p style="text-align:center;margin:0;color:#000000;">거실처럼 넓은 공간이나 두 대를 나눠 쓸 계획이면 1+1</p><p style="text-align:center;margin:0;color:#000000;">구성이 대당 단가로는 더 낮습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">콘센트 위치 따라 자리 옮기던 그 선풍기,<br>지금 스펙이랑 가격 같이 보고 오세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xnOupzSf</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">충전은 얼마나 자주 해야 하나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무선 제품의 표기 사용시간은 대체로 약풍 기준입니다.</p><p style="text-align:center;margin:0;color:#000000;">거실에서 강풍 위주로 쓰실 계획이면 그 시간의</p><p style="text-align:center;margin:0;color:#000000;">절반 정도로 잡아두시는 게 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">충전 방식이 C타입인지,</p><p style="text-align:center;margin:0;color:#000000;">보조배터리로도 충전이 되는지는 사기 전에 꼭</p><p style="text-align:center;margin:0;color:#000000;">확인하셔야 합니다.</p><p style="text-align:center;margin:0;color:#000000;">캠핑용으로 야외에서 쓰실 거면 이 부분이</p><p style="text-align:center;margin:0;color:#000000;">특히 중요합니다.</p><p style="text-align:center;margin:0;color:#000000;">집에서만 쓸 거면 크게 신경 쓰지 않아도</p><p style="text-align:center;margin:0;color:#000000;">되는 부분이고요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="color:#000000;">무선의 편함은 배터리 관리가 귀찮지<br>않아야 진짜 편함입니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">실내에서 하루 종일 틀어놓을 계획이라면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배터리로 움직이는 제품은 아무리 대용량이어도 유선</p><p style="text-align:center;margin:0;color:#000000;">선풍기보다는 관리할 게 하나 더 생깁니다.</p><p style="text-align:center;margin:0;color:#000000;">사무실이나 거실에서 아침부터 저녁까지 계속 틀어놓는</p><p style="text-align:center;margin:0;color:#000000;">용도라면,</p><p style="text-align:center;margin:0;color:#000000;">콘센트 꽂아두고 쓰는 일반 선풍기가 오히려 신경 쓸</p><p style="text-align:center;margin:0;color:#000000;">일이 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 방마다 옮겨 쓰거나,</p><p style="text-align:center;margin:0;color:#000000;">캠핑·차박처럼 전원이 없는 곳에서도 쓰고 싶다면</p><p style="text-align:center;margin:0;color:#000000;">무선이라는 조건 자체가 필요한 상황입니다.</p><p style="text-align:center;margin:0;color:#000000;">전용 보관백이 20,000원에 따로 있는 것도 이런</p><p style="text-align:center;margin:0;color:#000000;">이동성을 염두에 둔 구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주로 밖에서 잠깐씩 쓰실 건지,</p><p style="text-align:center;margin:0;color:#000000;">집 안에서 옮겨가며 오래 쓰실 건지부터 정하고</p><p style="text-align:center;margin:0;color:#000000;">나면 iSC02가 맞는 선택인지 답이 나옵니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">손 아프게 부채질하던 여름 아직 안 끝났다면,<br>여기서 조건 한 번 확인해보시는 것도 방법입니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 아이닉 BLDC 저소음 에어 무선 써큘레이터 iSC02 가정용 거실용 리모컨 스탠드 선풍기<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xnOupzSf</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 위 가격은 글을 쓴 시점 기준입니다. 재고 상황에 따라 바뀔 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#무선선풍기추천 #BLDC저소음선풍기 #배터리분리형선풍기 #거실스탠드선풍기 #아이닉써큘레이터 #리모컨선풍기추천 #무소음선풍기비교 #가정용선풍기추천</span></p></div></div>
+<div id="refs">
+  <h2>참고한 상위 노출 글 3개</h2>
+  <ol>
+      <li><a href="https://blog.naver.com/daebak_friend/224353723418" target="_blank" rel="noopener noreferrer">무선선풍기 보관 편한 스탠드 선풍기추천 아이닉 써큘레이터 찐후기</a></li>
+      <li><a href="https://blog.naver.com/wansojun/224339705957" target="_blank" rel="noopener noreferrer">여름철 전기세 고민 끝! 아이닉 배터리 분리형 무선 선풍기, 무소음 BLDC 실사용 리뷰</a></li>
+      <li><a href="https://blog.naver.com/sovely_mom/224360142242" target="_blank" rel="noopener noreferrer">무선 선풍기 추천 활용도 높은 아이닉 스탠드 리모콘 써큘레이터</a></li>
+  </ol>
+  <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="manualCopyBox" contenteditable="true"></div>
+<!-- generator.js's flattenToPlainText() output, verbatim — see buildStandalonePage's
+     comment for why this has to be the copy source instead of the rendered DOM's text. -->
+<div id="plainSource" style="display:none" aria-hidden="true">에어컨 없는 주방에서
+요리하다 더워서
+부채질만 하다 손 아파본 적 있으시죠.
+
+
+선풍기 있는 방으로 옮기려 해도
+콘센트 위치 때문에
+선 길이부터 재보게 됩니다.
+
+
+결론부터 말하면,
+아이닉 iSC02는 콘센트 신경 안 쓰고
+거실·주방·침실 옮겨가며 쓰는 용도에 맞습니다.
+반대로 손에 쥐고 다니는 초소형 휴대용 미니팬을 찾는 거라면
+스탠드형이라 무게가 있어서 그 용도는 아닙니다.
+
+
+[사진 1 넣기]
+
+
+이 글에서 다루는 것
+
+· 무선인데 강풍이 되는 이유
+· iC01이랑 뭐가 다른가요
+· 충전은 얼마나 자주 해야 하나요
+· 실내에서 하루 종일 틀어놓을 계획이라면
+
+
+무선인데 강풍이 되는 이유
+
+
+휴대용 미니팬은 크기가 작을수록 배터리도
+작아져서 강풍으로 오래 쓰기 어렵습니다.
+
+
+iSC02는 손에 들고 다니는 타입이 아니라
+스탠드형입니다.
+그만큼 배터리 용량과 모터 출력을 더 여유 있게
+넣을 수 있는 구조예요.
+BLDC 모터를 쓰는 것도 이런 이유입니다.
+같은 출력이라도 소음이 덜하고,
+저소음선풍기·무소음선풍기 태그가 붙는 근거가
+여기 있습니다.
+
+
+iC01이랑 뭐가 다른가요
+
+
+같은 브랜드에 79,000원짜리 iC01도 있어서
+헷갈릴 수 있습니다.
+
+
+[사진 2 넣기]
+
+
+모델
+가격
+
+iC01
+79,000원
+
+iSC02 (본 상품)
+169,000원
+
+iSC02 1+1
+328,000원
+
+
+가격 차이가 큰 만큼 배터리 용량과 출력 등급에서
+차이가 있다고 보시면 됩니다.
+방 하나만 쓸 거면 iC01로도 충분할 수 있지만,
+거실처럼 넓은 공간이나 두 대를 나눠 쓸 계획이면 1+1
+구성이 대당 단가로는 더 낮습니다.
+
+
+콘센트 위치 따라 자리 옮기던 그 선풍기,
+지금 스펙이랑 가격 같이 보고 오세요.
+
+https://naver.me/xnOupzSf
+
+
+충전은 얼마나 자주 해야 하나요
+
+
+무선 제품의 표기 사용시간은 대체로 약풍 기준입니다.
+거실에서 강풍 위주로 쓰실 계획이면 그 시간의
+절반 정도로 잡아두시는 게 안전합니다.
+
+
+충전 방식이 C타입인지,
+보조배터리로도 충전이 되는지는 사기 전에 꼭
+확인하셔야 합니다.
+캠핑용으로 야외에서 쓰실 거면 이 부분이
+특히 중요합니다.
+집에서만 쓸 거면 크게 신경 쓰지 않아도
+되는 부분이고요.
+
+
+무선의 편함은 배터리 관리가 귀찮지
+않아야 진짜 편함입니다.
+
+
+실내에서 하루 종일 틀어놓을 계획이라면
+
+
+배터리로 움직이는 제품은 아무리 대용량이어도 유선
+선풍기보다는 관리할 게 하나 더 생깁니다.
+사무실이나 거실에서 아침부터 저녁까지 계속 틀어놓는
+용도라면,
+콘센트 꽂아두고 쓰는 일반 선풍기가 오히려 신경 쓸
+일이 적습니다.
+
+
+반대로 방마다 옮겨 쓰거나,
+캠핑·차박처럼 전원이 없는 곳에서도 쓰고 싶다면
+무선이라는 조건 자체가 필요한 상황입니다.
+전용 보관백이 20,000원에 따로 있는 것도 이런
+이동성을 염두에 둔 구성입니다.
+
+
+주로 밖에서 잠깐씩 쓰실 건지,
+집 안에서 옮겨가며 오래 쓰실 건지부터 정하고
+나면 iSC02가 맞는 선택인지 답이 나옵니다.
+
+
+손 아프게 부채질하던 여름 아직 안 끝났다면,
+여기서 조건 한 번 확인해보시는 것도 방법입니다.
+
+https://naver.me/xnOupzSf
+
+
+#무선선풍기추천 #BLDC저소음선풍기 #배터리분리형선풍기 #거실스탠드선풍기 #아이닉써큘레이터 #리모컨선풍기추천 #무소음선풍기비교 #가정용선풍기추천</div>
+
+<script>
+(function () {
+  var post = document.getElementById('post');
+  var msg = document.getElementById('msg');
+  var manualBox = document.getElementById('manualCopyBox');
+
+  // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
+  // "복사" is a native OS gesture the browser handles directly (not something our JS
+  // triggers), so it picks up the real rich content — text, formatting, and images —
+  // even when the scripted copy attempt above was rejected or silently downgraded.
+  function showManualCopyBox(html) {
+    manualBox.innerHTML = html;
+    manualBox.style.display = 'block';
+    manualBox.scrollIntoView({ block: 'nearest' });
+    var range = document.createRange();
+    range.selectNodeContents(manualBox);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    msg.textContent = '';
+    // Built via DOM APIs (not string concatenation) so the title's own text is safely
+    // escaped the same way the rest of #post already is.
+    var titleP = document.createElement('p');
+    titleP.setAttribute('style', 'text-align:center;margin:0 0 20px;');
+    var titleB = document.createElement('b');
+    var titleSpan = document.createElement('span');
+    titleSpan.setAttribute('style', 'font-size:20px;');
+    titleSpan.textContent = document.getElementById('titleText').textContent;
+    titleB.appendChild(titleSpan);
+    titleP.appendChild(titleB);
+    var html = titleP.outerHTML + post.innerHTML;
+    var plainSource = document.getElementById('plainSource');
+    var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+
+    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
+    // HTML on mobile. This page is always served over https, so it's always available where
+    // the browser supports it at all — there's no plain-http case here that would need a
+    // fallback API.
+    //
+    // document.execCommand('copy') used to be tried first, even from inside a hidden
+    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+    // execCommand('copy') returns true — reporting success — while silently copying
+    // plain text only, images and formatting both dropped. Because it "succeeded", the
+    // code never fell through to the manual copy box below, which is the one path that
+    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
+    // execCommand triggered from script cannot). So: real API or the manual box — nothing
+    // in between that can lie about whether it worked.
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        })
+      ]).then(function () {
+        msg.textContent = '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.';
+      }).catch(function () {
+        showManualCopyBox(html);
+        msg.textContent = '자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+      });
+      return;
+    }
+
+    showManualCopyBox(html);
+    msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).';
+  });
+
+  // Plain text only, so this works even where the rich-copy button above can't (e.g. the
+  // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
+  function copyPlainText(text, label) {
+    msg.textContent = '';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        msg.textContent = label + '이(가) 복사됐습니다.';
+      }).catch(function () {
+        msg.textContent = label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+      });
+    } else {
+      msg.textContent = '이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.';
+    }
+  }
+
+  var productNameBtn = document.getElementById('copyProductNameBtn');
+  if (productNameBtn) {
+    productNameBtn.addEventListener('click', function () {
+      copyPlainText(document.getElementById('productNameText').textContent, '제품명');
+    });
+  }
+
+  // Publish status has no backend to live in on a static site — tracked in this browser's
+  // localStorage instead, keyed by this exact page's path so the list pages (which resolve
+  // each link to the same absolute path) agree on the same status either way.
+  // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
+  // building the clipboard payload, so the chosen title travels with the body automatically.
+  var titleOpts = document.querySelectorAll('.title-opt');
+  Array.prototype.forEach.call(titleOpts, function (btn) {
+    btn.addEventListener('click', function () {
+      Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('titleText').textContent = btn.getAttribute('data-title');
+      msg.textContent = '제목이 바뀌었습니다. 본문 복사를 누르면 이 제목으로 복사됩니다.';
+    });
+  });
+
+  var publishBtn = document.getElementById('publishToggle');
+  var publishKey = 'nbp_published_' + location.pathname;
+  // The spreadsheet's value is the starting point; once this browser records a choice, that
+  // choice wins — the person tapping the button is looking at the post right now.
+  var sheetPublished = false;
+  function renderPublishState() {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    publishBtn.textContent = done ? '✅ 발행완료' : '발행 전';
+    publishBtn.classList.toggle('published', done);
+  }
+  publishBtn.addEventListener('click', function () {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    try { localStorage.setItem(publishKey, done ? '0' : '1'); } catch (e) {}
+    renderPublishState();
+  });
+  renderPublishState();
+  // Same bfcache-restore gap as the list pages' publishListScript — a back/forward
+  // navigation here can otherwise show a stale button until a manual reload.
+  window.addEventListener('pageshow', renderPublishState);
+})();
+</script>
+</body>
+</html>
