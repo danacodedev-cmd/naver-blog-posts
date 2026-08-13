@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다</title>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
+  /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
+     (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 22px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
+  #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
+  #post img { max-width: 100%; height: auto; }
+  #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
+  #manualCopyBox { display: none; width: 100%; max-width: 700px; margin: 12px auto 40px; max-height: 50vh;
+    overflow: auto; padding: 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; }
+  #manualCopyBox img { max-width: 100%; }
+  /* 참고한 상위 글 목록. #post 밖에 두는 게 핵심입니다 — "본문 복사"는 #post만 읽으므로
+     이 링크들은 네이버에 붙여넣는 내용에 절대 섞이지 않습니다. */
+  #refs { max-width: 700px; margin: 14px auto 40px; padding: 14px 18px; background: #fff;
+    border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 13px; color: #555; }
+  #refs h2 { font-size: 13px; margin: 0 0 8px; color: #64748b; font-weight: 700; }
+  #refs ol { margin: 0; padding-left: 18px; }
+  #refs li { margin: 5px 0; line-height: 1.5; }
+  #refs a { color: #2563eb; }
+  #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
+     which of the three titles to publish — took a tap to even see. They are the page's main
+     content, so they are laid out as such, and the selected one doubles as the heading:
+     showing a separate <h1> above the list repeated the same sentence twice on screen. */
+  .tp-label { font-size: 12px; color: #adb5bd; font-weight: 600; margin: 12px 0 7px; }
+  #titlePicker { display: flex; flex-direction: column; gap: 7px; }
+  .title-opt { position: relative; background: #fff; color: #495057; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 11px 12px 11px 34px; font-size: 13.5px; font-weight: 500;
+    text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt .tp-num { position: absolute; left: 12px; top: 11px; width: 17px; height: 17px;
+    border-radius: 50%; background: #f1f3f5; color: #adb5bd; font-size: 11px; font-weight: 700;
+    line-height: 17px; text-align: center; }
+  .title-opt .tp-mark { display: none; }
+  .title-opt.active { background: #f4f9ff; border-color: #2563eb; color: #12408f; font-weight: 700;
+    box-shadow: 0 0 0 1px #2563eb inset; }
+  .title-opt.active .tp-num { background: #2563eb; color: #fff; }
+  .title-opt.active .tp-mark { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px;
+    background: #2563eb; color: #fff; font-size: 10.5px; font-weight: 700; vertical-align: 2px; white-space: nowrap; }
+  /* The copy script reads the selected title from here. It stays in the DOM as the page's
+     real heading for assistive tech, but is not painted — the highlighted row above is what
+     a sighted reader sees, and printing it twice was the original complaint. */
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
+  </div>
+  <h1 id="titleText" class="visually-hidden">마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">마이크로소프트 오피스 Microsoft 365 Personal ESD (1년 구독)</span></div>
+  <div class="tp-label">제목 — 누르면 그 제목으로 복사됩니다</div>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다"><span class="tp-num">1</span><span class="tp-text">마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="Microsoft 365 Personal vs Family, 1년 구독 뭘 골라야 할까"><span class="tp-num">2</span><span class="tp-text">Microsoft 365 Personal vs Family, 1년 구독 뭘 골라야 할까</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="마이크로소프트 365 Personal ESD 갱신 앞두고 고민된다면 (1인 사용자 기준)"><span class="tp-num">3</span><span class="tp-text">마이크로소프트 365 Personal ESD 갱신 앞두고 고민된다면 (1인 사용자 기준)</span><span class="tp-mark">사용 중</span></button></div>
+</div>
+<div class="actionbar">
+  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyProductNameBtn" type="button">제품명 복사</button>
+</div>
+<div id="msg"></div>
+
+<div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">과제 마감 전날 밤,</p><p style="text-align:center;margin:0;color:#000000;">갑자기 오피스가</p><p style="text-align:center;margin:0;color:#000000;">정품 인증 풀렸다는 문구.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">포맷하고 다시 깔았더니</p><p style="text-align:center;margin:0;color:#000000;">로그인이 안 풀리는 그 상황,</p><p style="text-align:center;margin:0;color:#000000;">한 번쯤 겪어보셨을 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">Microsoft 365는 한</p><p style="text-align:center;margin:0;color:#000000;">번 사면 끝나는</p><p style="text-align:center;margin:0;color:#000000;">프로그램이 아니라 구독 방식이라서,</p><p style="text-align:center;margin:0;color:#000000;">사기 전에 확인할 게 따로 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" alt="마이크로소프트 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">①</span> ESD가 정확히 뭘 말하는 건가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">②</span> Personal과 Family, 뭐가 다른가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">③</span> 1년 구독료, 매번 이 가격일까요</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">④</span> 계정 등록 전에 확인할 것</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">ESD가 정확히 뭘 말하는 건가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">ESD는 박스나 DVD 없이</p><p style="text-align:center;margin:0;color:#000000;">전자적으로 제품키를 받는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결제하면 이메일로</p><p style="text-align:center;margin:0;color:#000000;">제품키와 설치 링크가 옵니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배송을 기다릴 필요가 없고</p><p style="text-align:center;margin:0;color:#000000;">택배비도 안 붙습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 실물이 없다 보니</p><p style="text-align:center;margin:0;color:#000000;">키를 받은 다음 캡처든 메모든</p><p style="text-align:center;margin:0;color:#000000;">따로 저장해두셔야 나중에</p><p style="text-align:center;margin:0;color:#000000;">재설치할 때 편합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">Personal과 Family, 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이름 그대로</p><p style="text-align:center;margin:0;color:#000000;">Personal은 계정 1개 기준입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 계정으로</p><p style="text-align:center;margin:0;color:#000000;">PC, 태블릿 등 여러 기기에</p><p style="text-align:center;margin:0;color:#000000;">설치는 되지만</p><p style="text-align:center;margin:0;color:#000000;">사용자는 본인 하나예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족 여럿이 각자 계정으로</p><p style="text-align:center;margin:0;color:#000000;">쓰려면 Family가 맞고,</p><p style="text-align:center;margin:0;color:#000000;">혼자 쓰는 노트북, 혼자 쓰는</p><p style="text-align:center;margin:0;color:#000000;">데스크톱이면 Personal로</p><p style="text-align:center;margin:0;color:#000000;">충분합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 보시는 이 Personal 상품은</p><p style="text-align:center;margin:0;color:#000000;">99,000원으로,</p><p style="text-align:center;margin:0;color:#000000;">정가 129,000원에서</p><p style="text-align:center;margin:0;color:#000000;">23% 내려온 가격입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">계정 하나로 얼마나 쓸 수 있는지<br>여기서 조건 먼저 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5kPmVd4m</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">1년 구독료, 매번 이 가격일까요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구독형이라 1년 뒤</p><p style="text-align:center;margin:0;color:#000000;">다시 결제하셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이번에 23% 할인된 가격으로</p><p style="text-align:center;margin:0;color:#000000;">들어가는 거고,</p><p style="text-align:center;margin:0;color:#000000;">갱신 시점 가격은</p><p style="text-align:center;margin:0;color:#000000;">그때 따로 확인하셔야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 대비 3만원 가까이</p><p style="text-align:center;margin:0;color:#000000;">차이 나는 폭이라</p><p style="text-align:center;margin:0;color:#000000;">1년 단위로 갈아타는 분들은</p><p style="text-align:center;margin:0;color:#000000;">이 타이밍을 눈여겨보시는 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">계정 등록 전에 확인할 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">설치하려면 마이크로소프트</p><p style="text-align:center;margin:0;color:#000000;">계정이 필요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이미 쓰던 계정이 있다면</p><p style="text-align:center;margin:0;color:#000000;">거기에 등록해서 쓰면 되고,</p><p style="text-align:center;margin:0;color:#000000;">없다면 새로 만드는 것도</p><p style="text-align:center;margin:0;color:#000000;">어렵지 않습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 한 번 계정에</p><p style="text-align:center;margin:0;color:#000000;">등록하고 나면 다른 계정으로</p><p style="text-align:center;margin:0;color:#000000;">옮기는 게 까다로운 편이라,</p><p style="text-align:center;margin:0;color:#000000;">어떤 계정에 묶을지는</p><p style="text-align:center;margin:0;color:#000000;">설치 전에 정해두시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">원드라이브 클라우드 저장 공간도</p><p style="text-align:center;margin:0;color:#000000;">함께 들어가는 구성이라,</p><p style="text-align:center;margin:0;color:#000000;">문서를 클라우드에 올려두고</p><p style="text-align:center;margin:0;color:#000000;">쓰실 계획이면 이 부분도</p><p style="text-align:center;margin:0;color:#000000;">같이 확인해보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">계정 하나, 기기 여러 대,<br>사용자는 한 명</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">혼자 쓰는 컴퓨터에</p><p style="text-align:center;margin:0;color:#000000;">정품 오피스가 필요하고,</p><p style="text-align:center;margin:0;color:#000000;">매년 갱신하는 게</p><p style="text-align:center;margin:0;color:#000000;">번거롭지 않다면 Personal로</p><p style="text-align:center;margin:0;color:#000000;">충분히 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족 여럿이 각자 쓸 계획이라면</p><p style="text-align:center;margin:0;color:#000000;">Family 쪽을 먼저</p><p style="text-align:center;margin:0;color:#000000;">비교해보시는 게 순서고요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">갱신 시기 놓쳐서 리포트 쓰다 막히는 일,<br>이번엔 미리 확인해보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 마이크로소프트 오피스 Microsoft 365 Personal ESD (1년 구독)<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5kPmVd4m</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격과 재고는 수시로 바뀌니 링크에서 최신 정보를 확인해주세요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#오피스365개인용 #마이크로소프트365구독 #워드엑셀파워포인트 #오피스365가격 #365구독료 #오피스365추천 #1년구독오피스 #오피스365설치</span></p></div></div>
+<div id="manualCopyBox" contenteditable="true"></div>
+<!-- generator.js's flattenToPlainText() output, verbatim — see buildStandalonePage's
+     comment for why this has to be the copy source instead of the rendered DOM's text. -->
+<div id="plainSource" style="display:none" aria-hidden="true">과제 마감 전날 밤,
+갑자기 오피스가
+정품 인증 풀렸다는 문구.
+
+
+포맷하고 다시 깔았더니
+로그인이 안 풀리는 그 상황,
+한 번쯤 겪어보셨을 거예요.
+
+
+Microsoft 365는 한
+번 사면 끝나는
+프로그램이 아니라 구독 방식이라서,
+사기 전에 확인할 게 따로 있습니다.
+
+
+[사진 1 넣기]
+
+
+이 글에서 다루는 것
+
+1. ESD가 정확히 뭘 말하는 건가요
+2. Personal과 Family, 뭐가 다른가요
+3. 1년 구독료, 매번 이 가격일까요
+4. 계정 등록 전에 확인할 것
+
+
+ESD가 정확히 뭘 말하는 건가요
+
+
+ESD는 박스나 DVD 없이
+전자적으로 제품키를 받는 방식입니다.
+
+
+결제하면 이메일로
+제품키와 설치 링크가 옵니다.
+
+
+배송을 기다릴 필요가 없고
+택배비도 안 붙습니다.
+
+
+다만 실물이 없다 보니
+키를 받은 다음 캡처든 메모든
+따로 저장해두셔야 나중에
+재설치할 때 편합니다.
+
+
+Personal과 Family, 뭐가 다른가요
+
+
+이름 그대로
+Personal은 계정 1개 기준입니다.
+
+
+같은 계정으로
+PC, 태블릿 등 여러 기기에
+설치는 되지만
+사용자는 본인 하나예요.
+
+
+가족 여럿이 각자 계정으로
+쓰려면 Family가 맞고,
+혼자 쓰는 노트북, 혼자 쓰는
+데스크톱이면 Personal로
+충분합니다.
+
+
+지금 보시는 이 Personal 상품은
+99,000원으로,
+정가 129,000원에서
+23% 내려온 가격입니다.
+
+
+계정 하나로 얼마나 쓸 수 있는지
+여기서 조건 먼저 확인해보세요.
+
+https://naver.me/5kPmVd4m
+
+
+1년 구독료, 매번 이 가격일까요
+
+
+구독형이라 1년 뒤
+다시 결제하셔야 합니다.
+
+
+이번에 23% 할인된 가격으로
+들어가는 거고,
+갱신 시점 가격은
+그때 따로 확인하셔야 해요.
+
+
+정가 대비 3만원 가까이
+차이 나는 폭이라
+1년 단위로 갈아타는 분들은
+이 타이밍을 눈여겨보시는 편입니다.
+
+
+계정 등록 전에 확인할 것
+
+
+설치하려면 마이크로소프트
+계정이 필요합니다.
+
+
+이미 쓰던 계정이 있다면
+거기에 등록해서 쓰면 되고,
+없다면 새로 만드는 것도
+어렵지 않습니다.
+
+
+다만 한 번 계정에
+등록하고 나면 다른 계정으로
+옮기는 게 까다로운 편이라,
+어떤 계정에 묶을지는
+설치 전에 정해두시는 게 좋습니다.
+
+
+원드라이브 클라우드 저장 공간도
+함께 들어가는 구성이라,
+문서를 클라우드에 올려두고
+쓰실 계획이면 이 부분도
+같이 확인해보세요.
+
+
+계정 하나, 기기 여러 대,
+사용자는 한 명
+
+
+혼자 쓰는 컴퓨터에
+정품 오피스가 필요하고,
+매년 갱신하는 게
+번거롭지 않다면 Personal로
+충분히 맞는 선택입니다.
+
+
+가족 여럿이 각자 쓸 계획이라면
+Family 쪽을 먼저
+비교해보시는 게 순서고요.
+
+
+갱신 시기 놓쳐서 리포트 쓰다 막히는 일,
+이번엔 미리 확인해보시는 게 좋습니다.
+
+https://naver.me/5kPmVd4m
+
+
+#오피스365개인용 #마이크로소프트365구독 #워드엑셀파워포인트 #오피스365가격 #365구독료 #오피스365추천 #1년구독오피스 #오피스365설치</div>
+
+<script>
+(function () {
+  var post = document.getElementById('post');
+  var msg = document.getElementById('msg');
+  var manualBox = document.getElementById('manualCopyBox');
+
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
+  // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
+  // "복사" is a native OS gesture the browser handles directly (not something our JS
+  // triggers), so it picks up the real rich content — text, formatting, and images —
+  // even when the scripted copy attempt above was rejected or silently downgraded.
+  function showManualCopyBox(html) {
+    manualBox.innerHTML = html;
+    manualBox.style.display = 'block';
+    manualBox.scrollIntoView({ block: 'nearest' });
+    var range = document.createRange();
+    range.selectNodeContents(manualBox);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    say('');
+    // Built via DOM APIs (not string concatenation) so the title's own text is safely
+    // escaped the same way the rest of #post already is.
+    // <blockquote> here is deliberate — a plain bold/large <p> read as too bare, and a
+    // real 인용구 box (quote icon + underline, confirmed by pasting an actual post) gives
+    // the title visible presence a plain paragraph doesn't. font-style:normal overrides
+    // the widget's default italic, same as the CTA below.
+    var titleBQ = document.createElement('blockquote');
+    titleBQ.setAttribute('style', 'text-align:center;font-style:normal;');
+    var titleB = document.createElement('b');
+    var titleSpan = document.createElement('span');
+    titleSpan.setAttribute('style', 'font-size:20px;color:#000000;');
+    titleSpan.textContent = document.getElementById('titleText').textContent;
+    titleB.appendChild(titleSpan);
+    titleBQ.appendChild(titleB);
+    var html = titleBQ.outerHTML + post.innerHTML;
+    var plainSource = document.getElementById('plainSource');
+    var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+
+    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
+    // HTML on mobile. This page is always served over https, so it's always available where
+    // the browser supports it at all — there's no plain-http case here that would need a
+    // fallback API.
+    //
+    // document.execCommand('copy') used to be tried first, even from inside a hidden
+    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+    // execCommand('copy') returns true — reporting success — while silently copying
+    // plain text only, images and formatting both dropped. Because it "succeeded", the
+    // code never fell through to the manual copy box below, which is the one path that
+    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
+    // execCommand triggered from script cannot). So: real API or the manual box — nothing
+    // in between that can lie about whether it worked.
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        })
+      ]).then(function () {
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
+      }).catch(function () {
+        showManualCopyBox(html);
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+      });
+      return;
+    }
+
+    showManualCopyBox(html);
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+  });
+
+  // Plain text only, so this works even where the rich-copy button above can't (e.g. the
+  // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
+  function copyPlainText(text, label) {
+    say('');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        say(label + '이(가) 복사됐습니다.');
+      }).catch(function () {
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
+      });
+    } else {
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
+    }
+  }
+
+  var productNameBtn = document.getElementById('copyProductNameBtn');
+  if (productNameBtn) {
+    productNameBtn.addEventListener('click', function () {
+      copyPlainText(document.getElementById('productNameText').textContent, '제품명');
+    });
+  }
+
+  // Publish status has no backend to live in on a static site — tracked in this browser's
+  // localStorage instead, keyed by this exact page's path so the list pages (which resolve
+  // each link to the same absolute path) agree on the same status either way.
+  // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
+  // building the clipboard payload, so the chosen title travels with the body automatically.
+  // Picking a title only rewrites the hidden heading element — the copy handler reads its
+  // text when assembling the clipboard payload, so the choice travels with the body without
+  // any further wiring.
+  var titleOpts = document.querySelectorAll('.title-opt');
+  Array.prototype.forEach.call(titleOpts, function (btn) {
+    btn.addEventListener('click', function () {
+      Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('titleText').textContent = btn.getAttribute('data-title');
+      say('이 제목으로 복사됩니다.');
+    });
+  });
+
+  var publishBtn = document.getElementById('publishToggle');
+  var publishKey = 'nbp_published_' + location.pathname;
+  // The spreadsheet's value is the starting point; once this browser records a choice, that
+  // choice wins — the person tapping the button is looking at the post right now.
+  var sheetPublished = false;
+  function renderPublishState() {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    publishBtn.textContent = done ? '✅ 발행완료' : '발행 전';
+    publishBtn.classList.toggle('published', done);
+  }
+  publishBtn.addEventListener('click', function () {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    try { localStorage.setItem(publishKey, done ? '0' : '1'); } catch (e) {}
+    renderPublishState();
+  });
+  renderPublishState();
+  // Same bfcache-restore gap as the list pages' publishListScript — a back/forward
+  // navigation here can otherwise show a stale button until a manual reload.
+  window.addEventListener('pageshow', renderPublishState);
+})();
+</script>
+</body>
+</html>

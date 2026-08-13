@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법</title>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; background: #f5f6f7; }
+  /* Only the action row is sticky. The whole header used to be, and once it carried the
+     title, the product name and three full-length title candidates it stood ~400px tall on
+     a phone — half the screen, permanently, with the article reading through the gap left
+     over. The title scrolls away now; the two buttons that get used on every visit stay. */
+  .topbar { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 10px 16px 12px; }
+  .topbar-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .topbar h1 { font-size: 16px; line-height: 1.4; margin: 10px 0 0; font-weight: 700; letter-spacing: -0.2px; }
+  /* Excel 상품명은 확인용일 뿐 글의 일부가 아니므로, 실수로 선택·복사되는 걸 막아둡니다
+     (어차피 #post 밖이라 "본문 복사" 버튼에는 안 잡히지만, 손으로 드래그하는 것도 막습니다). */
+  .product-name { font-size: 12px; color: #999; margin-top: 6px; user-select: none; -webkit-user-select: none; }
+  button { font-family: inherit; border: 0; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .back-btn { background: #f1f3f5; color: #495057; border-radius: 8px; padding: 7px 12px; font-size: 13px;
+    font-weight: 700; text-decoration: none; display: inline-block; }
+  #publishToggle { background: #f1f3f5; color: #868e96; padding: 7px 13px; font-size: 13px; }
+  #publishToggle.published { background: #e6f8ee; color: #03a353; }
+  /* The action row: primary copy takes the width it needs to be the obvious tap target,
+     the secondary sits beside it rather than wrapping onto its own line. */
+  .actionbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 10px 16px; display: flex; gap: 8px; align-items: center; }
+  #copyBtn { background: #03c75a; color: #fff; padding: 12px 14px; flex: 1; min-width: 0; }
+  #copyProductNameBtn { background: #eef4ff; color: #2563eb; padding: 12px 22px; flex-shrink: 0; }
+  #msg { display: none; font-size: 13px; line-height: 1.45; color: #02a94e; background: #f0fdf4;
+    padding: 9px 16px; border-bottom: 1px solid #dcfce7; }
+  #msg.show { display: block; }
+  #post { background: #fff; max-width: 700px; margin: 20px auto; padding: 28px 24px; font-size: 15px; line-height: 1.8; color: #111; }
+  #post img { max-width: 100%; height: auto; }
+  #post blockquote { margin: 20px 0; padding: 12px 16px; background: #f6f7f8; border-radius: 8px; }
+  #manualCopyBox { display: none; width: 100%; max-width: 700px; margin: 12px auto 40px; max-height: 50vh;
+    overflow: auto; padding: 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; }
+  #manualCopyBox img { max-width: 100%; }
+  /* 참고한 상위 글 목록. #post 밖에 두는 게 핵심입니다 — "본문 복사"는 #post만 읽으므로
+     이 링크들은 네이버에 붙여넣는 내용에 절대 섞이지 않습니다. */
+  #refs { max-width: 700px; margin: 14px auto 40px; padding: 14px 18px; background: #fff;
+    border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 13px; color: #555; }
+  #refs h2 { font-size: 13px; margin: 0 0 8px; color: #64748b; font-weight: 700; }
+  #refs ol { margin: 0; padding-left: 18px; }
+  #refs li { margin: 5px 0; line-height: 1.5; }
+  #refs a { color: #2563eb; }
+  #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
+     which of the three titles to publish — took a tap to even see. They are the page's main
+     content, so they are laid out as such, and the selected one doubles as the heading:
+     showing a separate <h1> above the list repeated the same sentence twice on screen. */
+  .tp-label { font-size: 12px; color: #adb5bd; font-weight: 600; margin: 12px 0 7px; }
+  #titlePicker { display: flex; flex-direction: column; gap: 7px; }
+  .title-opt { position: relative; background: #fff; color: #495057; border: 1px solid #e5e7eb;
+    border-radius: 10px; padding: 11px 12px 11px 34px; font-size: 13.5px; font-weight: 500;
+    text-align: left; line-height: 1.5; cursor: pointer; }
+  .title-opt .tp-num { position: absolute; left: 12px; top: 11px; width: 17px; height: 17px;
+    border-radius: 50%; background: #f1f3f5; color: #adb5bd; font-size: 11px; font-weight: 700;
+    line-height: 17px; text-align: center; }
+  .title-opt .tp-mark { display: none; }
+  .title-opt.active { background: #f4f9ff; border-color: #2563eb; color: #12408f; font-weight: 700;
+    box-shadow: 0 0 0 1px #2563eb inset; }
+  .title-opt.active .tp-num { background: #2563eb; color: #fff; }
+  .title-opt.active .tp-mark { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px;
+    background: #2563eb; color: #fff; font-size: 10.5px; font-weight: 700; vertical-align: 2px; white-space: nowrap; }
+  /* The copy script reads the selected title from here. It stays in the DOM as the page's
+     real heading for assistive tech, but is not painted — the highlighted row above is what
+     a sighted reader sees, and printing it twice was the original complaint. */
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-nav">
+    <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
+    <button id="publishToggle" type="button">발행 전</button>
+  </div>
+  <h1 id="titleText" class="visually-hidden">벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법</h1>
+  <div class="product-name">엑셀 상품명: <span id="productNameText">벨킨 50W 듀얼 C타입 GaN ZSP 초고속 충전기 WCH019 아이폰17 갤럭시 S26 호환</span></div>
+  <div class="tp-label">제목 — 누르면 그 제목으로 복사됩니다</div>
+<div id="titlePicker"><button type="button" class="title-opt active" data-title="벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법"><span class="tp-num">1</span><span class="tp-text">벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="아이폰17·갤럭시S26 급속충전, 케이블 안 보면 벨킨도 소용없습니다"><span class="tp-num">2</span><span class="tp-text">아이폰17·갤럭시S26 급속충전, 케이블 안 보면 벨킨도 소용없습니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="벨킨 충전기 WCH019 50W 듀얼 C타입 (노트북·태블릿 동시충전 기준)"><span class="tp-num">3</span><span class="tp-text">벨킨 충전기 WCH019 50W 듀얼 C타입 (노트북·태블릿 동시충전 기준)</span><span class="tp-mark">사용 중</span></button></div>
+</div>
+<div class="actionbar">
+  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyProductNameBtn" type="button">제품명 복사</button>
+</div>
+<div id="msg"></div>
+<div id="refs">
+  <h2>참고한 상위 노출 글 2개</h2>
+  <ol>
+      <li><a href="https://blog.naver.com/megesfic/224346927871" target="_blank" rel="noopener noreferrer">megesfic</a></li>
+      <li><a href="https://blog.naver.com/f9327qixskqwe/224338718074" target="_blank" rel="noopener noreferrer">f9327qixskqwe</a></li>
+  </ol>
+  <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">자기 전에 폰 충전기 꽂고,</p><p style="text-align:center;margin:0;color:#000000;">아이패드 충전기 또 찾고,</p><p style="text-align:center;margin:0;color:#000000;">콘센트 두 자리 다 차지했던 밤,</p><p style="text-align:center;margin:0;color:#000000;">다들 한 번쯤 있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">빠른 충전기라고 사놨는데</p><p style="text-align:center;margin:0;color:#000000;">막상 충전 속도가 그대로인</p><p style="text-align:center;margin:0;color:#000000;">경우도 흔합니다.</p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면,</p><p style="text-align:center;margin:0;color:#000000;">이건 충전기 성능 문제가 아니라</p><p style="text-align:center;margin:0;color:#000000;">내 기기가 그 와트수를 받는지부터</p><p style="text-align:center;margin:0;color:#000000;">확인 안 해서 생기는 문제예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" alt="벨킨 충전기 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">①</span> PD랑 PPS, 그냥 넘기면 안 되는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">②</span> 케이블도 같이 봐야 하는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">③</span> 듀얼 포트, 누구한테 진짜 필요한가</p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#2563eb;font-weight:700;">④</span> 22,900원이라는 가격이 의미하는 것</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">PD랑 PPS, 그냥 넘기면 안 되는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상세페이지에 PD, PPS라고</p><p style="text-align:center;margin:0;color:#000000;">작게 붙어있는 거 보신 적 있으실 텐데요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PD는 C타입 고속충전 표준이고,</p><p style="text-align:center;margin:0;color:#000000;">PPS는 전압을 잘게</p><p style="text-align:center;margin:0;color:#000000;">조절해주는 기술입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PPS가 있으면 배터리 상태에 맞춰</p><p style="text-align:center;margin:0;color:#000000;">전압을 그때그때 미세하게 조정해줘요.</p><p style="text-align:center;margin:0;color:#000000;">그만큼 발열이 줄고,</p><p style="text-align:center;margin:0;color:#000000;">배터리 수명에도 유리하게 작용합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">와트수 숫자만 크게 써놓고</p><p style="text-align:center;margin:0;color:#000000;">PPS가 빠진 저가 충전기도 있거든요.</p><p style="text-align:center;margin:0;color:#000000;">그럼 숫자만 크고 실제 속도는</p><p style="text-align:center;margin:0;color:#000000;">정품 충전기만 못한 경우가 생깁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">벨킨 WCH019는 50W 듀얼 C타입</p><p style="text-align:center;margin:0;color:#000000;">GaN 방식으로,</p><p style="text-align:center;margin:0;color:#000000;">PD·PPS 둘 다 지원하는 구성이라</p><p style="text-align:center;margin:0;color:#000000;">표기 와트수와 실제 충전 속도 차이가</p><p style="text-align:center;margin:0;color:#000000;">크게 나지 않는 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-2.jpg" alt="벨킨 충전기 배터리 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">케이블도 같이 봐야 하는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">충전기가 아무리 좋아도</p><p style="text-align:center;margin:0;color:#000000;">케이블이 못 받쳐주면 소용없어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">45W급 이상 고속충전은</p><p style="text-align:center;margin:0;color:#000000;">보통 5A 지원 케이블이 필요합니다.</p><p style="text-align:center;margin:0;color:#000000;">서랍에 굴러다니던 아무 C타입 케이블 꽂으면</p><p style="text-align:center;margin:0;color:#000000;">속도가 안 나오는데, 이건 충전기가 아니라</p><p style="text-align:center;margin:0;color:#000000;">케이블이 발목 잡는 경우예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구성품에 케이블이 포함되는지</p><p style="text-align:center;margin:0;color:#000000;">구매 전에 꼭 확인하셔야 합니다.</p><p style="text-align:center;margin:0;color:#000000;">따로 사면 1~2만 원이</p><p style="text-align:center;margin:0;color:#000000;">추가로 드는 부분이거든요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-3.jpg" alt="벨킨 충전기 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">지금 쓰는 충전기가 몇 W인지<br>여기서 한번 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5OlifRPC</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">듀얼 포트, 누구한테 진짜 필요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">포트가 두 개라는 건</p><p style="text-align:center;margin:0;color:#000000;">동시에 두 기기를 충전한다는 뜻이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노트북, 태블릿까지</p><p style="text-align:center;margin:0;color:#000000;">하나로 충전하고 싶으신 분이라면</p><p style="text-align:center;margin:0;color:#000000;">듀얼 포트가 확실히 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여행이나 출장 갈 때</p><p style="text-align:center;margin:0;color:#000000;">충전기 여러 개 챙기는 게 번거로웠던 분도</p><p style="text-align:center;margin:0;color:#000000;">포트 하나 줄이는 효과를 보실 수 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이미 정품 고속충전기를</p><p style="text-align:center;margin:0;color:#000000;">갖고 계신 분이라면 굳이 바꿀</p><p style="text-align:center;margin:0;color:#000000;">이유는 없습니다.</p><p style="text-align:center;margin:0;color:#000000;">그리고 폰이 저전력 충전만 지원한다면</p><p style="text-align:center;margin:0;color:#000000;">충전기를 바꿔도 속도는 그대로예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-4.jpg" alt="벨킨 충전기 배터리 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">충전기는 보통 5년 넘게 씁니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 폰뿐 아니라</p><p style="text-align:center;margin:0;color:#000000;">다음에 바꿀 폰까지 고려하고</p><p style="text-align:center;margin:0;color:#000000;">사시는 게 맞는 물건이라는 뜻이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">22,900원이라는 가격이 의미하는 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 39,900원에서</p><p style="text-align:center;margin:0;color:#000000;">43% 내려온 22,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 급 GaN 듀얼 충전기가</p><p style="text-align:center;margin:0;color:#000000;">케이블 별도 구매까지 더하면</p><p style="text-align:center;margin:0;color:#000000;">가격 차이가 더 벌어지는 경우가 많은데,</p><p style="text-align:center;margin:0;color:#000000;">이 부분은 구성품 확인으로</p><p style="text-align:center;margin:0;color:#000000;">직접 따져보시는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 쓰시는 폰이</p><p style="text-align:center;margin:0;color:#000000;">고속충전을 어디까지 지원하는지가</p><p style="text-align:center;margin:0;color:#000000;">사실 가장 먼저 확인할 부분이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상위 모델이라면 충전기가</p><p style="text-align:center;margin:0;color:#000000;">그동안 발목을 잡고 있었던 거고,</p><p style="text-align:center;margin:0;color:#000000;">잘 모르시겠다면 스펙표에서</p><p style="text-align:center;margin:0;color:#000000;">지원 와트수부터 확인하시는 게 순서입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-5.jpg" alt="벨킨 충전기 센서 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">폰이랑 태블릿,<br>매일 밤 충전기 나눠 꽂고 계셨다면<br>하나로 정리할 타이밍인지 살펴보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 벨킨 50W 듀얼 C타입 GaN ZSP 초고속 충전기 WCH019 아이폰17 갤럭시 S26 호환<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5OlifRPC</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 위 가격은 글을 쓴 시점 기준입니다. 재고 상황에 따라 바뀔 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#벨킨듀얼C타입충전기 #50WGaN충전기 #아이폰17빠른충전 #갤럭시S26충전기 #듀얼포트충전기추천 #C타입멀티충전기 #초고속충전기비교 #휴대폰2개동시충전</span></p></div></div>
+<div id="manualCopyBox" contenteditable="true"></div>
+<!-- generator.js's flattenToPlainText() output, verbatim — see buildStandalonePage's
+     comment for why this has to be the copy source instead of the rendered DOM's text. -->
+<div id="plainSource" style="display:none" aria-hidden="true">자기 전에 폰 충전기 꽂고,
+아이패드 충전기 또 찾고,
+콘센트 두 자리 다 차지했던 밤,
+다들 한 번쯤 있으실 거예요.
+
+
+빠른 충전기라고 사놨는데
+막상 충전 속도가 그대로인
+경우도 흔합니다.
+결론부터 말하면,
+이건 충전기 성능 문제가 아니라
+내 기기가 그 와트수를 받는지부터
+확인 안 해서 생기는 문제예요.
+
+
+[사진 1 넣기]
+
+
+이 글에서 다루는 것
+
+1. PD랑 PPS, 그냥 넘기면 안 되는 이유
+2. 케이블도 같이 봐야 하는 이유
+3. 듀얼 포트, 누구한테 진짜 필요한가
+4. 22,900원이라는 가격이 의미하는 것
+
+
+PD랑 PPS, 그냥 넘기면 안 되는 이유
+
+
+상세페이지에 PD, PPS라고
+작게 붙어있는 거 보신 적 있으실 텐데요.
+
+
+PD는 C타입 고속충전 표준이고,
+PPS는 전압을 잘게
+조절해주는 기술입니다.
+
+
+PPS가 있으면 배터리 상태에 맞춰
+전압을 그때그때 미세하게 조정해줘요.
+그만큼 발열이 줄고,
+배터리 수명에도 유리하게 작용합니다.
+
+
+와트수 숫자만 크게 써놓고
+PPS가 빠진 저가 충전기도 있거든요.
+그럼 숫자만 크고 실제 속도는
+정품 충전기만 못한 경우가 생깁니다.
+
+
+벨킨 WCH019는 50W 듀얼 C타입
+GaN 방식으로,
+PD·PPS 둘 다 지원하는 구성이라
+표기 와트수와 실제 충전 속도 차이가
+크게 나지 않는 편입니다.
+
+
+[사진 2 넣기]
+
+
+케이블도 같이 봐야 하는 이유
+
+
+충전기가 아무리 좋아도
+케이블이 못 받쳐주면 소용없어요.
+
+
+45W급 이상 고속충전은
+보통 5A 지원 케이블이 필요합니다.
+서랍에 굴러다니던 아무 C타입 케이블 꽂으면
+속도가 안 나오는데, 이건 충전기가 아니라
+케이블이 발목 잡는 경우예요.
+
+
+구성품에 케이블이 포함되는지
+구매 전에 꼭 확인하셔야 합니다.
+따로 사면 1~2만 원이
+추가로 드는 부분이거든요.
+
+
+[사진 3 넣기]
+
+
+지금 쓰는 충전기가 몇 W인지
+여기서 한번 확인해보세요.
+
+https://naver.me/5OlifRPC
+
+
+듀얼 포트, 누구한테 진짜 필요한가
+
+
+포트가 두 개라는 건
+동시에 두 기기를 충전한다는 뜻이에요.
+
+
+노트북, 태블릿까지
+하나로 충전하고 싶으신 분이라면
+듀얼 포트가 확실히 편합니다.
+
+
+여행이나 출장 갈 때
+충전기 여러 개 챙기는 게 번거로웠던 분도
+포트 하나 줄이는 효과를 보실 수 있어요.
+
+
+다만 이미 정품 고속충전기를
+갖고 계신 분이라면 굳이 바꿀
+이유는 없습니다.
+그리고 폰이 저전력 충전만 지원한다면
+충전기를 바꿔도 속도는 그대로예요.
+
+
+[사진 4 넣기]
+
+
+충전기는 보통 5년 넘게 씁니다
+
+
+지금 폰뿐 아니라
+다음에 바꿀 폰까지 고려하고
+사시는 게 맞는 물건이라는 뜻이에요.
+
+
+22,900원이라는 가격이 의미하는 것
+
+
+정가 39,900원에서
+43% 내려온 22,900원입니다.
+
+
+같은 급 GaN 듀얼 충전기가
+케이블 별도 구매까지 더하면
+가격 차이가 더 벌어지는 경우가 많은데,
+이 부분은 구성품 확인으로
+직접 따져보시는 게 정확합니다.
+
+
+지금 쓰시는 폰이
+고속충전을 어디까지 지원하는지가
+사실 가장 먼저 확인할 부분이에요.
+
+
+상위 모델이라면 충전기가
+그동안 발목을 잡고 있었던 거고,
+잘 모르시겠다면 스펙표에서
+지원 와트수부터 확인하시는 게 순서입니다.
+
+
+[사진 5 넣기]
+
+
+폰이랑 태블릿,
+매일 밤 충전기 나눠 꽂고 계셨다면
+하나로 정리할 타이밍인지 살펴보세요.
+
+https://naver.me/5OlifRPC
+
+
+#벨킨듀얼C타입충전기 #50WGaN충전기 #아이폰17빠른충전 #갤럭시S26충전기 #듀얼포트충전기추천 #C타입멀티충전기 #초고속충전기비교 #휴대폰2개동시충전</div>
+
+<script>
+(function () {
+  var post = document.getElementById('post');
+  var msg = document.getElementById('msg');
+  var manualBox = document.getElementById('manualCopyBox');
+
+  // #msg is hidden until it has something to say — an always-present empty strip under the
+  // buttons was just dead space on a phone.
+  function say(text) {
+    msg.textContent = text || '';
+    msg.classList.toggle('show', Boolean(text));
+  }
+
+  // Last resort: a visible, pre-selected contenteditable box. The user's own long-press →
+  // "복사" is a native OS gesture the browser handles directly (not something our JS
+  // triggers), so it picks up the real rich content — text, formatting, and images —
+  // even when the scripted copy attempt above was rejected or silently downgraded.
+  function showManualCopyBox(html) {
+    manualBox.innerHTML = html;
+    manualBox.style.display = 'block';
+    manualBox.scrollIntoView({ block: 'nearest' });
+    var range = document.createRange();
+    range.selectNodeContents(manualBox);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    say('');
+    // Built via DOM APIs (not string concatenation) so the title's own text is safely
+    // escaped the same way the rest of #post already is.
+    // <blockquote> here is deliberate — a plain bold/large <p> read as too bare, and a
+    // real 인용구 box (quote icon + underline, confirmed by pasting an actual post) gives
+    // the title visible presence a plain paragraph doesn't. font-style:normal overrides
+    // the widget's default italic, same as the CTA below.
+    var titleBQ = document.createElement('blockquote');
+    titleBQ.setAttribute('style', 'text-align:center;font-style:normal;');
+    var titleB = document.createElement('b');
+    var titleSpan = document.createElement('span');
+    titleSpan.setAttribute('style', 'font-size:20px;color:#000000;');
+    titleSpan.textContent = document.getElementById('titleText').textContent;
+    titleB.appendChild(titleSpan);
+    titleBQ.appendChild(titleB);
+    var html = titleBQ.outerHTML + post.innerHTML;
+    var plainSource = document.getElementById('plainSource');
+    var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
+    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+
+    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
+    // HTML on mobile. This page is always served over https, so it's always available where
+    // the browser supports it at all — there's no plain-http case here that would need a
+    // fallback API.
+    //
+    // document.execCommand('copy') used to be tried first, even from inside a hidden
+    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+    // execCommand('copy') returns true — reporting success — while silently copying
+    // plain text only, images and formatting both dropped. Because it "succeeded", the
+    // code never fell through to the manual copy box below, which is the one path that
+    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
+    // execCommand triggered from script cannot). So: real API or the manual box — nothing
+    // in between that can lie about whether it worked.
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        })
+      ]).then(function () {
+        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
+      }).catch(function () {
+        showManualCopyBox(html);
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+      });
+      return;
+    }
+
+    showManualCopyBox(html);
+    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+  });
+
+  // Plain text only, so this works even where the rich-copy button above can't (e.g. the
+  // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
+  function copyPlainText(text, label) {
+    say('');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        say(label + '이(가) 복사됐습니다.');
+      }).catch(function () {
+        say(label + ' 복사가 차단됐습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
+      });
+    } else {
+      say('이 브라우저는 자동 복사를 지원하지 않습니다. ' + label + '을(를) 직접 선택해서 복사해주세요.');
+    }
+  }
+
+  var productNameBtn = document.getElementById('copyProductNameBtn');
+  if (productNameBtn) {
+    productNameBtn.addEventListener('click', function () {
+      copyPlainText(document.getElementById('productNameText').textContent, '제품명');
+    });
+  }
+
+  // Publish status has no backend to live in on a static site — tracked in this browser's
+  // localStorage instead, keyed by this exact page's path so the list pages (which resolve
+  // each link to the same absolute path) agree on the same status either way.
+  // Selecting a title only rewrites the heading element — "본문 복사" reads its text when
+  // building the clipboard payload, so the chosen title travels with the body automatically.
+  // Picking a title only rewrites the hidden heading element — the copy handler reads its
+  // text when assembling the clipboard payload, so the choice travels with the body without
+  // any further wiring.
+  var titleOpts = document.querySelectorAll('.title-opt');
+  Array.prototype.forEach.call(titleOpts, function (btn) {
+    btn.addEventListener('click', function () {
+      Array.prototype.forEach.call(titleOpts, function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('titleText').textContent = btn.getAttribute('data-title');
+      say('이 제목으로 복사됩니다.');
+    });
+  });
+
+  var publishBtn = document.getElementById('publishToggle');
+  var publishKey = 'nbp_published_' + location.pathname;
+  // The spreadsheet's value is the starting point; once this browser records a choice, that
+  // choice wins — the person tapping the button is looking at the post right now.
+  var sheetPublished = false;
+  function renderPublishState() {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    publishBtn.textContent = done ? '✅ 발행완료' : '발행 전';
+    publishBtn.classList.toggle('published', done);
+  }
+  publishBtn.addEventListener('click', function () {
+    var done = sheetPublished;
+    try {
+      var stored = localStorage.getItem(publishKey);
+      if (stored !== null) done = stored === '1';
+    } catch (e) {}
+    try { localStorage.setItem(publishKey, done ? '0' : '1'); } catch (e) {}
+    renderPublishState();
+  });
+  renderPublishState();
+  // Same bfcache-restore gap as the list pages' publishListScript — a back/forward
+  // navigation here can otherwise show a stale button until a manual reload.
+  window.addEventListener('pageshow', renderPublishState);
+})();
+</script>
+</body>
+</html>
