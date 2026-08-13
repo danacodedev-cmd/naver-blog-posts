@@ -293,19 +293,22 @@ https://naver.me/GHL7QomE
     say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
     // escaped the same way the rest of #post already is.
-    // <blockquote> here is deliberate — a plain bold/large <p> read as too bare, and a
-    // real 인용구 box (quote icon + underline, confirmed by pasting an actual post) gives
-    // the title visible presence a plain paragraph doesn't. font-style:normal overrides
-    // the widget's default italic, same as the CTA below.
-    var titleBQ = document.createElement('blockquote');
-    titleBQ.setAttribute('style', 'text-align:center;font-style:normal;');
+    // Plain bold text, not <blockquote> — the quote-icon box (tried, then explicitly asked
+    // to be removed) was too much for a title. margin isn't in the small set of CSS the
+    // editor is known to keep on paste (see the file header comment), so a real empty
+    // paragraph is used for the gap below the title instead of relying on it.
+    var titleP = document.createElement('p');
+    titleP.setAttribute('style', 'text-align:center;margin:0;');
     var titleB = document.createElement('b');
     var titleSpan = document.createElement('span');
-    titleSpan.setAttribute('style', 'font-size:20px;color:#000000;');
+    titleSpan.setAttribute('style', 'font-size:23px;color:#0f172a;');
     titleSpan.textContent = document.getElementById('titleText').textContent;
     titleB.appendChild(titleSpan);
-    titleBQ.appendChild(titleB);
-    var html = titleBQ.outerHTML + post.innerHTML;
+    titleP.appendChild(titleB);
+    var titleGap = document.createElement('p');
+    titleGap.setAttribute('style', 'margin:0;');
+    titleGap.innerHTML = '<br>';
+    var html = titleP.outerHTML + titleGap.outerHTML + post.innerHTML;
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
     var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
