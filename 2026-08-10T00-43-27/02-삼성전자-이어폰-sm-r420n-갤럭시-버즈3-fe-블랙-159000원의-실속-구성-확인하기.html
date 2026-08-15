@@ -46,6 +46,20 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* 사진 목록. #refs 와 같은 이유로 #post 밖에 둡니다 — "본문 복사"가 절대 집어가지 않습니다. */
+  #photos { max-width: 700px; margin: 14px auto 0; padding: 14px 18px; background: #fff;
+    border: 1px solid #e5e7eb; border-radius: 8px; }
+  #photos h2 { font-size: 13px; margin: 0 0 6px; color: #111; font-weight: 700; }
+  #photos .note { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: #555; }
+  #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .photo-item { display: flex; align-items: center; gap: 12px; }
+  .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
+    background: #f1f3f5; }
+  .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
+  .photo-copy { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px; }
+  .photo-copy.done { background: #e6f8ee; color: #03a353; }
+  .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -83,7 +97,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="삼성전자 이어폰 SM-R420N 갤럭시 버즈3 FE 블랙, 159,000원의 실속 구성 확인하기"><span class="tp-num">1</span><span class="tp-text">삼성전자 이어폰 SM-R420N 갤럭시 버즈3 FE 블랙, 159,000원의 실속 구성 확인하기</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="버즈3 프로 말고 FE 사면 손해일까? 15만원대 가격표 뜯어본 결과 (출퇴근족 필수 체크)"><span class="tp-num">2</span><span class="tp-text">버즈3 프로 말고 FE 사면 손해일까? 15만원대 가격표 뜯어본 결과 (출퇴근족 필수 체크)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="이어폰 뭐 살지 아직도 고민이세요? 갤럭시 버즈3 FE로 정리되는 이유 (가성비 이어폰 고르는 기준)"><span class="tp-num">3</span><span class="tp-text">이어폰 뭐 살지 아직도 고민이세요? 갤럭시 버즈3 FE로 정리되는 이유 (가성비 이어폰 고르는 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -95,6 +109,52 @@
       <li><a href="https://blog.naver.com/mutantcell/224338141324" target="_blank" rel="noopener noreferrer">삼성전자의 신형 이어폰 이름은 갤럭시 에이블? 버즈 온?</a></li>
   </ol>
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="photos">
+  <h2>사진 5장</h2>
+  <p class="note">본문을 붙여넣은 뒤, 본문 속 <b>[사진 N 넣기]</b> 자리에 아래 사진을 하나씩 복사해 넣으세요. 이렇게 넣어야 네이버에 실제로 업로드돼 <b>대표 이미지로 지정</b>할 수 있습니다.</p>
+  <ul>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_8992035/89920356079.11.jpg" alt="삼성전자 이어폰 상세 스펙 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 1</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8992035/89920356079.11.jpg" data-n="1">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8992035/89920356079.11.jpg" download="photo-1.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5679698/56796984706.20250919155527.jpg" alt="삼성전자 이어폰 크기 비교 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 2</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5679698/56796984706.20250919155527.jpg" data-n="2">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5679698/56796984706.20250919155527.jpg" download="photo-2.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_8992035/89920351910.12.jpg" alt="삼성전자 이어폰 제품 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 3</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8992035/89920351910.12.jpg" data-n="3">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8992035/89920351910.12.jpg" download="photo-3.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5871039/58710399363.1.jpg" alt="삼성전자 이어폰 크기 비교 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 4</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5871039/58710399363.1.jpg" data-n="4">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5871039/58710399363.1.jpg" download="photo-4.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_9002217/90022176522.1.jpg" alt="삼성전자 이어폰 구성품 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 5</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9002217/90022176522.1.jpg" data-n="5">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9002217/90022176522.1.jpg" download="photo-5.jpg">저장</a>
+        </div>
+      </li>
+  </ul>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">이어폰 매장 앞에서 버즈3, 버즈3 프로,</p><p style="text-align:center;margin:0;color:#000000;">버즈3 FE 놓고 한참 서 계셨던 적 있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이름은 비슷한데 가격 차이는 꽤 나고,</p><p style="text-align:center;margin:0;color:#000000;">뭐가 다른 건지 설명은 또 어렵고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말씀드리면 이 고민은 &#39;어디서 쓰느냐&#39;로</p><p style="text-align:center;margin:0;color:#000000;">거의 정리됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8992035/89920356079.11.jpg" alt="삼성전자 이어폰 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">버즈3 FE, 뭐가 다른 건가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드 라인업 안에서 FE, 일반,</p><p style="text-align:center;margin:0;color:#000000;">프로가 나뉘는 이유는 명확합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배터리, 센서,</p><p style="text-align:center;margin:0;color:#000000;">분리형 디자인 같은 핵심 구성 요소에서 등급별 차이를</p><p style="text-align:center;margin:0;color:#000000;">두기 때문이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">프로 모델은 저주파 소음까지 잡아내는 상위 ANC와</p><p style="text-align:center;margin:0;color:#000000;">정교한 드라이버 구성이 들어갑니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">FE는 그보다 낮은 등급이지만,</p><p style="text-align:center;margin:0;color:#000000;">일상적인 노이즈캔슬링 기능은 그대로 들어가 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지하철 소음,</p><p style="text-align:center;margin:0;color:#000000;">버스 엔진 소리 같은 일반적인 생활 소음을 막는</p><p style="text-align:center;margin:0;color:#000000;">용도라면 이 정도로 충분한 경우가 많습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5679698/56796984706.20250919155527.jpg" alt="삼성전자 이어폰 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 분들께 잘 맞습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">출퇴근길에 지하철이나 버스에서 음악,</p><p style="text-align:center;margin:0;color:#000000;">팟캐스트를 듣는 게 주 용도라면 딱 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">2~3년 주기로 이어폰을 바꾸는 걸 전제로,</p><p style="text-align:center;margin:0;color:#000000;">매번 무리하지 않고 합리적인 가격대를 찾으시는</p><p style="text-align:center;margin:0;color:#000000;">분들도 그렇고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">159,000원이라는 가격은 상위 모델 대비 부담이</p><p style="text-align:center;margin:0;color:#000000;">확실히 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그 차액을 아껴서 다음 교체 주기를 앞당기는 것도</p><p style="text-align:center;margin:0;color:#000000;">나쁘지 않은 전략이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8992035/89920351910.12.jpg" alt="삼성전자 이어폰 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">지하철에서 소음 때문에 볼륨 계속 올리셨다면 이<br>조건부터 확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FiPkfSAD</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">반대로 안 맞는 경우도 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">음질에 예민하신 분들은 다시 생각해보셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상위형은 드라이버 구성 자체가 다르기 때문에 디테일에서</p><p style="text-align:center;margin:0;color:#000000;">차이가 납니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">장거리 비행이 잦으신 분도 마찬가지예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기내 저주파 소음은 상위 ANC가 확실히 유리합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">통화를 정말 많이 하시는 직군이라면 마이크 성능 차이도</p><p style="text-align:center;margin:0;color:#000000;">무시할 수 없고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 세 가지 중 하나라도 해당되신다면,</p><p style="text-align:center;margin:0;color:#000000;">FE보다는 상위 라인을 보시는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5871039/58710399363.1.jpg" alt="삼성전자 이어폰 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">조용한 곳에서 음질을 따지신다면<br>여기서 아끼는 건<br>나중에 아쉬워집니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지하철에서 소음 때문에 볼륨 계속 올리셨다면 이</p><p style="text-align:center;margin:0;color:#000000;">조건부터 확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 딱 하나만 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무선이어폰은 생태계 안에서 진가가 나옵니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">쓰시는 폰이 삼성 갤럭시라면 이 부분이 특히 중요해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">자동 연결, 기기 간 전환,</p><p style="text-align:center;margin:0;color:#000000;">전용 코덱 같은 기능들이 같은 브랜드 안에서만 온전히</p><p style="text-align:center;margin:0;color:#000000;">작동하기 때문입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다른 브랜드 폰에서도 물론 쓸 수는 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이런 기능들이 꽤 많이 빠진 채로 쓰게 되는</p><p style="text-align:center;margin:0;color:#000000;">경우가 많아요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결국 어차피 생태계 안에서 사는 쪽이 대체로 이깁니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9002217/90022176522.1.jpg" alt="삼성전자 이어폰 구성품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결론은 결국 이 질문 하나</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주로 어디서 쓰실 건지 스스로에게 먼저 물어보세요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지하철이나 버스라면 이 등급으로 충분합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노이즈캔슬링이 이미 들어가 있으니까요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그렇다면 차액은 아끼시는 게 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 조용한 방에서 음질을 따지며 듣는 게 주</p><p style="text-align:center;margin:0;color:#000000;">용도라면 얘기가 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그때는 상위 모델 쪽으로 눈을 돌리시는 게 낫습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">출퇴근길 이어폰 하나 바꾸는 문제로 며칠째 고민</p><p style="text-align:center;margin:0;color:#000000;">중이셨다면 지금 가격이랑 구성 한번 보고 결정하세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">출퇴근길 이어폰 하나 바꾸는 문제로 며칠째 고민<br>중이셨다면 지금 가격이랑 구성 한번 보고 결정하세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 삼성전자 갤럭시 버즈3 FE 무선 블루투스 이어폰 ANC SM-R420N 블랙<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FiPkfSAD</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#갤럭시버즈3FE가격 #갤럭시버즈3FE추천 #ANC이어폰추천 #무선블루투스이어폰 #갤럭시버즈3FE차이 #갤럭시버즈3FE리뷰 #갤럭시버즈3vs버즈3FE #가성비이어폰추천 #갤럭시버즈3FE음질 #노이즈캔슬링이어폰추천 #삼성무선이어폰 #갤럭시버즈3FE케이스</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -297,6 +357,30 @@ https://naver.me/FiPkfSAD
     sel.addRange(range);
   }
 
+  // The body without its photos, each one replaced by the marker the plain-text flavour
+  // already uses. Naver keeps a pasted <img src="https://…"> as a remote reference and never
+  // uploads the file, so those images arrive with no 대표 button, no search thumbnail, and
+  // do not count as photos on the post — they looked fine while being useless. Sending the
+  // spot instead, and the real bitmap separately from the 사진 strip, is what gets a photo
+  // Naver actually stores.
+  //
+  // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
+  // markup this page has already proven pastes correctly; the only edit is the swap.
+  function bodyHtmlForPaste() {
+    var clone = post.cloneNode(true);
+    var imgs = clone.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var p = document.createElement('p');
+      p.setAttribute('style', 'text-align:center;margin:0;');
+      var span = document.createElement('span');
+      span.setAttribute('style', 'color:#999999;');
+      span.textContent = '[사진 ' + (i + 1) + ' 넣기]';
+      p.appendChild(span);
+      imgs[i].parentNode.replaceChild(p, imgs[i]);
+    }
+    return clone.innerHTML;
+  }
+
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
@@ -316,7 +400,7 @@ https://naver.me/FiPkfSAD
     var titleGap = document.createElement('p');
     titleGap.setAttribute('style', 'margin:0;');
     titleGap.innerHTML = '<br>';
-    var html = titleP.outerHTML + titleGap.outerHTML + post.innerHTML;
+    var html = titleP.outerHTML + titleGap.outerHTML + bodyHtmlForPaste();
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
     var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
@@ -374,6 +458,50 @@ https://naver.me/FiPkfSAD
       copyPlainText(document.getElementById('productNameText').textContent, '제품명');
     });
   }
+
+  // A photo as an actual bitmap on the clipboard, which is what makes Naver upload it to its
+  // own storage — the whole point of the 사진 strip. PNG because it is the only image type
+  // browsers will put on the clipboard; the source JPEG is redrawn through a canvas to get
+  // there. The page and its images share an origin, so the canvas is never tainted.
+  function pngBlob(src) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        var c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/png');
+      };
+      img.onerror = function () { reject(new Error('load')); };
+      img.src = src;
+    });
+  }
+
+  var photoBtns = document.querySelectorAll('.photo-copy');
+  Array.prototype.forEach.call(photoBtns, function (btn) {
+    btn.addEventListener('click', function () {
+      say('');
+      var n = btn.getAttribute('data-n');
+      if (!(navigator.clipboard && window.ClipboardItem)) {
+        say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        return;
+      }
+      // ClipboardItem is handed the pending Promise rather than an awaited Blob: Safari
+      // rejects a write() that is not issued in the same tick as the click.
+      navigator.clipboard
+        .write([new ClipboardItem({ 'image/png': pngBlob(btn.getAttribute('data-src')) })])
+        .then(function () {
+          Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
+          btn.classList.add('done');
+          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 [사진 ' + n + ' 넣기] 자리에 붙여넣으세요.');
+        })
+        .catch(function () {
+          say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        });
+    });
+  });
 
   // Publish status has no backend to live in on a static site — tracked in this browser's
   // localStorage instead, keyed by this exact page's path so the list pages (which resolve

@@ -46,6 +46,20 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* 사진 목록. #refs 와 같은 이유로 #post 밖에 둡니다 — "본문 복사"가 절대 집어가지 않습니다. */
+  #photos { max-width: 700px; margin: 14px auto 0; padding: 14px 18px; background: #fff;
+    border: 1px solid #e5e7eb; border-radius: 8px; }
+  #photos h2 { font-size: 13px; margin: 0 0 6px; color: #111; font-weight: 700; }
+  #photos .note { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: #555; }
+  #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .photo-item { display: flex; align-items: center; gap: 12px; }
+  .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
+    background: #f1f3f5; }
+  .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
+  .photo-copy { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px; }
+  .photo-copy.done { background: #e6f8ee; color: #03a353; }
+  .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -83,7 +97,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="삼성 모니터 2in1거치대 삼탠바이미 M5 32인치, 사기 전 확인할 3가지"><span class="tp-num">1</span><span class="tp-text">삼성 모니터 2in1거치대 삼탠바이미 M5 32인치, 사기 전 확인할 3가지</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="TV도 모니터도 못 정한 원룸이라면, 삼탠바이미 M5 32인치 하나로 끝내는 법"><span class="tp-num">2</span><span class="tp-text">TV도 모니터도 못 정한 원룸이라면, 삼탠바이미 M5 32인치 하나로 끝내는 법</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="삼탠바이미 M5 32인치, TV 사려다 이걸로 바꿔도 될까요"><span class="tp-num">3</span><span class="tp-text">삼탠바이미 M5 32인치, TV 사려다 이걸로 바꿔도 될까요</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -95,6 +109,36 @@
       <li><a href="https://blog.naver.com/tkaths22/224368318611" target="_blank" rel="noopener noreferrer">삼성 삼탠바이미 M5 32인치, 이동식 스마트 모니터로 활용하기 좋은 이유</a></li>
   </ol>
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="photos">
+  <h2>사진 3장</h2>
+  <p class="note">본문을 붙여넣은 뒤, 본문 속 <b>[사진 N 넣기]</b> 자리에 아래 사진을 하나씩 복사해 넣으세요. 이렇게 넣어야 네이버에 실제로 업로드돼 <b>대표 이미지로 지정</b>할 수 있습니다.</p>
+  <ul>
+      <li class="photo-item">
+        <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-1.jpg" alt="삼성 모니터 출력 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 1</span>
+          <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-1.jpg" data-n="1">사진 복사</button>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-1.jpg" download="photo-1.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-2.jpg" alt="삼성 모니터 제품 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 2</span>
+          <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-2.jpg" data-n="2">사진 복사</button>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-2.jpg" download="photo-2.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-3.jpg" alt="삼성 모니터 상세 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 3</span>
+          <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-3.jpg" data-n="3">사진 복사</button>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-3.jpg" download="photo-3.jpg">저장</a>
+        </div>
+      </li>
+  </ul>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">TV를 살까 모니터를 살까,</p><p style="text-align:center;margin:0;color:#000000;">벌써 몇 년째 정하지 못하셨죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">원룸이라 자리는 하나뿐인데</p><p style="text-align:center;margin:0;color:#000000;">넷플릭스도 보고 싶고</p><p style="text-align:center;margin:0;color:#000000;">노트북 화면도 커야 하고.</p><p style="text-align:center;margin:0;color:#000000;">결국 둘 다 못 사고</p><p style="text-align:center;margin:0;color:#000000;">노트북 작은 화면 그대로</p><p style="text-align:center;margin:0;color:#000000;">버티고 계셨을 수도 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 이 제품은</p><p style="text-align:center;margin:0;color:#000000;">자리가 하나뿐인 집에</p><p style="text-align:center;margin:0;color:#000000;">정확히 맞는 물건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거실에서 가족이 다 같이 보는</p><p style="text-align:center;margin:0;color:#000000;">용도라면 얘기가 다르고요.</p><p style="text-align:center;margin:0;color:#000000;">게임을 진지하게 하시는 분도</p><p style="text-align:center;margin:0;color:#000000;">다른 선택이 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">그건 아래에서 짚어드릴게요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-1.jpg" alt="삼성 모니터 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> PC 없이 켜지는 화면, 뭐가 다른가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 이동식 스탠드가 포함인지 꼭 보세요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 32인치, 책상 깊이는 재보셨나요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 연결 단자, 노트북 기준으로 확인하세요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">⑤</span> 게임이나 영상 편집이 목적이라면</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">PC 없이 켜지는 화면, 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 모니터는 PC를 연결해야만</p><p style="text-align:center;margin:0;color:#000000;">화면이 나옵니다.</p><p style="text-align:center;margin:0;color:#000000;">전원만 꽂아두면 까맣죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">삼탠바이미는 다릅니다.</p><p style="text-align:center;margin:0;color:#000000;">PC 없이 혼자 켜집니다.</p><p style="text-align:center;margin:0;color:#000000;">넷플릭스, 유튜브가 TV처럼</p><p style="text-align:center;margin:0;color:#000000;">바로 실행돼요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그러다 노트북을 꽂으면</p><p style="text-align:center;margin:0;color:#000000;">그대로 작업용 모니터가 됩니다.</p><p style="text-align:center;margin:0;color:#000000;">TV 하나, 모니터 하나</p><p style="text-align:center;margin:0;color:#000000;">따로 사면 자리도 두 배,</p><p style="text-align:center;margin:0;color:#000000;">돈도 두 배 듭니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">공간이 하나뿐인 집에서는</p><p style="text-align:center;margin:0;color:#000000;">이 차이가 결정적이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이동식 스탠드가 포함인지 꼭 보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은 2in1거치대가</p><p style="text-align:center;margin:0;color:#000000;">기본 구성입니다.</p><p style="text-align:center;margin:0;color:#000000;">이동식 스탠드 형태라</p><p style="text-align:center;margin:0;color:#000000;">벽 설치 없이 방 안에서</p><p style="text-align:center;margin:0;color:#000000;">위치를 옮길 수 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 스탠드, 따로 사면</p><p style="text-align:center;margin:0;color:#000000;">10만 원대 후반부터 시작합니다.</p><p style="text-align:center;margin:0;color:#000000;">가격 449,000원에</p><p style="text-align:center;margin:0;color:#000000;">이미 포함된 구성인지</p><p style="text-align:center;margin:0;color:#000000;">꼭 확인하고 결정하세요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가는 600,000원,</p><p style="text-align:center;margin:0;color:#000000;">25% 내려온 가격입니다.</p><p style="text-align:center;margin:0;color:#000000;">스탠드 값까지 생각하면</p><p style="text-align:center;margin:0;color:#000000;">차이는 더 커집니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-2.jpg" alt="삼성 모니터 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">TV와 모니터 사이에서 계속<br>저울질하고 계셨다면<br>구성이랑 단자부터 한 번 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xk9bLFl2</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">32인치, 책상 깊이는 재보셨나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">30인치대 화면은</p><p style="text-align:center;margin:0;color:#000000;">1~1.5m 거리에서 보기</p><p style="text-align:center;margin:0;color:#000000;">딱 좋은 크기입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상에 올려두고 보는 용도라면</p><p style="text-align:center;margin:0;color:#000000;">책상 깊이를 먼저 재보세요.</p><p style="text-align:center;margin:0;color:#000000;">너무 가까우면 32인치도</p><p style="text-align:center;margin:0;color:#000000;">부담스러울 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거실에 두고 온 가족이</p><p style="text-align:center;margin:0;color:#000000;">멀리서 보는 용도라면</p><p style="text-align:center;margin:0;color:#000000;">이 크기는 작습니다.</p><p style="text-align:center;margin:0;color:#000000;">그 경우는 더 큰 TV가 맞아요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">연결 단자, 노트북 기준으로 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">쓰시는 노트북이 HDMI인지</p><p style="text-align:center;margin:0;color:#000000;">USB-C인지에 따라</p><p style="text-align:center;margin:0;color:#000000;">필요한 케이블이 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구매 전에 노트북 뒷면부터</p><p style="text-align:center;margin:0;color:#000000;">한 번 확인해보시는 게</p><p style="text-align:center;margin:0;color:#000000;">나중에 케이블 재구매하는</p><p style="text-align:center;margin:0;color:#000000;">번거로움을 줄여줍니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/01-3.jpg" alt="삼성 모니터 상세 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">게임이나 영상 편집이 목적이라면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은 일반 모니터가 아니라</p><p style="text-align:center;margin:0;color:#000000;">스마트모니터입니다.</p><p style="text-align:center;margin:0;color:#000000;">주사율이나 응답속도가</p><p style="text-align:center;margin:0;color:#000000;">게이밍 모니터 수준은 아니에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진지하게 게임을 하신다면</p><p style="text-align:center;margin:0;color:#000000;">게이밍 전용 모니터가 낫습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">색 정확도가 중요한</p><p style="text-align:center;margin:0;color:#000000;">디자인·영상 편집 작업도</p><p style="text-align:center;margin:0;color:#000000;">전용 모니터 쪽이 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 제품은 &#39;한 대로 두 역할&#39;이</p><p style="text-align:center;margin:0;color:#000000;">목적인 물건이지,</p><p style="text-align:center;margin:0;color:#000000;">성능 하나로 승부하는</p><p style="text-align:center;margin:0;color:#000000;">제품은 아니거든요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">자리는 하나, 역할은 두 개.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV랑 모니터를 둘 다</p><p style="text-align:center;margin:0;color:#000000;">놓을 자리가 있으신가요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">있다면 각각 전용으로</p><p style="text-align:center;margin:0;color:#000000;">사는 게 낫습니다.</p><p style="text-align:center;margin:0;color:#000000;">같은 값에 더 좋은 성능을</p><p style="text-align:center;margin:0;color:#000000;">가져갈 수 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">자리가 하나뿐이라면</p><p style="text-align:center;margin:0;color:#000000;">이야기는 달라집니다.</p><p style="text-align:center;margin:0;color:#000000;">공간을 두 번 쓰지 않고</p><p style="text-align:center;margin:0;color:#000000;">용도를 두 번 채우는 쪽이</p><p style="text-align:center;margin:0;color:#000000;">결국 더 남는 선택이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">자리는 하나,<br>화면은 두 가지 역할이 필요하다면<br>지금 구성 그대로 확인해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 삼성 삼탠바이미 스마트 M5 80cm(32인치)IPTV 모니터 화이트+스탠드 2in1거치대<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xk9bLFl2</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#삼성삼탠바이미M532인치 #삼탠바이미IPTV모니터 #32인치스마트모니터추천 #삼성스마트모니터가격 #삼탠바이미M5후기 #80cm모니터추천 #스마트TV모니터비교 #거실모니터추천</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -312,6 +356,30 @@ https://naver.me/xk9bLFl2
     sel.addRange(range);
   }
 
+  // The body without its photos, each one replaced by the marker the plain-text flavour
+  // already uses. Naver keeps a pasted <img src="https://…"> as a remote reference and never
+  // uploads the file, so those images arrive with no 대표 button, no search thumbnail, and
+  // do not count as photos on the post — they looked fine while being useless. Sending the
+  // spot instead, and the real bitmap separately from the 사진 strip, is what gets a photo
+  // Naver actually stores.
+  //
+  // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
+  // markup this page has already proven pastes correctly; the only edit is the swap.
+  function bodyHtmlForPaste() {
+    var clone = post.cloneNode(true);
+    var imgs = clone.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var p = document.createElement('p');
+      p.setAttribute('style', 'text-align:center;margin:0;');
+      var span = document.createElement('span');
+      span.setAttribute('style', 'color:#999999;');
+      span.textContent = '[사진 ' + (i + 1) + ' 넣기]';
+      p.appendChild(span);
+      imgs[i].parentNode.replaceChild(p, imgs[i]);
+    }
+    return clone.innerHTML;
+  }
+
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
@@ -331,7 +399,7 @@ https://naver.me/xk9bLFl2
     var titleGap = document.createElement('p');
     titleGap.setAttribute('style', 'margin:0;');
     titleGap.innerHTML = '<br>';
-    var html = titleP.outerHTML + titleGap.outerHTML + post.innerHTML;
+    var html = titleP.outerHTML + titleGap.outerHTML + bodyHtmlForPaste();
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
     var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
@@ -389,6 +457,50 @@ https://naver.me/xk9bLFl2
       copyPlainText(document.getElementById('productNameText').textContent, '제품명');
     });
   }
+
+  // A photo as an actual bitmap on the clipboard, which is what makes Naver upload it to its
+  // own storage — the whole point of the 사진 strip. PNG because it is the only image type
+  // browsers will put on the clipboard; the source JPEG is redrawn through a canvas to get
+  // there. The page and its images share an origin, so the canvas is never tainted.
+  function pngBlob(src) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        var c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/png');
+      };
+      img.onerror = function () { reject(new Error('load')); };
+      img.src = src;
+    });
+  }
+
+  var photoBtns = document.querySelectorAll('.photo-copy');
+  Array.prototype.forEach.call(photoBtns, function (btn) {
+    btn.addEventListener('click', function () {
+      say('');
+      var n = btn.getAttribute('data-n');
+      if (!(navigator.clipboard && window.ClipboardItem)) {
+        say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        return;
+      }
+      // ClipboardItem is handed the pending Promise rather than an awaited Blob: Safari
+      // rejects a write() that is not issued in the same tick as the click.
+      navigator.clipboard
+        .write([new ClipboardItem({ 'image/png': pngBlob(btn.getAttribute('data-src')) })])
+        .then(function () {
+          Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
+          btn.classList.add('done');
+          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 [사진 ' + n + ' 넣기] 자리에 붙여넣으세요.');
+        })
+        .catch(function () {
+          say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        });
+    });
+  });
 
   // Publish status has no backend to live in on a static site — tracked in this browser's
   // localStorage instead, keyed by this exact page's path so the list pages (which resolve

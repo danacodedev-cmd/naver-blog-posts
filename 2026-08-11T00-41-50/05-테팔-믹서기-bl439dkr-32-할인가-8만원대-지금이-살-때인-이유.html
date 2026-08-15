@@ -46,6 +46,20 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* 사진 목록. #refs 와 같은 이유로 #post 밖에 둡니다 — "본문 복사"가 절대 집어가지 않습니다. */
+  #photos { max-width: 700px; margin: 14px auto 0; padding: 14px 18px; background: #fff;
+    border: 1px solid #e5e7eb; border-radius: 8px; }
+  #photos h2 { font-size: 13px; margin: 0 0 6px; color: #111; font-weight: 700; }
+  #photos .note { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: #555; }
+  #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .photo-item { display: flex; align-items: center; gap: 12px; }
+  .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
+    background: #f1f3f5; }
+  .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
+  .photo-copy { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px; }
+  .photo-copy.done { background: #e6f8ee; color: #03a353; }
+  .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -83,7 +97,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="테팔 믹서기 BL439DKR, 32% 할인가 8만원대 지금이 살 때인 이유"><span class="tp-num">1</span><span class="tp-text">테팔 믹서기 BL439DKR, 32% 할인가 8만원대 지금이 살 때인 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="믹서기 유리통 흠집 안 보고 사면 손해, 테팔 BL439DKR 메탈 소재로 정리"><span class="tp-num">2</span><span class="tp-text">믹서기 유리통 흠집 안 보고 사면 손해, 테팔 BL439DKR 메탈 소재로 정리</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="주방 가전 고르는 기준 총정리, 유리믹서기 BL439DKR로 확인하기 (신혼가전 추천)"><span class="tp-num">3</span><span class="tp-text">주방 가전 고르는 기준 총정리, 유리믹서기 BL439DKR로 확인하기 (신혼가전 추천)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -94,6 +108,52 @@
       <li><a href="https://blog.naver.com/grufinal/224337662124" target="_blank" rel="noopener noreferrer">테팔 유리믹서기 BL439DKR 솔직 사용기</a></li>
   </ol>
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="photos">
+  <h2>사진 5장</h2>
+  <p class="note">본문을 붙여넣은 뒤, 본문 속 <b>[사진 N 넣기]</b> 자리에 아래 사진을 하나씩 복사해 넣으세요. 이렇게 넣어야 네이버에 실제로 업로드돼 <b>대표 이미지로 지정</b>할 수 있습니다.</p>
+  <ul>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_8796541/87965411591.13.jpg" alt="테팔 믹서기 상세 스펙 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 1</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8796541/87965411591.13.jpg" data-n="1">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8796541/87965411591.13.jpg" download="photo-1.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5307525/53075253539.20260807140823.jpg" alt="테팔 믹서기 크기 비교 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 2</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5307525/53075253539.20260807140823.jpg" data-n="2">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5307525/53075253539.20260807140823.jpg" download="photo-2.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5657493/56574939888.jpg" alt="테팔 믹서기 제품 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 3</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5657493/56574939888.jpg" data-n="3">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5657493/56574939888.jpg" download="photo-3.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5081497/50814979230.1.jpg" alt="테팔 믹서기 크기 비교 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 4</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5081497/50814979230.1.jpg" data-n="4">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5081497/50814979230.1.jpg" download="photo-4.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img src="https://shopping-phinf.pstatic.net/main_5982938/59829383257.jpg" alt="테팔 믹서기 제품 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 5</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5982938/59829383257.jpg" data-n="5">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5982938/59829383257.jpg" download="photo-5.jpg">저장</a>
+        </div>
+      </li>
+  </ul>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">아침에 스무디 하나 만들려고 믹서기를 꺼냈는데,</p><p style="text-align:center;margin:0;color:#000000;">통에서 플라스틱 냄새가 올라온 적 있으실 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">몇 번 쓰고 나면 유리통도 아니고 플라스틱통은 뿌옇게</p><p style="text-align:center;margin:0;color:#000000;">흠집이 남고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세척할 때마다 이염 걱정에 손이 더 가는 경우도 많으실</p><p style="text-align:center;margin:0;color:#000000;">텐데,</p><p style="text-align:center;margin:0;color:#000000;">이번에 소개할 테팔 믹서기 BL439DKR은 이런</p><p style="text-align:center;margin:0;color:#000000;">부분을 신경 써서 설계한 모델입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8796541/87965411591.13.jpg" alt="테팔 믹서기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">테팔 블렌드포스 플러스 글라스 메탈 BL439DKR, 어떤 제품인가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 118,000원인 제품이 지금 32% 할인된</p><p style="text-align:center;margin:0;color:#000000;">80,000원에 나와 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">3만 8천원 정도 차이가 나는 셈이라,</p><p style="text-align:center;margin:0;color:#000000;">같은 라인업을 알아보고 계셨다면 가격만으로도</p><p style="text-align:center;margin:0;color:#000000;">눈여겨볼 만합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이름에 붙은 &#39;글라스 메탈&#39;이라는 표현에서 짐작하실 수</p><p style="text-align:center;margin:0;color:#000000;">있듯,</p><p style="text-align:center;margin:0;color:#000000;">통 소재와 본체 마감에 신경을 쓴 제품이라는</p><p style="text-align:center;margin:0;color:#000000;">점이 특징입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5307525/53075253539.20260807140823.jpg" alt="테팔 믹서기 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">유리통과 메탈 소재, 왜 신경 써야 할까요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">믹서기를 오래 쓰다 보면 통 소재가 생각보다 중요하다는</p><p style="text-align:center;margin:0;color:#000000;">걸 느끼게 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">플라스틱 통은 가볍긴 하지만 시간이 지나면 흠집이</p><p style="text-align:center;margin:0;color:#000000;">생기고, 그 틈으로 냄새나 색이 배는 경우가 많습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">유리 소재는 세척 후에도 표면이 매끈하게 유지되고,</p><p style="text-align:center;margin:0;color:#000000;">음식물 냄새가 남을 걱상이 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">본체 부분에 메탈 소재를 적용한 것도</p><p style="text-align:center;margin:0;color:#000000;">마찬가지 이유입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주방에 오래 두는 가전일수록 소재가 시간을 어떻게</p><p style="text-align:center;margin:0;color:#000000;">견디는지가 실제 만족도를 가릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">플라스틱 재질 믹서기를 몇 년째 쓰고 계시다면,</p><p style="text-align:center;margin:0;color:#000000;">통 상태부터 한번 확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5657493/56574939888.jpg" alt="테팔 믹서기 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">통 갈리고 냄새 배는 믹서기,<br>이제 바꿀 때 됐다면 지금 할인가 어떻게 적용되는지<br>아래에서 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xQJU7Rok</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이럴 때 특히 고려해볼 만합니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">매일 아침 스무디나 주스를 만들어 드시는 분.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이유식이나 죽처럼 곱게 갈아야 하는 요리를</p><p style="text-align:center;margin:0;color:#000000;">자주 하시는 분.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기존 믹서기 통에 흠집이나 냄새가 심해져 교체를</p><p style="text-align:center;margin:0;color:#000000;">고민하고 계신 분.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">신혼 가전을 준비하며 오래 쓸 제품을 찾고 계신</p><p style="text-align:center;margin:0;color:#000000;">분이라면 소재 부분을 눈여겨보실 필요가 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 아주 가끔,</p><p style="text-align:center;margin:0;color:#000000;">얼음 정도만 가는 용도로 찾으신다면 이 정도 스펙의</p><p style="text-align:center;margin:0;color:#000000;">제품까지는 필요 없을 수도 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5081497/50814979230.1.jpg" alt="테팔 믹서기 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격대와 구매 시점 판단</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드,</p><p style="text-align:center;margin:0;color:#000000;">같은 라인업 안에서도 소재나 옵션에 따라 가격 차이가</p><p style="text-align:center;margin:0;color:#000000;">꽤 나는 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 118,000원과 지금 가격 80,000원 사이의</p><p style="text-align:center;margin:0;color:#000000;">차이는 결국 소재와 마감에 대한 투자로</p><p style="text-align:center;margin:0;color:#000000;">볼 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5982938/59829383257.jpg" alt="테팔 믹서기 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">오래 쓸 주방 가전은 초기 가격보다<br>소재 내구성을 먼저<br>따져보는 게 낫습니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 쓰는 믹서기 통에 흠집이 많거나,</p><p style="text-align:center;margin:0;color:#000000;">세척 후에도 냄새가 남는다면 교체 시점이 이미 온</p><p style="text-align:center;margin:0;color:#000000;">걸로 봐도 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">할인가가 언제까지 이어질지는 정해져 있지 않으니,</p><p style="text-align:center;margin:0;color:#000000;">교체를 고민 중이셨다면 가격과 조건을 지금 한번</p><p style="text-align:center;margin:0;color:#000000;">살펴보시는 게 도움이 될 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주방 가전은 매번 새로 알아보기 번거로운 물건이라,</p><p style="text-align:center;margin:0;color:#000000;">이번에 소재까지 꼼꼼히 따져서 결정해두시면 한동안은</p><p style="text-align:center;margin:0;color:#000000;">신경 쓸 일이 줄어들 겁니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아침마다 믹서기 앞에서 스트레스 받는 일,<br>여기서 끝내보세요.<br>할인 적용된 가격은 아래 링크에서 바로<br>확인 가능합니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 테팔 블렌드포스 플러스 글라스 메탈 BL439DKR 유리믹서기<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xQJU7Rok</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#테팔블렌드포스 #유리믹서기 #믹서기추천 #테팔믹서기 #블렌더추천 #BL439DKR #스무디만들기 #과일주스기 #글라스블렌더 #건강주스믹서기</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -274,6 +334,30 @@ https://naver.me/xQJU7Rok
     sel.addRange(range);
   }
 
+  // The body without its photos, each one replaced by the marker the plain-text flavour
+  // already uses. Naver keeps a pasted <img src="https://…"> as a remote reference and never
+  // uploads the file, so those images arrive with no 대표 button, no search thumbnail, and
+  // do not count as photos on the post — they looked fine while being useless. Sending the
+  // spot instead, and the real bitmap separately from the 사진 strip, is what gets a photo
+  // Naver actually stores.
+  //
+  // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
+  // markup this page has already proven pastes correctly; the only edit is the swap.
+  function bodyHtmlForPaste() {
+    var clone = post.cloneNode(true);
+    var imgs = clone.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var p = document.createElement('p');
+      p.setAttribute('style', 'text-align:center;margin:0;');
+      var span = document.createElement('span');
+      span.setAttribute('style', 'color:#999999;');
+      span.textContent = '[사진 ' + (i + 1) + ' 넣기]';
+      p.appendChild(span);
+      imgs[i].parentNode.replaceChild(p, imgs[i]);
+    }
+    return clone.innerHTML;
+  }
+
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
     // Built via DOM APIs (not string concatenation) so the title's own text is safely
@@ -293,7 +377,7 @@ https://naver.me/xQJU7Rok
     var titleGap = document.createElement('p');
     titleGap.setAttribute('style', 'margin:0;');
     titleGap.innerHTML = '<br>';
-    var html = titleP.outerHTML + titleGap.outerHTML + post.innerHTML;
+    var html = titleP.outerHTML + titleGap.outerHTML + bodyHtmlForPaste();
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
     var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
@@ -351,6 +435,50 @@ https://naver.me/xQJU7Rok
       copyPlainText(document.getElementById('productNameText').textContent, '제품명');
     });
   }
+
+  // A photo as an actual bitmap on the clipboard, which is what makes Naver upload it to its
+  // own storage — the whole point of the 사진 strip. PNG because it is the only image type
+  // browsers will put on the clipboard; the source JPEG is redrawn through a canvas to get
+  // there. The page and its images share an origin, so the canvas is never tainted.
+  function pngBlob(src) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        var c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/png');
+      };
+      img.onerror = function () { reject(new Error('load')); };
+      img.src = src;
+    });
+  }
+
+  var photoBtns = document.querySelectorAll('.photo-copy');
+  Array.prototype.forEach.call(photoBtns, function (btn) {
+    btn.addEventListener('click', function () {
+      say('');
+      var n = btn.getAttribute('data-n');
+      if (!(navigator.clipboard && window.ClipboardItem)) {
+        say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        return;
+      }
+      // ClipboardItem is handed the pending Promise rather than an awaited Blob: Safari
+      // rejects a write() that is not issued in the same tick as the click.
+      navigator.clipboard
+        .write([new ClipboardItem({ 'image/png': pngBlob(btn.getAttribute('data-src')) })])
+        .then(function () {
+          Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
+          btn.classList.add('done');
+          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 [사진 ' + n + ' 넣기] 자리에 붙여넣으세요.');
+        })
+        .catch(function () {
+          say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        });
+    });
+  });
 
   // Publish status has no backend to live in on a static site — tracked in this browser's
   // localStorage instead, keyed by this exact page's path so the list pages (which resolve
