@@ -54,7 +54,8 @@
   #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
   .photo-item { display: flex; align-items: center; gap: 12px; }
   .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
-    background: #f1f3f5; }
+    background: #f1f3f5; cursor: grab; }
+  .photo-item img:active { cursor: grabbing; }
   .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
   .photo-copy { background: #eef4ff; color: #2563eb; padding: 9px 16px; font-size: 13.5px; }
@@ -120,21 +121,25 @@
 </div>
 <div id="photos">
   <h2>사진 4장</h2>
-  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 셋 중 편한 쪽으로 넣으세요.</p>
   <div class="photo-ways">
     <div class="photo-way">
-      <b>방법 1 · 한 번에 올리기</b>
-      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
-      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+      <b>방법 1 · 끌어다 놓기 (가장 빠름)</b>
+      <span>이 창과 네이버 편집기를 나란히 놓고, 아래 사진을 본문의 <b>[사진 N 넣기]</b> 자리로 <b>바로 끌어다 놓으세요</b>. 놓는 자리에 그대로 올라가서 옮길 일이 없습니다.</span>
     </div>
     <div class="photo-way">
-      <b>방법 2 · 자리마다 하나씩</b>
+      <b>방법 2 · 한 번에 내려받아 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
+      <span>네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어가지만, 전부 커서 자리에 쌓이므로 3장은 손으로 옮겨야 합니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 3 · 하나씩 복사해 붙여넣기</b>
       <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
     </div>
   </div>
   <ul>
       <li class="photo-item">
-        <img src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" alt="LG전자 TV 상세 스펙 이미지" loading="lazy">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" alt="LG전자 TV 상세 스펙 이미지" draggable="true" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" data-n="1">사진 복사</button>
@@ -142,7 +147,7 @@
         </div>
       </li>
       <li class="photo-item">
-        <img src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" alt="LG전자 TV 크기 비교 이미지" loading="lazy">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" alt="LG전자 TV 크기 비교 이미지" draggable="true" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" data-n="2">사진 복사</button>
@@ -150,7 +155,7 @@
         </div>
       </li>
       <li class="photo-item">
-        <img src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" alt="LG전자 TV 사용 예시 이미지" loading="lazy">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" alt="LG전자 TV 사용 예시 이미지" draggable="true" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" data-n="3">사진 복사</button>
@@ -158,7 +163,7 @@
         </div>
       </li>
       <li class="photo-item">
-        <img src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" alt="LG전자 TV 상세 스펙 이미지" loading="lazy">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" alt="LG전자 TV 상세 스펙 이미지" draggable="true" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" data-n="4">사진 복사</button>
@@ -550,6 +555,41 @@ https://naver.me/G6RL4V4T
       img.src = src;
     });
   }
+
+  // Dragging a thumbnail into the editor carries the actual file, which is what makes Naver
+  // upload it — the same path as picking it with 사진, except it lands where it was dropped,
+  // so nothing has to be moved afterwards. This is the cheapest route available: pasting the
+  // body and bulk-inserting still leaves every photo but the first sitting in the wrong place.
+  //
+  // The files are fetched up front because dragstart is synchronous — there is no chance to
+  // await anything once the drag has begun. They are small (a post's photos total 100~170KB),
+  // so loading them on open costs nothing noticeable.
+  var photoFiles = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.photo-item'), function (li) {
+    var link = li.querySelector('.photo-save');
+    var thumb = li.querySelector('.photo-thumb');
+    if (!link || !thumb) return;
+    var src = link.getAttribute('href');
+    fetch(src)
+      .then(function (r) { return r.blob(); })
+      .then(function (blob) {
+        photoFiles[src] = new File([blob], link.getAttribute('download'), {
+          type: blob.type || 'image/jpeg',
+        });
+      })
+      .catch(function () {});
+    thumb.addEventListener('dragstart', function (e) {
+      var file = photoFiles[src];
+      if (!file || !e.dataTransfer) return;
+      try {
+        e.dataTransfer.items.add(file);
+        e.dataTransfer.effectAllowed = 'copy';
+      } catch (err) {
+        // items.add isn't available everywhere; the browser's own image drag still happens,
+        // which some editors accept, and the 복사/저장 buttons remain either way.
+      }
+    });
+  });
 
   // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
   // multi-selection in filename order — drops them into the post in the order they appear
