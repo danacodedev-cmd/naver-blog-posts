@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="미닉스 건조기 3.5kg PRO+ 후기 대신 스펙으로 따져본 원룸용 소형 건조기 선택 (329,000원 37% 할인)"><span class="tp-num">1</span><span class="tp-text">미닉스 건조기 3.5kg PRO+ 후기 대신 스펙으로 따져본 원룸용 소형 건조기 선택 (329,000원 37% 할인)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="빨래 널 곳 없어서 매번 고민이라면? 미닉스 3.5kg으로 끝내는 법 (자취생 필수템)"><span class="tp-num">2</span><span class="tp-text">빨래 널 곳 없어서 매번 고민이라면? 미닉스 3.5kg으로 끝내는 법 (자취생 필수템)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="건조기 용량 숫자만 보고 사면 후회한다는데, 미닉스 3.5kg은 어떨까 (소량 빨래 확인법)"><span class="tp-num">3</span><span class="tp-text">건조기 용량 숫자만 보고 사면 후회한다는데, 미닉스 3.5kg은 어떨까 (소량 빨래 확인법)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 5장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shopping-phinf.pstatic.net/main_5359713/53597132701.20260728172946.jpg" alt="미닉스 건조기 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5359713/53597132701.20260728172946.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5359713/53597132701.20260728172946.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5359713/53597132701.20260728172946.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8841533/88415339810.6.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8841533/88415339810.6.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8841533/88415339810.6.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,7 +156,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5567601/55676015182.2.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5567601/55676015182.2.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5567601/55676015182.2.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -145,7 +164,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9073950/90739506263.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9073950/90739506263.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9073950/90739506263.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -153,10 +172,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9106717/91067176765.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9106717/91067176765.jpg" download="photo-5.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9106717/91067176765.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">세탁기 다 돌렸는데 널 데가 없어서 빨래를 그냥 세탁기</p><p style="text-align:center;margin:0;color:#000000;">안에 두고 하루 넘긴 적 있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">원룸이나 자취방은 건조대 펼 자리도 마땅치 않아서</p><p style="text-align:center;margin:0;color:#000000;">장마철엔 더 답답해지죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 상황에서 많이 찾는 게 소형 건조기인데,</p><p style="text-align:center;margin:0;color:#000000;">오늘은 미닉스 3.5kg PRO+를 스펙 기준으로</p><p style="text-align:center;margin:0;color:#000000;">정리해봤습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5359713/53597132701.20260728172946.jpg" alt="미닉스 건조기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">3.5kg 용량, 세탁기 기준으로 보면 안 됩니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">건조기 용량은 세탁기랑 다르게 봐야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세탁기는 무게 기준이지만 건조기는 부피가</p><p style="text-align:center;margin:0;color:#000000;">더 중요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">3kg대 용량은 속옷, 양말,</p><p style="text-align:center;margin:0;color:#000000;">아기옷처럼 얇고 작은 빨래에 맞는 사이즈예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">수건 여러 장이나 두꺼운 후드를 넣으면 표기 용량보다</p><p style="text-align:center;margin:0;color:#000000;">훨씬 적게 들어갑니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그러니 사기 전에 &quot;내가 한 번에 뭘 말릴 건지&quot;부터</p><p style="text-align:center;margin:0;color:#000000;">생각해보시는 게 순서예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이불이나 겨울 옷을 자주 말리는 분이라면 이 용량은</p><p style="text-align:center;margin:0;color:#000000;">부족할 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8841533/88415339810.6.jpg" alt="미닉스 건조기 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">배수 방식과 필터, 사기 전에 꼭 볼 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소형 건조기는 배수 방식에 따라 관리 부담이</p><p style="text-align:center;margin:0;color:#000000;">꽤 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">자동배수인지,</p><p style="text-align:center;margin:0;color:#000000;">물통을 직접 비워야 하는지 구매 전에</p><p style="text-align:center;margin:0;color:#000000;">확인해두시는 게 좋아요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필터 청소 주기도 마찬가지입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필터를 제때 안 비우면 건조 시간이 점점 길어지거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미닉스 3.5kg PRO+는 필터와 센서 구성이 소형</p><p style="text-align:center;margin:0;color:#000000;">건조기 기준에 맞춰져 있는 제품이라 이 부분을 살펴보고</p><p style="text-align:center;margin:0;color:#000000;">결정하시면 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5567601/55676015182.2.jpg" alt="미닉스 건조기 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">큰 건조기 놓을 자리가 없다면,<br>용량보다 관리 방식부터 확인하는<br>게 먼저입니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">수건이랑 속옷 마를 때까지 기다리는 그 시간,</p><p style="text-align:center;margin:0;color:#000000;">지금 어떤 상태인지 링크에서 확인해보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">수건이랑 속옷 마를 때까지 기다리는 그 시간,<br>지금 어떤 상태인지 링크에서 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xsZinhYP</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 경우엔 잘 맞고, 이런 경우엔 안 맞습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">자취나 원룸처럼 큰 건조기 놓을 자리가 없는 경우.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">아기옷이나 속옷처럼 소량을 자주,</p><p style="text-align:center;margin:0;color:#000000;">빠르게 말리고 싶은 경우.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">장마철에 널 곳이 없어서 급하게 말려야 하는 경우.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 상황이면 3.5kg 건조기가 딱 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 가족 단위로 세탁물이 많거나 이불,</p><p style="text-align:center;margin:0;color:#000000;">두꺼운 겨울 옷을 자주 말리신다면 대형 건조기 쪽을</p><p style="text-align:center;margin:0;color:#000000;">알아보시는 게 낫습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9073950/90739506263.jpg" alt="미닉스 건조기 추가 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격으로 따져보는 지금 조건</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 519,000원에서 37% 할인된</p><p style="text-align:center;margin:0;color:#000000;">329,000원에 나와 있는 상태입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 카테고리 안에서도 가격대가 다양하게 갈리는</p><p style="text-align:center;margin:0;color:#000000;">편인데,</p><p style="text-align:center;margin:0;color:#000000;">지금 조건이 어느 정도 위치인지는 직접 비교해보시는</p><p style="text-align:center;margin:0;color:#000000;">게 정확합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">할인이 언제까지 이어질지는 저도 확실히 말씀드리기</p><p style="text-align:center;margin:0;color:#000000;">어려워서,</p><p style="text-align:center;margin:0;color:#000000;">필요하신 분은 미루지 말고 한 번 들어가서</p><p style="text-align:center;margin:0;color:#000000;">살펴보시길 권합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9106717/91067176765.jpg" alt="미닉스 건조기 구성품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결론은 결국 이 질문 하나입니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번에 말릴 게 소량인가요,</p><p style="text-align:center;margin:0;color:#000000;">아니면 이불처럼 큰 것도 섞여 있나요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소량 위주로 자주 돌리는 쪽이라면 자취방에서 쓰기 딱</p><p style="text-align:center;margin:0;color:#000000;">맞는 용도입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이불이나 두꺼운 옷 비중이 크다면 이 용량으로는 부족할</p><p style="text-align:center;margin:0;color:#000000;">수 있으니 대형 건조기 쪽을 먼저</p><p style="text-align:center;margin:0;color:#000000;">알아보시길 권해드립니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">널 곳 없어서 빨래 미루는 습관,</p><p style="text-align:center;margin:0;color:#000000;">이번엔 정리해보시는 게 어떨까요.</p><p style="text-align:center;margin:0;color:#000000;">자세한 구성은 아래에서 확인 가능합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">널 곳 없어서 빨래 미루는 습관,<br>이번엔 정리해보시는 게 어떨까요.<br>자세한 구성은 아래에서 확인 가능합니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 미닉스 미니건조기 3.5kg PRO+빨래 소형 원룸 수건 아기옷 살균<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xsZinhYP</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#미니건조기소형 #3.5kg건조기 #원룸건조기 #소형의류건조기 #미니건조기추천 #건조기소형살균 #수건건조기 #아기옷건조기</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -352,40 +372,14 @@ https://naver.me/xsZinhYP
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -475,10 +469,10 @@ https://naver.me/xsZinhYP
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -531,6 +525,29 @@ https://naver.me/xsZinhYP
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

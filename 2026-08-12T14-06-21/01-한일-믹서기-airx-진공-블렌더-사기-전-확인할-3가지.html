@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지"><span class="tp-num">1</span><span class="tp-text">한일 믹서기 AirX 진공 블렌더, 사기 전 확인할 3가지</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까"><span class="tp-num">2</span><span class="tp-text">믹서기 자주 바꾸는 이유, 한일 AirX 진공 블렌더로 끝낼 수 있을까</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)"><span class="tp-num">3</span><span class="tp-text">한일 믹서기 AirX 초고속 진공 블렌더 (대가족·자취 겸용 대용량 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -112,18 +120,30 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 1장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 1장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 1장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 1장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" alt="한일 믹서기 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">아침에 바나나랑 두유 넣고 갈다가</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">믹서기 뚜껑 틈으로 다 튀어본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거품만 잔뜩 생기고 재료는 안 갈리고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">설거지거리만 늘어난 그 기억.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한일 믹서기 AirX 초고속 진공 블렌더는</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 상황을 겨냥해서 나온 제품입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 매일 갈아 마시는 사람이나</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대가족이라 한 번에 많이 만들어야 하는 집에 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">하루 한두 번, 소량만 가는 1인 가구라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">굳이 대용량·진공 기능까지 필요한지는</p><p style="text-align:center;margin:0;color:#000000;">따져봐야 합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T14-06-21/img/01-1.jpg" alt="한일 믹서기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 진공 블렌더가 다른 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 대용량, 누구한테 필요한가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 뜨거운 재료, 그냥 넣어도 될까</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 26년형 신제품이라는 점</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">진공 블렌더가 다른 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 믹서기는 재료를 갈 때 공기가 같이 섞입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 스무디를 만들면 거품이 뜨고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">색이 빨리 변하고, 맛도 묻힙니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 블렌더는 믹싱 전에 통 안 공기를 빼는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">산화를 줄여서 재료 본연의 색과 맛이</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">더 오래, 더 진하게 남는 구조입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과일·채소를 많이 넣는 분들에게 체감이</p><p style="text-align:center;margin:0;color:#000000;">큰 부분입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">대용량, 누구한테 필요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대형·대용량으로 나온 제품인 만큼</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번에 갈 수 있는 양이</p><p style="text-align:center;margin:0;color:#000000;">일반형보다 넉넉합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족이 많거나, 한 번 갈아서 며칠 나눠 먹는 방식이면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 용량이 오히려 시간을 줄여줍니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 매번 한 컵 정도만 마신다면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">큰 통을 씻는 수고가 더 크게 느껴질 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">용량은 실사용 패턴과 맞춰서 판단하시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아침마다 갈아 마시는 게 습관이라면<br>재료 손질부터 세척까지 얼마나 줄어드는지 직접<br>보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GFsz6oHN</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">뜨거운 재료, 그냥 넣어도 될까</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">뜨거운 국물이나 갓 삶은 재료를</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바로 넣고 돌리면 통 안 압력이 올라가면서</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과열되거나 뚜껑이 들뜨는 위험이 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 블렌더일수록 밀폐가 잘 되기 때문에</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 부분은 더 신경 써야 하는 지점입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">뜨거운 재료는 한 김 식히고 넣거나,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">중간중간 멈춰서 열을 빼주는 습관이 필요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">작은 습관이지만 모터와 통 수명에</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">직접 영향을 주는 부분이라 그냥 넘기지</p><p style="text-align:center;margin:0;color:#000000;">않는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">26년형 신제품이라는 점</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기존 모델을 써보다가 바꾸는 경우라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이번 신제품이 어떤 부분을 개선했는지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">먼저 확인하는 게 순서입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드라도 연식이 바뀌면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칼날 구조나 진공 방식이 달라지는 경우가 있어서,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">신제품이라는 이유만으로 무조건 낫다고</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">단정하기보다는 실제 구성을 살펴보는 편이 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격은 한일공식스토어 기준으로 확인하는 게</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가장 정확합니다. 정가 대비 얼마나 내려왔는지가</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 제품을 지금 살지, 다음 할인을 기다릴지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결정하는 실질적인 기준이 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">매일 쓰는 가전일수록,<br>한 번 잘 고르는 게</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">나중에 바꾸는 것보다<br>훨씬 이득입니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주방에서 매일 손이 가는 가전이라면</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">진공 기능과 용량이 실생활에서 어떻게 쓰이는지</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미리 그려보고 결정하시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">매번 씻기 귀찮아서 미루던 그 스무디,<br>이번엔 제대로 된 걸로 시작해보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 한일 믹서기 초고속 진공 블렌더 대형 대용량 AirX 26년 신제품<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GFsz6oHN</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#한일믹서기초고속 #진공블렌더추천 #대용량믹서기 #한일블렌더가격 #초고속블렌더비교 #대형믹서기추천 #블렌더대용량 #한일AirX #믹서기용량추천 #진공믹서기효과</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -348,40 +368,14 @@ https://naver.me/GFsz6oHN
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -471,10 +465,10 @@ https://naver.me/GFsz6oHN
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -527,6 +521,29 @@ https://naver.me/GFsz6oHN
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

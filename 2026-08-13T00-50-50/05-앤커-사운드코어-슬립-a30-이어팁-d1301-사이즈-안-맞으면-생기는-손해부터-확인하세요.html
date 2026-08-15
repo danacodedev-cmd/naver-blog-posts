@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,21 +107,32 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="앤커 사운드코어 슬립 A30 이어팁 D1301, 사이즈 안 맞으면 생기는 손해부터 확인하세요"><span class="tp-num">1</span><span class="tp-text">앤커 사운드코어 슬립 A30 이어팁 D1301, 사이즈 안 맞으면 생기는 손해부터 확인하세요</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="옆으로 누워 자면 귀 아픈 이유, 이어팁 하나로 갈릴까요 (사이드슬리퍼용 앤커 D1301)"><span class="tp-num">2</span><span class="tp-text">옆으로 누워 자면 귀 아픈 이유, 이어팁 하나로 갈릴까요 (사이드슬리퍼용 앤커 D1301)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="슬립 A30 이어팁, 어떤 사이즈로 갈아야 통증 없이 잘까"><span class="tp-num">3</span><span class="tp-text">슬립 A30 이어팁, 어떤 사이즈로 갈아야 통증 없이 잘까</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
 
 <div id="photos">
-  <h2>사진 4장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 4장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-1.jpg" alt="앤커 제품 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -121,7 +140,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,10 +156,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">자기 전 이어폰 끼고 누웠는데</p><p style="text-align:center;margin:0;color:#000000;">옆으로 돌아눕자마자</p><p style="text-align:center;margin:0;color:#000000;">귀가 눌려서 다시 똑바로 누운 적,</p><p style="text-align:center;margin:0;color:#000000;">있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사운드코어 슬립 A30을 산 뒤에도</p><p style="text-align:center;margin:0;color:#000000;">이 문제로 결국 서랍에 넣어두는 분들이</p><p style="text-align:center;margin:0;color:#000000;">꽤 많습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">원인은 본체가 아니라</p><p style="text-align:center;margin:0;color:#000000;">귀에 직접 닿는 이어팁인 경우가</p><p style="text-align:center;margin:0;color:#000000;">대부분입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-1.jpg" alt="앤커 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 이어팁만 바꿔서 해결되는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 사기 전에 확인할 것</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 이런 분들은 다시 생각해볼 이유가 있습니다</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이어팁만 바꿔서 해결되는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">슬립 A30 본체 설계는 그대로 두고</p><p style="text-align:center;margin:0;color:#000000;">귀에 닿는 부분만 실리콘 재질로</p><p style="text-align:center;margin:0;color:#000000;">다시 맞추는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기본 구성품 이어팁이 귀 모양과</p><p style="text-align:center;margin:0;color:#000000;">안 맞으면 아무리 좋은 이어폰도</p><p style="text-align:center;margin:0;color:#000000;">장시간 착용이 힘듭니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">특히 옆으로 눕는 자세에서는</p><p style="text-align:center;margin:0;color:#000000;">귀 안쪽으로 눌리는 압력이</p><p style="text-align:center;margin:0;color:#000000;">그대로 통증으로 이어지거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">D1301은 이 압력을 분산시키는</p><p style="text-align:center;margin:0;color:#000000;">쪽에 초점을 맞춘 전용 실리콘</p><p style="text-align:center;margin:0;color:#000000;">이어팁입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-2.jpg" alt="앤커 제품 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 확인할 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이어팁은 본체와 별개로 판매되는</p><p style="text-align:center;margin:0;color:#000000;">소모품 성격이 강합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">귀지나 피지가 묻으면 위생상</p><p style="text-align:center;margin:0;color:#000000;">주기적으로 교체가 필요하고</p><p style="text-align:center;margin:0;color:#000000;">사이즈도 사람마다 다릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한쪽 귀에는 맞는데 반대쪽은</p><p style="text-align:center;margin:0;color:#000000;">헐렁하거나 뻑뻑한 경우도</p><p style="text-align:center;margin:0;color:#000000;">흔하게 생깁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 구매 전에는 본인 귀가</p><p style="text-align:center;margin:0;color:#000000;">크다고 느끼는지, 작다고</p><p style="text-align:center;margin:0;color:#000000;">느끼는지부터 먼저 판단해보시는 게</p><p style="text-align:center;margin:0;color:#000000;">순서에 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 279,990원에서 29% 내려와</p><p style="text-align:center;margin:0;color:#000000;">199,000원에 나와 있는 지금,</p><p style="text-align:center;margin:0;color:#000000;">이어팁 문제로 슬립 A30을 못 쓰고</p><p style="text-align:center;margin:0;color:#000000;">있었다면 가격 부담은 상대적으로</p><p style="text-align:center;margin:0;color:#000000;">작은 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-3.jpg" alt="앤커 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">옆으로 누워도 안 배기는 사이즈,<br>지금 쓰는 이어팁이랑 비교해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GcAlHNQv</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 분들은 다시 생각해볼 이유가 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이미 기본 이어팁으로도</p><p style="text-align:center;margin:0;color:#000000;">숙면에 문제가 없었다면</p><p style="text-align:center;margin:0;color:#000000;">굳이 추가할 필요는 없습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 귀 통증 때문에</p><p style="text-align:center;margin:0;color:#000000;">슬립 A30 자체를 안 쓰고</p><p style="text-align:center;margin:0;color:#000000;">있었다면 얘기가 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">본체 성능과 별개로</p><p style="text-align:center;margin:0;color:#000000;">착용감 하나 때문에 비싼 이어폰을</p><p style="text-align:center;margin:0;color:#000000;">못 쓰는 건 그 자체로 손해입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/05-4.jpg" alt="앤커 제품 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">통증은 본체가 아니라<br>팁 사이즈 문제인<br>경우가 많습니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">옆으로 누워 자는 습관이 있고</p><p style="text-align:center;margin:0;color:#000000;">지금 쓰는 이어팁이 헐렁하거나</p><p style="text-align:center;margin:0;color:#000000;">빡빡하게 눌린다는 느낌이 있다면</p><p style="text-align:center;margin:0;color:#000000;">교체부터 먼저 해보시는 편이</p><p style="text-align:center;margin:0;color:#000000;">순서상 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">귀 통증 때문에 슬립 A30을<br>포기할 뻔했다면,<br>이어팁부터 바꿔보고 판단해도 늦지 않습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 앤커 사운드코어 슬립 A30 실리콘 이어팁 D1301<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GcAlHNQv</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#앤커사운드코어슬립A30이어팁 #사운드코어A30호환이어팁 #무선이어폰이어팁교체 #실리콘이어팁추천 #앤커이어폰이어팁호환 #이어팁사이즈선택 #편한이어팁 #이어폰음질개선 #이어팁교체비용 #귀에잘맞는이어팁</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -307,40 +327,14 @@ https://naver.me/GcAlHNQv
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -430,10 +424,10 @@ https://naver.me/GcAlHNQv
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -486,6 +480,29 @@ https://naver.me/GcAlHNQv
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

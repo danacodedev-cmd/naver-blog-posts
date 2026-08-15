@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="삼성전자 노트북 NT750XHW-A51A 대학생 사무용으로 괜찮은지 가격까지 확인해봤습니다"><span class="tp-num">1</span><span class="tp-text">삼성전자 노트북 NT750XHW-A51A 대학생 사무용으로 괜찮은지 가격까지 확인해봤습니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="노트북 살 때마다 성능표 보고 후회하셨다면? 갤럭시북5 U5 16GB 조합 뜯어봤습니다"><span class="tp-num">2</span><span class="tp-text">노트북 살 때마다 성능표 보고 후회하셨다면? 갤럭시북5 U5 16GB 조합 뜯어봤습니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="노트북 스펙 뭘 봐야 할지 모르겠다면 이 기준으로 정리해봤습니다 (대학생 사무용 추천)"><span class="tp-num">3</span><span class="tp-text">노트북 스펙 뭘 봐야 할지 모르겠다면 이 기준으로 정리해봤습니다 (대학생 사무용 추천)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -111,15 +119,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 5장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shopping-phinf.pstatic.net/main_9071130/90711306761.jpg" alt="삼성전자 노트북 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9071130/90711306761.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9071130/90711306761.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9071130/90711306761.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -127,7 +146,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5817689/58176897915.20251217162252.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5817689/58176897915.20251217162252.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5817689/58176897915.20251217162252.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -135,7 +154,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9024999/90249994753.9.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9024999/90249994753.9.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9024999/90249994753.9.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -143,7 +162,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9074288/90742884090.1.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9074288/90742884090.1.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9074288/90742884090.1.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -151,10 +170,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9071122/90711224025.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9071122/90711224025.jpg" download="photo-5.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9071122/90711224025.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">노트북 하나 사려고 마음먹었는데 막상 사이트 들어가면</p><p style="text-align:center;margin:0;color:#000000;">스펙표 앞에서 멈추게 되는 경우 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">CPU 세대, 메모리 용량,</p><p style="text-align:center;margin:0;color:#000000;">저장 공간까지 숫자만 봐서는 이게 나한테 맞는 건지</p><p style="text-align:center;margin:0;color:#000000;">감이 안 옵니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">특히 대학생 사무용으로 쓸 노트북이라면 게임용</p><p style="text-align:center;margin:0;color:#000000;">고성능보다 &quot;무겁지 않게 오래 쓸 수 있는가&quot;가</p><p style="text-align:center;margin:0;color:#000000;">더 중요한데요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">오늘은 삼성전자 갤럭시북5 NT750XHW-A51A</p><p style="text-align:center;margin:0;color:#000000;">모델을 어떤 기준으로 봐야 할지 정리해봤습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9071130/90711306761.jpg" alt="삼성전자 노트북 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">갤럭시북5 NT750XHW-A51A 기본 구성</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은 U5 프로세서에 메모리 16GB,</p><p style="text-align:center;margin:0;color:#000000;">저장공간 256GB로 구성되어 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">문서 작업, 인터넷 강의 시청,</p><p style="text-align:center;margin:0;color:#000000;">발표 자료 준비처럼 일상적인 사무·학업용 작업에는 무리</p><p style="text-align:center;margin:0;color:#000000;">없는 조합입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">16GB 메모리는 크롬 탭 여러 개 켜놓고 문서 작업</p><p style="text-align:center;margin:0;color:#000000;">병행해도 버틸 수 있는 수준이라 멀티태스킹이 잦은</p><p style="text-align:center;margin:0;color:#000000;">대학생에게 특히 체감이 될 부분입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">256GB 저장공간은 넉넉한 편은 아니지만 클라우드나</p><p style="text-align:center;margin:0;color:#000000;">외장 저장장치를 병행한다면 사무·학업용으로는</p><p style="text-align:center;margin:0;color:#000000;">충분한 용량입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5817689/58176897915.20251217162252.jpg" alt="삼성전자 노트북 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격은 이렇게 형성되어 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">확인 시점 기준으로 가격은 1,498,000원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가는 1,565,000원이고 4% 할인이</p><p style="text-align:center;margin:0;color:#000000;">적용된 가격입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노트북은 카테고리 특성상 할인율 자체보다 실구매가가</p><p style="text-align:center;margin:0;color:#000000;">얼마인지가 더 중요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 U5, 16GB,</p><p style="text-align:center;margin:0;color:#000000;">256GB 조합을 다른 판매처에서도 같이 비교해보고</p><p style="text-align:center;margin:0;color:#000000;">판단하시는 걸 추천합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9024999/90249994753.9.jpg" alt="삼성전자 노트북 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">스펙이 같다면 결국 가격과 판매처<br>조건이 결정을 좁혀줍니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">개강 전에 노트북 정해야 하는 상황이라면 지금 가격이랑<br>구성 한번 보고 결정하세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5g4TnkrF</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">대학생 사무용으로 볼 때 체크할 부분</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노트북을 살 때 흔히 하는 실수 중 하나가 스펙만 보고</p><p style="text-align:center;margin:0;color:#000000;">무게나 배터리는 나중에 확인하는 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">수업 시간마다 들고 다녀야 한다면 무게와 휴대성도</p><p style="text-align:center;margin:0;color:#000000;">스펙표 옆에 같이 놓고 봐야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">발표 자료 만들다가 배터리 부족해서 콘센트 찾아 헤맨</p><p style="text-align:center;margin:0;color:#000000;">경험 있으시다면 배터리 지속시간도 중요한 기준입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과제나 리포트 작업이 주 용도라면 고성능 그래픽보다는</p><p style="text-align:center;margin:0;color:#000000;">지금 같은 사무용 구성이 오히려 합리적입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9074288/90742884090.1.jpg" alt="삼성전자 노트북 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">판매처 확인은 이렇게 해보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 모델이라도 판매처마다 사후지원이나 배송 조건이</p><p style="text-align:center;margin:0;color:#000000;">다를 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격이 같다면 판매처 신뢰도와 구성품 표기까지 한번 더</p><p style="text-align:center;margin:0;color:#000000;">확인해보시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">개강 전에 노트북 정해야 하는 상황이라면 지금 가격이랑</p><p style="text-align:center;margin:0;color:#000000;">구성 한번 보고 결정하세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9071122/90711224025.jpg" alt="삼성전자 노트북 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결국 판단은 이 기준으로</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">스펙표에서 헷갈릴 땐 &quot;내가 하루에 이 노트북으로 뭘</p><p style="text-align:center;margin:0;color:#000000;">하는지&quot;부터 다시 그려보시는 게 낫습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">문서 작업, 인강, 발표자료가 주 용도라면 U5,</p><p style="text-align:center;margin:0;color:#000000;">16GB, 256GB 조합은 부족함 없는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">편집이나 무거운 작업이 잦다면 이 구성보다 한 단계</p><p style="text-align:center;margin:0;color:#000000;">위를 보는 게 맞고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 본인 용도가 사무·학업 쪽에 가깝다면 가격과</p><p style="text-align:center;margin:0;color:#000000;">구성만 한번 더 비교해보고 정하시면 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">아직 어떤 노트북 살지 못 정하셨다면 여기서 구성이랑</p><p style="text-align:center;margin:0;color:#000000;">가격 한번 확인해보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아직 어떤 노트북 살지 못 정하셨다면 여기서 구성이랑<br>가격 한번 확인해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 삼성전자 갤럭시북5 NT750XHW-A51A 대학생 사무용 노트북 U5 16GB 256GB<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5g4TnkrF</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#갤럭시북5NT750XHW-A51A #삼성노트북U516GB #대학생노트북추천 #사무용노트북추천 #가벼운노트북 #노트북256GB #저가노트북 #가성비노트북</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -337,40 +357,14 @@ https://naver.me/5g4TnkrF
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -460,10 +454,10 @@ https://naver.me/5g4TnkrF
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -516,6 +510,29 @@ https://naver.me/5g4TnkrF
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

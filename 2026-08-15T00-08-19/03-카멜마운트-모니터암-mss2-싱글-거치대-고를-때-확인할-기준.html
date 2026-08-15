@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="카멜마운트 모니터암 MSS2, 싱글 거치대 고를 때 확인할 기준"><span class="tp-num">1</span><span class="tp-text">카멜마운트 모니터암 MSS2, 싱글 거치대 고를 때 확인할 기준</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="책상 위 스탠드 안 치워도 되나 고민이면, 카멜마운트 MSS2 모르고 사면 손해인 이유"><span class="tp-num">2</span><span class="tp-text">책상 위 스탠드 안 치워도 되나 고민이면, 카멜마운트 MSS2 모르고 사면 손해인 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="카멜마운트 MSS2 모니터암, 이 가격이면 그냥 스탠드보다 나을까 (좁은 책상 자취방 기준)"><span class="tp-num">3</span><span class="tp-text">카멜마운트 MSS2 모니터암, 이 가격이면 그냥 스탠드보다 나을까 (좁은 책상 자취방 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,18 +121,30 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 1장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 1장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 1장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 1장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/03-1.jpg" alt="카멜마운트 모니터 출력 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/03-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/03-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/03-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">모니터 밑에 깔린 스탠드,</p><p style="text-align:center;margin:0;color:#000000;">책상 반을 차지하는데도</p><p style="text-align:center;margin:0;color:#000000;">그냥 두고 쓰신 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">키보드 앞으로 당기려면</p><p style="text-align:center;margin:0;color:#000000;">스탠드 다리에 손목이 걸리고,</p><p style="text-align:center;margin:0;color:#000000;">화면 높이는 늘 눈보다 낮고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">카멜마운트 MSS2는</p><p style="text-align:center;margin:0;color:#000000;">그 받침대를 통째로 없애는</p><p style="text-align:center;margin:0;color:#000000;">싱글 모니터암입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상에 고정하고 모니터를</p><p style="text-align:center;margin:0;color:#000000;">공중에 띄우는 방식이라</p><p style="text-align:center;margin:0;color:#000000;">발이 차지하던 자리가 그대로 빕니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 책상이 좁아서</p><p style="text-align:center;margin:0;color:#000000;">스탠드 자리조차 아까운 분한테 맞고</p><p style="text-align:center;margin:0;color:#000000;">이미 스탠드 크기가 넉넉하고</p><p style="text-align:center;margin:0;color:#000000;">높이 조절도 불편함 없는 분한테는</p><p style="text-align:center;margin:0;color:#000000;">59,000원을 더 쓸 이유가 약합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/03-1.jpg" alt="카멜마운트 모니터 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 베사홀과 클램프, 사기 전에 재보세요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 팔 하나로 뭐가 달라지나요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 이런 경우엔 굳이 안 바꾸셔도 됩니다</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 결정 전에 딱 하나만 물어보세요</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">베사홀과 클램프, 사기 전에 재보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">모니터암은 사이즈가 아니라</p><p style="text-align:center;margin:0;color:#000000;">연결부가 맞아야 설치가 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">모니터 뒤판에 베사홀이라는</p><p style="text-align:center;margin:0;color:#000000;">나사 구멍 규격이 있는데,</p><p style="text-align:center;margin:0;color:#000000;">이게 안 맞으면 암 자체를 못 답니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구매 전에 모니터 설명서에서</p><p style="text-align:center;margin:0;color:#000000;">베사홀 규격부터 확인하시고,</p><p style="text-align:center;margin:0;color:#000000;">없으면 제조사 홈페이지에서</p><p style="text-align:center;margin:0;color:#000000;">검색 한 번 해보시는 게 확실합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상 쪽은 클램프 방식인지</p><p style="text-align:center;margin:0;color:#000000;">그로멧(구멍 뚫는 방식)인지</p><p style="text-align:center;margin:0;color:#000000;">보셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상 상판 두께도 재봐야 하는데,</p><p style="text-align:center;margin:0;color:#000000;">클램프는 보통 책상 끝을</p><p style="text-align:center;margin:0;color:#000000;">집게처럼 물리는 구조라</p><p style="text-align:center;margin:0;color:#000000;">너무 두껍거나 얇으면 안 물립니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">팔 하나로 뭐가 달라지나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">MSS2는 싱글이라</p><p style="text-align:center;margin:0;color:#000000;">모니터 한 대만 올리는 구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">듀얼 모니터암처럼</p><p style="text-align:center;margin:0;color:#000000;">화면 두 개를 나란히</p><p style="text-align:center;margin:0;color:#000000;">거는 용도는 아니라는 뜻이고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대신 팔이 위아래·앞뒤로</p><p style="text-align:center;margin:0;color:#000000;">움직이니 높이를 눈높이에</p><p style="text-align:center;margin:0;color:#000000;">맞추기가 스탠드보다 훨씬 쉽습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">피벗 기능이 있으면</p><p style="text-align:center;margin:0;color:#000000;">화면을 세로로 돌려</p><p style="text-align:center;margin:0;color:#000000;">문서나 코드를 길게 볼 때도</p><p style="text-align:center;margin:0;color:#000000;">따로 돌려 끼울 필요가 없습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">화면을 옮기는 게 아니라 팔이<br>움직이는 겁니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">책상 깊이랑 베사홀 규격,<br>재보셨다면 이제 남은 건 가격 확인뿐입니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FHOKqDmZ</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 경우엔 굳이 안 바꾸셔도 됩니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 쓰는 스탠드가</p><p style="text-align:center;margin:0;color:#000000;">높이 조절도 되고</p><p style="text-align:center;margin:0;color:#000000;">책상도 넓게 쓰고 있다면</p><p style="text-align:center;margin:0;color:#000000;">59,000원을 더 들일 이유는 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">모니터를 자주 세로로 돌리지 않고,</p><p style="text-align:center;margin:0;color:#000000;">화면 위치도 이미 눈높이라면</p><p style="text-align:center;margin:0;color:#000000;">스탠드 그대로 써도 충분합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 책상 폭이 좁아서</p><p style="text-align:center;margin:0;color:#000000;">스탠드 발 때문에</p><p style="text-align:center;margin:0;color:#000000;">키보드 자리가 늘 부족했다면,</p><p style="text-align:center;margin:0;color:#000000;">그 자리 하나 비우는 것만으로도</p><p style="text-align:center;margin:0;color:#000000;">체감이 다릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 89,000원에서</p><p style="text-align:center;margin:0;color:#000000;">34% 내려온 59,000원이면</p><p style="text-align:center;margin:0;color:#000000;">모니터암 단품 가격치고는</p><p style="text-align:center;margin:0;color:#000000;">낮은 편에 속합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결정 전에 딱 하나만 물어보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상 위 스탠드 자리가</p><p style="text-align:center;margin:0;color:#000000;">지금 아깝게 느껴지시나요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그렇다면 화면을 공중에</p><p style="text-align:center;margin:0;color:#000000;">띄우는 쪽이 정답이고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">스탠드 자리가 딱히</p><p style="text-align:center;margin:0;color:#000000;">불편하지 않으셨다면</p><p style="text-align:center;margin:0;color:#000000;">지금 그대로도 무리는 없습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">모니터 밑에 받침대 자리 없애고 싶었다면,<br>여기서 구성 한 번 보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 카멜마운트 MSS2 이지밸런스 싱글 모니터 거치대 모니터암 스탠드<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FHOKqDmZ</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#모니터암추천 #싱글모니터거치대 #모니터스탠드가격 #모니터암설치 #이지밸런스모니터암 #모니터암높이조절 #모니터암vs모니터스탠드 #책상모니터거치대 #모니터암내구성 #모니터암브래킷 #사무실모니터암</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -309,40 +329,14 @@ https://naver.me/FHOKqDmZ
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -432,10 +426,10 @@ https://naver.me/FHOKqDmZ
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -488,6 +482,29 @@ https://naver.me/FHOKqDmZ
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지"><span class="tp-num">1</span><span class="tp-text">한일전자 드라이어 PD-L9350, 가벼운 BLDC 드라이기 고르기 전 확인할 3가지</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요"><span class="tp-num">2</span><span class="tp-text">손목 아픈 드라이어 쓰던 분이라면, 한일전자 파테크 PD-L9350 무게부터 보세요</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)"><span class="tp-num">3</span><span class="tp-text">여행용·자취용 드라이기 고민이라면, 한일전자 PD-L9350 음이온 드라이어 확인법 (가성비 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 3장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 3장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 3장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 3장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" alt="한일전자 드라이어 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,10 +156,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">머리 말리다가 팔이 먼저 아파서</p><p style="text-align:center;margin:0;color:#000000;">중간에 내려놓은 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">숱 많은 머리는 바람이 약하면</p><p style="text-align:center;margin:0;color:#000000;">말리는 시간이 배로 늘어나고,</p><p style="text-align:center;margin:0;color:#000000;">그 시간만큼 팔도 같이 버텨야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 이 제품은</p><p style="text-align:center;margin:0;color:#000000;">&quot;오래 들고 말려야 하는 사람&quot;한테 맞는</p><p style="text-align:center;margin:0;color:#000000;">드라이기입니다.</p><p style="text-align:center;margin:0;color:#000000;">반대로 파워만 세면 무게는 상관없다는 분이라면</p><p style="text-align:center;margin:0;color:#000000;">2300W짜리 PD-H4300 쪽이 더</p><p style="text-align:center;margin:0;color:#000000;">맞을 수 있어요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-1.jpg" alt="한일전자 드라이어 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 왜 무게가 먼저 문제인가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> BLDC 모터, 뭐가 다른가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 음이온 기능, 정전기에 정말 도움되나요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 같은 브랜드 다른 모델과 가격 비교</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">⑤</span> 사기 전에 한 가지만 확인하세요</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">왜 무게가 먼저 문제인가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">드라이기 성능은 보통 바람 세기로만 따지는데,</p><p style="text-align:center;margin:0;color:#000000;">실제로 체감이 큰 건 무게입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">500g 넘는 드라이기를 5분만 들고 있어도</p><p style="text-align:center;margin:0;color:#000000;">손목과 어깨가 먼저 신호를 보내거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PD-L9350은 BLDC 모터를 써서</p><p style="text-align:center;margin:0;color:#000000;">같은 출력을 내면서도 무게를 줄인 구조입니다.</p><p style="text-align:center;margin:0;color:#000000;">모터가 작고 가벼워지면</p><p style="text-align:center;margin:0;color:#000000;">드라이기 전체 무게도 같이 내려가는 원리예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">BLDC 모터, 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 모터(AC 모터)는 크기가 커지고</p><p style="text-align:center;margin:0;color:#000000;">그만큼 드라이기 몸체도 무거워집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">BLDC 모터는 전자식으로 제어해서</p><p style="text-align:center;margin:0;color:#000000;">모터 자체가 작고 가벼운데도</p><p style="text-align:center;margin:0;color:#000000;">바람 세기는 유지하는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">미용실용 고가 드라이기들이</p><p style="text-align:center;margin:0;color:#000000;">대부분 BLDC를 쓰는 이유가 이거예요.</p><p style="text-align:center;margin:0;color:#000000;">파테크 라인 중에서도 NEO SENSE</p><p style="text-align:center;margin:0;color:#000000;">T15(99,000원)는</p><p style="text-align:center;margin:0;color:#000000;">같은 BLDC지만 출력을 더 올린 상위 모델이고,</p><p style="text-align:center;margin:0;color:#000000;">PD-L9350은 가볍게 매일 쓰는 용도에</p><p style="text-align:center;margin:0;color:#000000;">맞춘 구성입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-2.jpg" alt="한일전자 드라이어 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">머리 말릴 때마다 손목이 먼저 지치셨다면,<br>무게랑 바람 세기 지금 같이 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GuCBu6kd</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">음이온 기능, 정전기에 정말 도움되나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">음이온 드라이어는 머리카락 표면의</p><p style="text-align:center;margin:0;color:#000000;">정전기를 줄여주는 방식으로 작동합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">겨울철 머리카락이 붕 뜨거나</p><p style="text-align:center;margin:0;color:#000000;">정전기로 엉키는 게 스트레스였다면</p><p style="text-align:center;margin:0;color:#000000;">체감할 수 있는 기능이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이건 모발 상태나 습도에 따라</p><p style="text-align:center;margin:0;color:#000000;">효과 차이가 날 수 있는 부분이라,</p><p style="text-align:center;margin:0;color:#000000;">&quot;드라이 시간을 줄여주는 핵심 기능&quot;으로</p><p style="text-align:center;margin:0;color:#000000;">기대하기보다는 마무리를 도와주는 보조 기능으로</p><p style="text-align:center;margin:0;color:#000000;">보는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">같은 브랜드 다른 모델과 가격 비교</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>모델</b></p><p style="text-align:center;margin:0;color:#000000;">가격 · 특징</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-L9350 (이 제품)</b></p><p style="text-align:center;margin:0;color:#000000;">49,900원 · BLDC, 경량, 음이온</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-H4300</b></p><p style="text-align:center;margin:0;color:#000000;">23,900원 · 2300W 고출력형</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>PD-Y2008</b></p><p style="text-align:center;margin:0;color:#000000;">24,900원 · 1800W 접이식, 여행용</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>NEO SENSE T15</b></p><p style="text-align:center;margin:0;color:#000000;">99,000원 · BLDC 상위 라인</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격만 보면 PD-H4300이나</p><p style="text-align:center;margin:0;color:#000000;">PD-Y2008이</p><p style="text-align:center;margin:0;color:#000000;">더 저렴해 보이지만,</p><p style="text-align:center;margin:0;color:#000000;">그 모델들은 무게보다 출력이나 휴대성에</p><p style="text-align:center;margin:0;color:#000000;">초점을 맞춘 구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무게를 줄이면서 바람 세기도 챙기고 싶다면</p><p style="text-align:center;margin:0;color:#000000;">그 사이 지점에 있는 게 PD-L9350이고,</p><p style="text-align:center;margin:0;color:#000000;">정가 79,000원에서 37% 내려온</p><p style="text-align:center;margin:0;color:#000000;">49,900원이라는 점도 이 라인 안에서는</p><p style="text-align:center;margin:0;color:#000000;">꽤 큰 폭입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/04-3.jpg" alt="한일전자 드라이어 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 한 가지만 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전원 커버 분리가 되는 구조인지는</p><p style="text-align:center;margin:0;color:#000000;">청소할 때 차이가 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">드라이기 안쪽에 먼지가 쌓이면</p><p style="text-align:center;margin:0;color:#000000;">바람 세기가 서서히 떨어지는데,</p><p style="text-align:center;margin:0;color:#000000;">커버가 분리되는 모델은 이 청소가</p><p style="text-align:center;margin:0;color:#000000;">훨씬 간단해집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">화려한 기능이 많은 드라이기보다는</p><p style="text-align:center;margin:0;color:#000000;">매일 켜고 끄는 데 부담 없는 무게와</p><p style="text-align:center;margin:0;color:#000000;">꾸준한 바람 세기가 더 오래 갑니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">매일 쓰는 물건은 스펙보다 무게가<br>먼저 체감됩니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">숱 많은 머리라 바람 세기가 걱정이라면,</p><p style="text-align:center;margin:0;color:#000000;">이 부분만 실물 스펙표로 한 번 더 확인하고</p><p style="text-align:center;margin:0;color:#000000;">결정하시면 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아직도 예전 드라이기로 시간 씨름하고 계신다면,<br>이번엔 무게부터 바꿔보는 것도 방법입니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 한일전자 파테크 에어소닉 가벼운 BLDC 음이온 헤어드라이어, PD-L9350<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GuCBu6kd</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#가벼운드라이어 #BLDC드라이기 #음이온드라이기 #헤어드라이어추천 #파테크드라이기 #드라이기가성비 #빠른드라이기 #저소음드라이기 #드라이기비교 #휴대용드라이어</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -340,40 +360,14 @@ https://naver.me/GuCBu6kd
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -463,10 +457,10 @@ https://naver.me/GuCBu6kd
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -519,6 +513,29 @@ https://naver.me/GuCBu6kd
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

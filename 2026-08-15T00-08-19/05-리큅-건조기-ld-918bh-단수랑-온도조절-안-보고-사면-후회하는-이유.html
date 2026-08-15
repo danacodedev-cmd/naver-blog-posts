@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="리큅 건조기 LD-918BH, 단수랑 온도조절 안 보고 사면 후회하는 이유"><span class="tp-num">1</span><span class="tp-text">리큅 건조기 LD-918BH, 단수랑 온도조절 안 보고 사면 후회하는 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="고추 말릴 식품건조기 고르는 기준, 리큅 LD-918BH로 확인해보기"><span class="tp-num">2</span><span class="tp-text">고추 말릴 식품건조기 고르는 기준, 리큅 LD-918BH로 확인해보기</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="리큅 대용량 8단 식품건조기 LD-918BH, 김장철 고추·과일 말리기(주방 좁은 집 기준)"><span class="tp-num">3</span><span class="tp-text">리큅 대용량 8단 식품건조기 LD-918BH, 김장철 고추·과일 말리기(주방 좁은 집 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -112,15 +120,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 4장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 4장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-1.jpg" alt="리큅 건조기 필터 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -128,7 +147,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -136,7 +155,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -144,10 +163,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">햇볕 좋은 날 골라서 고추 널었는데</p><p style="text-align:center;margin:0;color:#000000;">갑자기 비 예보 뜬 거 보고</p><p style="text-align:center;margin:0;color:#000000;">급하게 다 걷어본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">과일이나 야채도 마찬가지입니다.</p><p style="text-align:center;margin:0;color:#000000;">말리는 중간에 날씨가 바뀌면</p><p style="text-align:center;margin:0;color:#000000;">그날 작업이 통째로 날아갑니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">식품건조기는 이 변수를</p><p style="text-align:center;margin:0;color:#000000;">없애는 물건입니다.</p><p style="text-align:center;margin:0;color:#000000;">날씨, 벌레, 먼지 신경 안 쓰고</p><p style="text-align:center;margin:0;color:#000000;">온도와 시간만 맞추면 되니까요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말씀드리면</p><p style="text-align:center;margin:0;color:#000000;">한 번에 말릴 양이 꽤 많은 집,</p><p style="text-align:center;margin:0;color:#000000;">고추나 과일을 여러 번 나눠</p><p style="text-align:center;margin:0;color:#000000;">말려야 하는 집이면</p><p style="text-align:center;margin:0;color:#000000;">8단 대용량 쪽이 확실히 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 육포나 소량 반찬거리 정도만</p><p style="text-align:center;margin:0;color:#000000;">가끔 말리는 정도라면</p><p style="text-align:center;margin:0;color:#000000;">굳이 대용량까지는 필요 없을</p><p style="text-align:center;margin:0;color:#000000;">수도 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-1.jpg" alt="리큅 건조기 필터 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 8단 구성이 실제로 뭐가 다른가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 온도와 시간, 재료마다 다르게 맞춰야 합니다</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 사기 전에 확인해야 할 것들</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 놓을 자리부터 재보셔야 합니다</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">8단 구성이 실제로 뭐가 다른가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">선반이 몇 단이냐는 결국</p><p style="text-align:center;margin:0;color:#000000;">한 번에 넣을 수 있는</p><p style="text-align:center;margin:0;color:#000000;">재료의 양과 종류를</p><p style="text-align:center;margin:0;color:#000000;">동시에 처리할 수 있느냐의 문제입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">고추는 위쪽 선반, 과일은 아래쪽 선반처럼</p><p style="text-align:center;margin:0;color:#000000;">재료별로 나눠 넣고</p><p style="text-align:center;margin:0;color:#000000;">따로따로 시간을 맞출 수 있으면</p><p style="text-align:center;margin:0;color:#000000;">결과물 차이가 꽤 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">단수가 적으면 재료를 겹쳐 넣게 되고</p><p style="text-align:center;margin:0;color:#000000;">바람이 골고루 안 닿아서</p><p style="text-align:center;margin:0;color:#000000;">같은 트레이 안에서도</p><p style="text-align:center;margin:0;color:#000000;">마른 것과 덜 마른 것이 섞입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">리큅 LD-918BH는 8단 구성이라</p><p style="text-align:center;margin:0;color:#000000;">고추, 과일, 야채를 층별로 나눠서</p><p style="text-align:center;margin:0;color:#000000;">각각 다른 시간에 꺼낼 수</p><p style="text-align:center;margin:0;color:#000000;">있는 구조입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-2.jpg" alt="리큅 건조기 센서 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">온도와 시간, 재료마다 다르게 맞춰야 합니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">식품건조기를 살 때 제일 많이 놓치는 부분이</p><p style="text-align:center;margin:0;color:#000000;">온도와 시간 조절이 얼마나</p><p style="text-align:center;margin:0;color:#000000;">세밀하냐는 점입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">고추처럼 수분이 많은 재료와</p><p style="text-align:center;margin:0;color:#000000;">견과류처럼 이미 마른 재료는</p><p style="text-align:center;margin:0;color:#000000;">필요한 온도와 시간이 완전히 다릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">온도 설정이 뭉뚱그려져 있으면</p><p style="text-align:center;margin:0;color:#000000;">하나는 타고 하나는 덜 마르는 식으로</p><p style="text-align:center;margin:0;color:#000000;">결과가 어긋납니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">LD-918BH는 온도와 시간을</p><p style="text-align:center;margin:0;color:#000000;">재료에 맞춰 따로 설정하는 구조라</p><p style="text-align:center;margin:0;color:#000000;">고추는 고추대로, 과일은 과일대로</p><p style="text-align:center;margin:0;color:#000000;">맞춤 건조가 가능합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-3.jpg" alt="리큅 건조기 필터 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">한 번에 말릴 양이 많은 집이라면<br>8단 용량부터 확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GO6XWHe5</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 확인해야 할 것들</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">선반을 분리해서 물로 씻을 수 있는지는</p><p style="text-align:center;margin:0;color:#000000;">꼭 미리 확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">식품이 직접 닿는 부분이라</p><p style="text-align:center;margin:0;color:#000000;">세척이 불편하면</p><p style="text-align:center;margin:0;color:#000000;">쓸수록 관리가 귀찮아집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전원을 켜둔 채로 오래</p><p style="text-align:center;margin:0;color:#000000;">돌리는 물건이다 보니</p><p style="text-align:center;margin:0;color:#000000;">소음도 확인해볼 부분입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">베란다나 주방 한쪽에 두고</p><p style="text-align:center;margin:0;color:#000000;">몇 시간씩 돌려야 하는 경우가 많아서</p><p style="text-align:center;margin:0;color:#000000;">생활 소음 수준인지 미리</p><p style="text-align:center;margin:0;color:#000000;">가늠해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/05-4.jpg" alt="리큅 건조기 센서 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">결국 몇 단이 아니라 어떻게<br>나눠 말리느냐입니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">놓을 자리부터 재보셔야 합니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">대용량이라는 말은</p><p style="text-align:center;margin:0;color:#000000;">그만큼 본체 크기도 커진다는 뜻입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주방이나 베란다에</p><p style="text-align:center;margin:0;color:#000000;">놓을 자리 폭과 높이를</p><p style="text-align:center;margin:0;color:#000000;">미리 재보시는 게 먼저입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격은 159,000원이고</p><p style="text-align:center;margin:0;color:#000000;">정가 179,000원에서 내려온 조건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">김장철처럼 고추를 한 번에 많이</p><p style="text-align:center;margin:0;color:#000000;">말려야 하는 시기,</p><p style="text-align:center;margin:0;color:#000000;">과일이나 야채를 자주 말려</p><p style="text-align:center;margin:0;color:#000000;">저장하는 집이라면</p><p style="text-align:center;margin:0;color:#000000;">8단 용량이 작업 횟수</p><p style="text-align:center;margin:0;color:#000000;">자체를 줄여줍니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 가끔 소량만 말릴 계획이면</p><p style="text-align:center;margin:0;color:#000000;">용량보다 온도·시간 조절이</p><p style="text-align:center;margin:0;color:#000000;">얼마나 세밀한지부터</p><p style="text-align:center;margin:0;color:#000000;">먼저 따져보시는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">올해도 베란다에 고추 널<br>자리부터 찾고 계신다면<br>지금 조건 어떤지 한번 보고 결정하셔도<br>늦지 않습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 리큅 대용량 8단 식품건조기 고추 과일 야채 LD-918BH<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GO6XWHe5</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#리큅8단식품건조기 #식품건조기추천 #고추건조기 #과일건조기 #야채건조기 #대용량건조기 #식품건조기가격 #건조기비교 #LD-918BH #식품건조기사용법</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -354,40 +374,14 @@ https://naver.me/GO6XWHe5
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -477,10 +471,10 @@ https://naver.me/GO6XWHe5
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -533,6 +527,29 @@ https://naver.me/GO6XWHe5
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

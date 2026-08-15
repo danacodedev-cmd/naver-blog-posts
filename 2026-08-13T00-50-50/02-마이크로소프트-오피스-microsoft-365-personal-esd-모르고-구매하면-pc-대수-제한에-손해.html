@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,24 +107,36 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다"><span class="tp-num">1</span><span class="tp-text">마이크로소프트 오피스 Microsoft 365 Personal ESD, 모르고 구매하면 PC 대수 제한에 손해봅니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="Microsoft 365 Personal vs Family, 1년 구독 뭘 골라야 할까"><span class="tp-num">2</span><span class="tp-text">Microsoft 365 Personal vs Family, 1년 구독 뭘 골라야 할까</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="마이크로소프트 365 Personal ESD 갱신 앞두고 고민된다면 (1인 사용자 기준)"><span class="tp-num">3</span><span class="tp-text">마이크로소프트 365 Personal ESD 갱신 앞두고 고민된다면 (1인 사용자 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
 
 <div id="photos">
-  <h2>사진 1장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 1장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 1장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 1장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" alt="마이크로소프트 제품 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">과제 마감 전날 밤,</p><p style="text-align:center;margin:0;color:#000000;">갑자기 오피스가</p><p style="text-align:center;margin:0;color:#000000;">정품 인증 풀렸다는 문구.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">포맷하고 다시 깔았더니</p><p style="text-align:center;margin:0;color:#000000;">로그인이 안 풀리는 그 상황,</p><p style="text-align:center;margin:0;color:#000000;">한 번쯤 겪어보셨을 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">Microsoft 365는 한</p><p style="text-align:center;margin:0;color:#000000;">번 사면 끝나는</p><p style="text-align:center;margin:0;color:#000000;">프로그램이 아니라 구독 방식이라서,</p><p style="text-align:center;margin:0;color:#000000;">사기 전에 확인할 게 따로 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/02-1.jpg" alt="마이크로소프트 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> ESD가 정확히 뭘 말하는 건가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> Personal과 Family, 뭐가 다른가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 1년 구독료, 매번 이 가격일까요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 계정 등록 전에 확인할 것</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">ESD가 정확히 뭘 말하는 건가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">ESD는 박스나 DVD 없이</p><p style="text-align:center;margin:0;color:#000000;">전자적으로 제품키를 받는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결제하면 이메일로</p><p style="text-align:center;margin:0;color:#000000;">제품키와 설치 링크가 옵니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배송을 기다릴 필요가 없고</p><p style="text-align:center;margin:0;color:#000000;">택배비도 안 붙습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 실물이 없다 보니</p><p style="text-align:center;margin:0;color:#000000;">키를 받은 다음 캡처든 메모든</p><p style="text-align:center;margin:0;color:#000000;">따로 저장해두셔야 나중에</p><p style="text-align:center;margin:0;color:#000000;">재설치할 때 편합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">Personal과 Family, 뭐가 다른가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이름 그대로</p><p style="text-align:center;margin:0;color:#000000;">Personal은 계정 1개 기준입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 계정으로</p><p style="text-align:center;margin:0;color:#000000;">PC, 태블릿 등 여러 기기에</p><p style="text-align:center;margin:0;color:#000000;">설치는 되지만</p><p style="text-align:center;margin:0;color:#000000;">사용자는 본인 하나예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족 여럿이 각자 계정으로</p><p style="text-align:center;margin:0;color:#000000;">쓰려면 Family가 맞고,</p><p style="text-align:center;margin:0;color:#000000;">혼자 쓰는 노트북, 혼자 쓰는</p><p style="text-align:center;margin:0;color:#000000;">데스크톱이면 Personal로</p><p style="text-align:center;margin:0;color:#000000;">충분합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 보시는 이 Personal 상품은</p><p style="text-align:center;margin:0;color:#000000;">99,000원으로,</p><p style="text-align:center;margin:0;color:#000000;">정가 129,000원에서</p><p style="text-align:center;margin:0;color:#000000;">23% 내려온 가격입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">계정 하나로 얼마나 쓸 수 있는지<br>여기서 조건 먼저 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5kPmVd4m</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">1년 구독료, 매번 이 가격일까요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구독형이라 1년 뒤</p><p style="text-align:center;margin:0;color:#000000;">다시 결제하셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이번에 23% 할인된 가격으로</p><p style="text-align:center;margin:0;color:#000000;">들어가는 거고,</p><p style="text-align:center;margin:0;color:#000000;">갱신 시점 가격은</p><p style="text-align:center;margin:0;color:#000000;">그때 따로 확인하셔야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 대비 3만원 가까이</p><p style="text-align:center;margin:0;color:#000000;">차이 나는 폭이라</p><p style="text-align:center;margin:0;color:#000000;">1년 단위로 갈아타는 분들은</p><p style="text-align:center;margin:0;color:#000000;">이 타이밍을 눈여겨보시는 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">계정 등록 전에 확인할 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">설치하려면 마이크로소프트</p><p style="text-align:center;margin:0;color:#000000;">계정이 필요합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이미 쓰던 계정이 있다면</p><p style="text-align:center;margin:0;color:#000000;">거기에 등록해서 쓰면 되고,</p><p style="text-align:center;margin:0;color:#000000;">없다면 새로 만드는 것도</p><p style="text-align:center;margin:0;color:#000000;">어렵지 않습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 한 번 계정에</p><p style="text-align:center;margin:0;color:#000000;">등록하고 나면 다른 계정으로</p><p style="text-align:center;margin:0;color:#000000;">옮기는 게 까다로운 편이라,</p><p style="text-align:center;margin:0;color:#000000;">어떤 계정에 묶을지는</p><p style="text-align:center;margin:0;color:#000000;">설치 전에 정해두시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">원드라이브 클라우드 저장 공간도</p><p style="text-align:center;margin:0;color:#000000;">함께 들어가는 구성이라,</p><p style="text-align:center;margin:0;color:#000000;">문서를 클라우드에 올려두고</p><p style="text-align:center;margin:0;color:#000000;">쓰실 계획이면 이 부분도</p><p style="text-align:center;margin:0;color:#000000;">같이 확인해보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">계정 하나, 기기 여러 대,<br>사용자는 한 명</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">혼자 쓰는 컴퓨터에</p><p style="text-align:center;margin:0;color:#000000;">정품 오피스가 필요하고,</p><p style="text-align:center;margin:0;color:#000000;">매년 갱신하는 게</p><p style="text-align:center;margin:0;color:#000000;">번거롭지 않다면 Personal로</p><p style="text-align:center;margin:0;color:#000000;">충분히 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가족 여럿이 각자 쓸 계획이라면</p><p style="text-align:center;margin:0;color:#000000;">Family 쪽을 먼저</p><p style="text-align:center;margin:0;color:#000000;">비교해보시는 게 순서고요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">갱신 시기 놓쳐서 리포트 쓰다 막히는 일,<br>이번엔 미리 확인해보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 마이크로소프트 오피스 Microsoft 365 Personal ESD (1년 구독)<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5kPmVd4m</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#오피스365개인용 #마이크로소프트365구독 #워드엑셀파워포인트 #오피스365가격 #365구독료 #오피스365추천 #1년구독오피스 #오피스365설치</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -300,40 +320,14 @@ https://naver.me/5kPmVd4m
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -423,10 +417,10 @@ https://naver.me/5kPmVd4m
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -479,6 +473,29 @@ https://naver.me/5kPmVd4m
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

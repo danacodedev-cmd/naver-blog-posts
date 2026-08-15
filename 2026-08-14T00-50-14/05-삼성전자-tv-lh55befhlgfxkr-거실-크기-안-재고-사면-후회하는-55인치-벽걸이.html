@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="삼성전자 TV LH55BEFHLGFXKR, 거실 크기 안 재고 사면 후회하는 55인치 벽걸이"><span class="tp-num">1</span><span class="tp-text">삼성전자 TV LH55BEFHLGFXKR, 거실 크기 안 재고 사면 후회하는 55인치 벽걸이</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="삼성 55인치 UHD 4K 벽걸이 TV 고르는 기준, 시청거리부터 재보세요"><span class="tp-num">2</span><span class="tp-text">삼성 55인치 UHD 4K 벽걸이 TV 고르는 기준, 시청거리부터 재보세요</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="삼성전자 LH55BEFHLGFXKR 벽걸이 TV, 밝은 거실 예능·스포츠용 (거실 교체 기준)"><span class="tp-num">3</span><span class="tp-text">삼성전자 LH55BEFHLGFXKR 벽걸이 TV, 밝은 거실 예능·스포츠용 (거실 교체 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -111,15 +119,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 5장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-1.jpg" alt="삼성전자 TV 출력 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -127,7 +146,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -135,7 +154,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -143,7 +162,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -151,10 +170,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-5.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-5.jpg" download="photo-5.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-5.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">매장에서 볼 땐</p><p style="text-align:center;margin:0;color:#000000;">딱 적당해 보였는데</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">집에 걸어보니</p><p style="text-align:center;margin:0;color:#000000;">벽이 텅 비거나</p><p style="text-align:center;margin:0;color:#000000;">너무 꽉 차 보인 적,</p><p style="text-align:center;margin:0;color:#000000;">한 번쯍 있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV는 인치보다</p><p style="text-align:center;margin:0;color:#000000;">거리가 먼저입니다.</p><p style="text-align:center;margin:0;color:#000000;">줄자로 소파에서</p><p style="text-align:center;margin:0;color:#000000;">TV 자리까지</p><p style="text-align:center;margin:0;color:#000000;">재보는 게 순서예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-1.jpg" alt="삼성전자 TV 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 소파에서 TV까지, 몇 걸음이신가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> TV장 폭과 엘리베이터, 줄자 세 곳</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 소리는 따로 생각하세요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 밝은 거실, 예능·스포츠에 맞는 화면</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">⑤</span> 768,000원, 이 조건에서 판단할 것</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">소파에서 TV까지, 몇 걸음이신가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">4K TV는 거리 기준으로</p><p style="text-align:center;margin:0;color:#000000;">크기를 잡는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">2.0m 정도면</p><p style="text-align:center;margin:0;color:#000000;">55~65인치가 무난하고,</p><p style="text-align:center;margin:0;color:#000000;">2.5m부터는</p><p style="text-align:center;margin:0;color:#000000;">65~75인치도 괜찮습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 상품은 55인치,</p><p style="text-align:center;margin:0;color:#000000;">화면 가로가</p><p style="text-align:center;margin:0;color:#000000;">138.7cm입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거실이 2.5m를</p><p style="text-align:center;margin:0;color:#000000;">넘어간다면</p><p style="text-align:center;margin:0;color:#000000;">55인치보다</p><p style="text-align:center;margin:0;color:#000000;">한 단계 위를</p><p style="text-align:center;margin:0;color:#000000;">고민해볼 만하고,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">2.0m 안쪽이면</p><p style="text-align:center;margin:0;color:#000000;">55인치가</p><p style="text-align:center;margin:0;color:#000000;">딱 맞는 선입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">고개를 돌려가며</p><p style="text-align:center;margin:0;color:#000000;">봐야 하는 거리에서</p><p style="text-align:center;margin:0;color:#000000;">큰 화면을 걸면</p><p style="text-align:center;margin:0;color:#000000;">오히려 불편해집니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-2.jpg" alt="삼성전자 TV 거치대 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">TV장 폭과 엘리베이터, 줄자 세 곳</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">크기를 정했다면</p><p style="text-align:center;margin:0;color:#000000;">그다음은</p><p style="text-align:center;margin:0;color:#000000;">자리가 맞는지</p><p style="text-align:center;margin:0;color:#000000;">확인할 차례입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은</p><p style="text-align:center;margin:0;color:#000000;">벽걸이 WMN-B05FFXKR가</p><p style="text-align:center;margin:0;color:#000000;">포함돼 있어서</p><p style="text-align:center;margin:0;color:#000000;">TV장 없이도</p><p style="text-align:center;margin:0;color:#000000;">벽에 바로 거치됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래도 벽면 폭,</p><p style="text-align:center;margin:0;color:#000000;">콘센트 위치는</p><p style="text-align:center;margin:0;color:#000000;">미리 봐두는 게</p><p style="text-align:center;margin:0;color:#000000;">안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">스탠드형으로</p><p style="text-align:center;margin:0;color:#000000;">따로 두실 계획이면</p><p style="text-align:center;margin:0;color:#000000;">다리 간격까지</p><p style="text-align:center;margin:0;color:#000000;">재보셔야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구형 아파트나</p><p style="text-align:center;margin:0;color:#000000;">빌라라면</p><p style="text-align:center;margin:0;color:#000000;">현관문과 엘리베이터도</p><p style="text-align:center;margin:0;color:#000000;">확인 대상입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">55인치는</p><p style="text-align:center;margin:0;color:#000000;">대부분 통과하지만,</p><p style="text-align:center;margin:0;color:#000000;">복도가 좁은 구조라면</p><p style="text-align:center;margin:0;color:#000000;">미리 재보시는 게</p><p style="text-align:center;margin:0;color:#000000;">마음 편합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-3.jpg" alt="삼성전자 TV 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">소리는 따로 생각하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">요즘 TV는</p><p style="text-align:center;margin:0;color:#000000;">두께가 얇아서</p><p style="text-align:center;margin:0;color:#000000;">스피커 넣을 공간이</p><p style="text-align:center;margin:0;color:#000000;">넉넉하지 않습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">화질은 좋은데</p><p style="text-align:center;margin:0;color:#000000;">소리는 아쉬운 게</p><p style="text-align:center;margin:0;color:#000000;">이 카테고리</p><p style="text-align:center;margin:0;color:#000000;">공통 약점이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 상품 구성에</p><p style="text-align:center;margin:0;color:#000000;">사운드바가</p><p style="text-align:center;margin:0;color:#000000;">포함돼 있지 않다면,</p><p style="text-align:center;margin:0;color:#000000;">따로 준비하는 비용을</p><p style="text-align:center;margin:0;color:#000000;">감안하셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사운드바는</p><p style="text-align:center;margin:0;color:#000000;">보통 30~50만 원대부터</p><p style="text-align:center;margin:0;color:#000000;">시작하니</p><p style="text-align:center;margin:0;color:#000000;">전체 예산을 잡을 때</p><p style="text-align:center;margin:0;color:#000000;">같이 계산해두시는 게</p><p style="text-align:center;margin:0;color:#000000;">좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-4.jpg" alt="삼성전자 TV 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">소파 자리까지 거리는 재보셨나요.<br>55인치가 맞는지 지금 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xbKyGgYU</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">밝은 거실, 예능·스포츠에 맞는 화면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 모델은</p><p style="text-align:center;margin:0;color:#000000;">UHD 4K에</p><p style="text-align:center;margin:0;color:#000000;">스마트 기능이 들어간</p><p style="text-align:center;margin:0;color:#000000;">비즈니스용 TV입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">낮에도 밝은 거실에서</p><p style="text-align:center;margin:0;color:#000000;">예능이나 스포츠 중계를</p><p style="text-align:center;margin:0;color:#000000;">자주 트는 집이라면</p><p style="text-align:center;margin:0;color:#000000;">화면이 밝게 나오는</p><p style="text-align:center;margin:0;color:#000000;">이런 타입이</p><p style="text-align:center;margin:0;color:#000000;">유리합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 불 끄고</p><p style="text-align:center;margin:0;color:#000000;">영화 위주로 보신다면</p><p style="text-align:center;margin:0;color:#000000;">OLED 계열이</p><p style="text-align:center;margin:0;color:#000000;">더 맞을 수 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">용도가</p><p style="text-align:center;margin:0;color:#000000;">업무·교육용이면</p><p style="text-align:center;margin:0;color:#000000;">회의나 발표 화면을</p><p style="text-align:center;margin:0;color:#000000;">띄우기에도</p><p style="text-align:center;margin:0;color:#000000;">크게 부족함이 없는</p><p style="text-align:center;margin:0;color:#000000;">사양입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-14T00-50-14/img/05-5.jpg" alt="삼성전자 TV 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">인치보다 먼저 잴 건 거리입니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">768,000원, 이 조건에서 판단할 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 1,088,000원에서</p><p style="text-align:center;margin:0;color:#000000;">29% 내려온</p><p style="text-align:center;margin:0;color:#000000;">768,000원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">55인치 벽걸이 TV</p><p style="text-align:center;margin:0;color:#000000;">가격대에서</p><p style="text-align:center;margin:0;color:#000000;">이 정도 폭으로</p><p style="text-align:center;margin:0;color:#000000;">내려오는 경우는</p><p style="text-align:center;margin:0;color:#000000;">흔하지 않습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소파에서 TV 자리까지</p><p style="text-align:center;margin:0;color:#000000;">거리를 이미 재보셨다면,</p><p style="text-align:center;margin:0;color:#000000;">그 숫자에</p><p style="text-align:center;margin:0;color:#000000;">55인치가 맞는지만</p><p style="text-align:center;margin:0;color:#000000;">확인하시면 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">아직 안 재보셨다면</p><p style="text-align:center;margin:0;color:#000000;">인치를 정하기 전에</p><p style="text-align:center;margin:0;color:#000000;">줄자부터</p><p style="text-align:center;margin:0;color:#000000;">꺼내시는 게 순서예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거실이 2.5m를 넘고</p><p style="text-align:center;margin:0;color:#000000;">밝은 낮 시청이 많다면</p><p style="text-align:center;margin:0;color:#000000;">이 조합은</p><p style="text-align:center;margin:0;color:#000000;">꽤 잘 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">거실 TV 바꿀 때마다 크기 때문에 망설였다면<br>이번엔 줄자부터 들고 시작해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 삼성전자 LH55BEFHLGFXKR UHD 4K 스마트 비즈니스 TV 138.7cm(55인치), 벽걸이 WMN-B05FFXKR<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xbKyGgYU</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#삼성55인치UHDTV #삼성비즈니스TV추천 #4K스마트TV55인치 #삼성138cmTV #상업용TV설치 #55인치벽걸이TV #UHD4KTV가격비교 #카페매장TV #삼성디지털사이니지</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -418,40 +438,14 @@ https://naver.me/xbKyGgYU
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -541,10 +535,10 @@ https://naver.me/xbKyGgYU
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -597,6 +591,29 @@ https://naver.me/xbKyGgYU
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

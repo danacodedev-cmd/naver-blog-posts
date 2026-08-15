@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="파나소닉 면도기 ES-CM3B, 사기 전 확인할 3가지 (팜인 쉐이버 그립감·날·배터리)"><span class="tp-num">1</span><span class="tp-text">파나소닉 면도기 ES-CM3B, 사기 전 확인할 3가지 (팜인 쉐이버 그립감·날·배터리)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="출근 5분 전 수염 급할 때, 람대쉬 ES-CM3B가 답이 되는 이유"><span class="tp-num">2</span><span class="tp-text">출근 5분 전 수염 급할 때, 람대쉬 ES-CM3B가 답이 되는 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="이 가격에 3중날 면도기, 굳이 더 비싼 걸 살 필요가 있을까"><span class="tp-num">3</span><span class="tp-text">이 가격에 3중날 면도기, 굳이 더 비싼 걸 살 필요가 있을까</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -112,15 +120,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 5장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-1.jpg" alt="파나소닉 면도기 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -128,7 +147,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -136,7 +155,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -144,7 +163,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -152,10 +171,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-5.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-5.jpg" download="photo-5.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-5.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">세면대 앞에서</p><p style="text-align:center;margin:0;color:#000000;">면도날 각도 맞추다가</p><p style="text-align:center;margin:0;color:#000000;">턱선 한 번 긁혀본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바쁜 아침엔 그 몇 초가</p><p style="text-align:center;margin:0;color:#000000;">하루 기분을 좌우하기도 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">파나소닉 ES-CM3B는</p><p style="text-align:center;margin:0;color:#000000;">이런 아침 루틴을 좀 더</p><p style="text-align:center;margin:0;color:#000000;">단순하게 만들어주는 제품입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격은 134,900원이고</p><p style="text-align:center;margin:0;color:#000000;">정가 149,000원에서</p><p style="text-align:center;margin:0;color:#000000;">9% 할인된 금액입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면</p><p style="text-align:center;margin:0;color:#000000;">피부가 예민해서 자극을 줄이고 싶은 분,</p><p style="text-align:center;margin:0;color:#000000;">손 작은 분이나 그립감을 중요하게 보는</p><p style="text-align:center;margin:0;color:#000000;">분에게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 빠른 왕복 면도날처럼</p><p style="text-align:center;margin:0;color:#000000;">넓은 면을 한 번에 밀어내는</p><p style="text-align:center;margin:0;color:#000000;">방식을 선호하신다면</p><p style="text-align:center;margin:0;color:#000000;">3중날 구조와는 결이 다를 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-1.jpg" alt="파나소닉 면도기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 3중날 시스템, 왜 3중날인가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 팜인 쉐이버, 손에 쥐는 방식이 다릅니다</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 배터리는 얼마나 가나요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 이 가격대에서 고민할 이유가 있을까</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">3중날 시스템, 왜 3중날인가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전기 면도기는 날이 많을수록</p><p style="text-align:center;margin:0;color:#000000;">피부에 닿는 압력이 분산됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">ES-CM3B는 3중날 구조로</p><p style="text-align:center;margin:0;color:#000000;">수염을 여러 번에 걸쳐</p><p style="text-align:center;margin:0;color:#000000;">얇게 잘라내는 방식입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번에 밀어내는 힘이 세지 않은 대신</p><p style="text-align:center;margin:0;color:#000000;">피부에 닿는 자극이</p><p style="text-align:center;margin:0;color:#000000;">상대적으로 적습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">민감한 피부라 면도 후</p><p style="text-align:center;margin:0;color:#000000;">빨갛게 올라오는 게</p><p style="text-align:center;margin:0;color:#000000;">걱정이셨다면 참고할 부분입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-2.jpg" alt="파나소닉 면도기 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">팜인 쉐이버, 손에 쥐는 방식이 다릅니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이름에 들어간 &#39;팜인&#39;은</p><p style="text-align:center;margin:0;color:#000000;">손바닥 안에 쏙 들어오는</p><p style="text-align:center;margin:0;color:#000000;">디자인을 뜻합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">일반 전기 면도기가</p><p style="text-align:center;margin:0;color:#000000;">막대형에 가깝다면</p><p style="text-align:center;margin:0;color:#000000;">ES-CM3B는 손에 감기는</p><p style="text-align:center;margin:0;color:#000000;">둥글고 작은 형태입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">손이 작은 분,</p><p style="text-align:center;margin:0;color:#000000;">여성이나 손목 힘이</p><p style="text-align:center;margin:0;color:#000000;">약한 분들이 쓰기에</p><p style="text-align:center;margin:0;color:#000000;">부담이 덜한 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 손이 크신 분은</p><p style="text-align:center;margin:0;color:#000000;">그립감이 오히려</p><p style="text-align:center;margin:0;color:#000000;">어색하게 느껴질 수 있어서</p><p style="text-align:center;margin:0;color:#000000;">매장이나 사진으로</p><p style="text-align:center;margin:0;color:#000000;">크기감을 미리 가늠해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-3.jpg" alt="파나소닉 면도기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">손안에 쏙 들어오는 그립감,<br>직접 확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FriVTRrK</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">배터리는 얼마나 가나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전기 면도기를 살 때</p><p style="text-align:center;margin:0;color:#000000;">가장 많이 걸리는 부분이</p><p style="text-align:center;margin:0;color:#000000;">충전 주기입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">매번 충전기를 찾아야 하는</p><p style="text-align:center;margin:0;color:#000000;">번거로움이 있으면</p><p style="text-align:center;margin:0;color:#000000;">휴대용으로 쓰기 어렵습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">ES-CM3B는 충전식 구조로</p><p style="text-align:center;margin:0;color:#000000;">콘센트 없이도 짧은 여행이나</p><p style="text-align:center;margin:0;color:#000000;">출장 중 사용에 부담이 적은 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 정확한 1회 충전</p><p style="text-align:center;margin:0;color:#000000;">사용 가능 일수는</p><p style="text-align:center;margin:0;color:#000000;">제품 상세페이지에서</p><p style="text-align:center;margin:0;color:#000000;">확인하시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-4.jpg" alt="파나소닉 면도기 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이 가격대에서 고민할 이유가 있을까</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">3중날에 팜인 디자인,</p><p style="text-align:center;margin:0;color:#000000;">충전식 구조까지 갖춘 제품이</p><p style="text-align:center;margin:0;color:#000000;">15만원 아래로 내려온 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드 안에서</p><p style="text-align:center;margin:0;color:#000000;">더 상위 모델을 찾자면</p><p style="text-align:center;margin:0;color:#000000;">가격 차이가 더 벌어지는 경우가</p><p style="text-align:center;margin:0;color:#000000;">일반적입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/01-5.jpg" alt="파나소닉 면도기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">공식 상품 페이지에서 가져온 이미지입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">자극은 줄이고 손엔 편하게,<br>그게 핵심입니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">수염이 두껍고 빽빽한 편이라면</p><p style="text-align:center;margin:0;color:#000000;">날이 더 많은 상위 모델이</p><p style="text-align:center;margin:0;color:#000000;">나을 수도 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">하지만 매일 아침</p><p style="text-align:center;margin:0;color:#000000;">짧게, 자극 없이</p><p style="text-align:center;margin:0;color:#000000;">정리하고 나가는 용도라면</p><p style="text-align:center;margin:0;color:#000000;">ES-CM3B 선에서 충분히</p><p style="text-align:center;margin:0;color:#000000;">해결되는 문제입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">아침마다 면도기와 씨름하는 그 시간이 아깝다면<br>지금 가격 조건을 확인해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 파나소닉 ES-CM3B 람대쉬 3중날 전기 면도기 팜인 쉐이버<br>구성·혜택 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FriVTRrK</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#전기면도기 #파나소닉면도기 #3중날면도기 #람다쉬면도기 #면도기추천 #남성면도기 #면도기가격 #회전식면도기</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -360,40 +380,14 @@ https://naver.me/FriVTRrK
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -483,10 +477,10 @@ https://naver.me/FriVTRrK
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -539,6 +533,29 @@ https://naver.me/FriVTRrK
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

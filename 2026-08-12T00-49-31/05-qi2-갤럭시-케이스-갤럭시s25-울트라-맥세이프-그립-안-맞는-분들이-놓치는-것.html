@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="Qi2 갤럭시 케이스 갤럭시S25 울트라, 맥세이프 그립 안 맞는 분들이 놓치는 것"><span class="tp-num">1</span><span class="tp-text">Qi2 갤럭시 케이스 갤럭시S25 울트라, 맥세이프 그립 안 맞는 분들이 놓치는 것</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="갤럭시S25 울트라 케이스 고를 때 무선충전 위치부터 확인해야 하는 이유"><span class="tp-num">2</span><span class="tp-text">갤럭시S25 울트라 케이스 고를 때 무선충전 위치부터 확인해야 하는 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="슈피겐 울트라하이브리드맥핏 네오원, 케이스 씌우고 무선충전 안 되면 손해 (구매 전 체크 3가지)"><span class="tp-num">3</span><span class="tp-text">슈피겐 울트라하이브리드맥핏 네오원, 케이스 씌우고 무선충전 안 되면 손해 (구매 전 체크 3가지)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 3장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 3장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 3장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 3장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-1.jpg" alt="Qi2 갤럭시 케이스 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,10 +156,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">무선충전 패드에 폰 올려두고</p><p style="text-align:center;margin:0;color:#000000;">자리 맞추느라 몇 번씩</p><p style="text-align:center;margin:0;color:#000000;">들었다 놨다 해본 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">케이스가 두껍거나</p><p style="text-align:center;margin:0;color:#000000;">자석 위치가 안 맞으면</p><p style="text-align:center;margin:0;color:#000000;">충전이 시작됐다 끊겼다 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 케이스는 Qi2 인증을 받은 제품이라</p><p style="text-align:center;margin:0;color:#000000;">그 자석 정렬 문제를 케이스 단에서</p><p style="text-align:center;margin:0;color:#000000;">해결하려고 만든 구조예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면, 갤럭시S25 울트라를</p><p style="text-align:center;margin:0;color:#000000;">맥세이프 액세서리와 같이 쓸 계획이면</p><p style="text-align:center;margin:0;color:#000000;">맞는 선택이고, 그냥 얇고 가벼운 케이스만</p><p style="text-align:center;margin:0;color:#000000;">찾으신다면 다른 라인이 더 나을 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-1.jpg" alt="Qi2 갤럭시 케이스 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> Qi2 인증이 왜 중요한가요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 투명 케이스, 시간 지나면 변색되지 않나요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 같이 쓸 액세서리, 뭐가 맞을까요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 그래서 누구한테 맞는 케이스인가요</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">Qi2 인증이 왜 중요한가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">Qi2는 자석이 정해진 위치에</p><p style="text-align:center;margin:0;color:#000000;">정확히 붙는 걸 보장하는 인증입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">인증 없는 케이스는 자석이</p><p style="text-align:center;margin:0;color:#000000;">케이스 안에 들어있어도</p><p style="text-align:center;margin:0;color:#000000;">정렬이 살짝 어긋나는 경우가 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그러면 충전 효율이 떨어지고</p><p style="text-align:center;margin:0;color:#000000;">심하면 충전이 안 되는데,</p><p style="text-align:center;margin:0;color:#000000;">이 부분을 케이스 구매 전에</p><p style="text-align:center;margin:0;color:#000000;">가장 먼저 확인해야 하는 이유입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">네오원 투명 모델은 이 인증을</p><p style="text-align:center;margin:0;color:#000000;">받은 상태로 나와서</p><p style="text-align:center;margin:0;color:#000000;">차량용 거치대나 데스크 충전기에</p><p style="text-align:center;margin:0;color:#000000;">올렸을 때 자석이 딱 붙는지부터</p><p style="text-align:center;margin:0;color:#000000;">따로 테스트할 필요가 없습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-2.jpg" alt="Qi2 갤럭시 케이스 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">투명 케이스, 시간 지나면 변색되지 않나요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">투명 케이스를 고를 때</p><p style="text-align:center;margin:0;color:#000000;">가장 걱정되는 부분이</p><p style="text-align:center;margin:0;color:#000000;">황변, 즉 누렇게 변하는 현상입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">울트라하이브리드 라인은</p><p style="text-align:center;margin:0;color:#000000;">이 변색을 줄이는 소재를</p><p style="text-align:center;margin:0;color:#000000;">쓴다고 알려진 라인이라</p><p style="text-align:center;margin:0;color:#000000;">클리어화이트나 투명 색상을</p><p style="text-align:center;margin:0;color:#000000;">오래 유지하고 싶은 분들이</p><p style="text-align:center;margin:0;color:#000000;">주로 선택하는 라인이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 사용 환경에 따라</p><p style="text-align:center;margin:0;color:#000000;">정도 차이는 있을 수 있으니</p><p style="text-align:center;margin:0;color:#000000;">땀이나 자외선 노출이 많다면</p><p style="text-align:center;margin:0;color:#000000;">그 점은 감안하셔야 합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">같이 쓸 액세서리, 뭐가 맞을까요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">케이스만 사고 끝내지 않고</p><p style="text-align:center;margin:0;color:#000000;">카메라 보호나 액정 보호까지</p><p style="text-align:center;margin:0;color:#000000;">같이 챙기는 분들이 많습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-12T00-49-31/img/05-3.jpg" alt="Qi2 갤럭시 케이스 사용 예시 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>품목</b></p><p style="text-align:center;margin:0;color:#000000;">가격</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>울트라하이브리드맥핏 케이스</b></p><p style="text-align:center;margin:0;color:#000000;">30,510원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>글라스tR 옵틱 프로 카메라 렌즈 필름 2매입</b></p><p style="text-align:center;margin:0;color:#000000;">19,900원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>글라스tR 이지핏 AR 액정필름 2매입</b></p><p style="text-align:center;margin:0;color:#000000;">36,900원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>Qi2 차량용 고속 무선충전 거치대</b></p><p style="text-align:center;margin:0;color:#000000;">52,900원</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b>Qi2 15W 2in1 무선충전 거치대 PF2402</b></p><p style="text-align:center;margin:0;color:#000000;">42,900원</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">카메라 렌즈 필름은 케이스보다</p><p style="text-align:center;margin:0;color:#000000;">저렴한 편이라 같이 사는 분들이</p><p style="text-align:center;margin:0;color:#000000;">많고, 액정필름은 저반사 코팅이</p><p style="text-align:center;margin:0;color:#000000;">들어가면서 케이스보다 비싸질 수</p><p style="text-align:center;margin:0;color:#000000;">있다는 점은 미리 알아두시는 게</p><p style="text-align:center;margin:0;color:#000000;">좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무선충전 거치대까지 맞추실 거면</p><p style="text-align:center;margin:0;color:#000000;">케이스와 거치대 둘 다 Qi2 인증인지</p><p style="text-align:center;margin:0;color:#000000;">꼭 같이 확인하세요.</p><p style="text-align:center;margin:0;color:#000000;">한쪽만 인증이면 정렬 효과가</p><p style="text-align:center;margin:0;color:#000000;">반으로 줄어듭니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">케이스 씌운 채로 맥세이프 정렬이 되는지,<br>여기서 먼저 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/Fso4r8zs</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">그래서 누구한테 맞는 케이스인가요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">차량에서 맥세이프 거치대 쓰거나</p><p style="text-align:center;margin:0;color:#000000;">데스크 충전기 올려두는 게</p><p style="text-align:center;margin:0;color:#000000;">일상인 분들에게는 이 케이스가</p><p style="text-align:center;margin:0;color:#000000;">자석 위치 걱정을 덜어주는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 무선충전을 거의 안 쓰고</p><p style="text-align:center;margin:0;color:#000000;">얇고 가벼운 느낌만 원하신다면</p><p style="text-align:center;margin:0;color:#000000;">Qi2 인증 여부는 크게 중요하지</p><p style="text-align:center;margin:0;color:#000000;">않을 수 있어요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">케이스는 매일 손에 닿는 물건이라,<br>충전 한 번 걸릴 때마다 쌓이는<br>불편이 생각보다 큽니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 35,900원에서 15% 내려온</p><p style="text-align:center;margin:0;color:#000000;">30,510원이면, 카메라 필름이나</p><p style="text-align:center;margin:0;color:#000000;">거치대까지 같이 맞출 계획인 분들은</p><p style="text-align:center;margin:0;color:#000000;">케이스부터 정리해두는 게 순서상</p><p style="text-align:center;margin:0;color:#000000;">맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">충전 위치 맞추다 폰 놓치는 일,<br>이제 그만해도 되지 않을까요.<br>케이스 갈아탈 타이밍이라면 지금 링크에서 살펴보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 Qi2 인증 슈피겐 갤럭시 맥세이프 케이스 울트라하이브리드맥핏 네오원 투명, 갤럭시S25 울트라<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/Fso4r8zs</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#갤럭시S25울트라케이스 #갤럭시S25울트라맥세이프 #슈피겐갤럭시S25울트라 #갤럭시S25울트라투명케이스 #갤럭시S25울트라무선충전 #갤럭시S25울트라케이스추천 #갤럭시S25울트라보호케이스 #Qi2인증케이스 #갤럭시S25울트라방어력 #갤럭시S25울트라가성비케이스</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -343,40 +363,14 @@ https://naver.me/Fso4r8zs
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -466,10 +460,10 @@ https://naver.me/Fso4r8zs
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -522,6 +516,29 @@ https://naver.me/Fso4r8zs
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

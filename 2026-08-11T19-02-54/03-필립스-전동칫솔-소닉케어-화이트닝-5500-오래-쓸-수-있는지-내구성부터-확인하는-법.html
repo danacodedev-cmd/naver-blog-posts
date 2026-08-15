@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법"><span class="tp-num">1</span><span class="tp-text">필립스 전동칫솔 소닉케어 화이트닝 5500+, 오래 쓸 수 있는지 내구성부터 확인하는 법</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="필립스 소닉케어 5500 네이비블루, 칫솔모 교체주기까지 따져보는 실사용 기준 (바디스크럽 증정)"><span class="tp-num">2</span><span class="tp-text">필립스 소닉케어 5500 네이비블루, 칫솔모 교체주기까지 따져보는 실사용 기준 (바디스크럽 증정)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="전동칫솔 처음 사신다면, 필립스 소닉케어 5500으로 시작해도 되는 이유"><span class="tp-num">3</span><span class="tp-text">전동칫솔 처음 사신다면, 필립스 소닉케어 5500으로 시작해도 되는 이유</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 3장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 3장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 3장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 3장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" alt="필립스 전동칫솔 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260420_50/1776659114828PEie6_JPEG/19673692661241342_1653714137.jpg?type=o1000" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260420_50/1776659114828PEie6_JPEG/19673692661241342_1653714137.jpg?type=o1000" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260420_50/1776659114828PEie6_JPEG/19673692661241342_1653714137.jpg?type=o1000" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,10 +156,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260420_150/1776659121123Fa7e1_JPEG/2902919220678506_1663888364.jpg?type=o1000" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260420_150/1776659121123Fa7e1_JPEG/2902919220678506_1663888364.jpg?type=o1000" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260420_150/1776659121123Fa7e1_JPEG/2902919220678506_1663888364.jpg?type=o1000" download="photo-03.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">전동칫솔을 처음 들이는 분들이 제일 먼저 걱정하는 건</p><p style="text-align:center;margin:0;color:#000000;">배터리보다 내구성입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">몇 달 쓰고 진동이 약해지거나 충전이 잘 안 되는</p><p style="text-align:center;margin:0;color:#000000;">경우를 걱정하시는 거죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필립스 소닉케어 5500+는 이 부분에서 브랜드 자체</p><p style="text-align:center;margin:0;color:#000000;">이력이 긴 제품군에 속합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔에 처음 돈을 쓰는 분이라면 무난하게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이미 프리미엄 라인을 써보셨고 구강세정기까지 원하신다면</p><p style="text-align:center;margin:0;color:#000000;">이 모델은 살짝 아쉬울 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260731_65/1785471497608DrwyQ_PNG/3112014414609825_475911347.png?type=o1000" alt="필립스 전동칫솔 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">내구성, 왜 유독 이 제품에서 신경 쓰이는가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 매일 두세 번,</p><p style="text-align:center;margin:0;color:#000000;">짧게는 1년 넘게 쓰는 물건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 진동 모터와 배터리 내구성이 실제 만족도를 가장</p><p style="text-align:center;margin:0;color:#000000;">크게 가릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소닉케어 라인은 오래 써온 사용자층이 많은 만큼 부품</p><p style="text-align:center;margin:0;color:#000000;">안정성 검증이 상대적으로 오래된 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 어떤 제품이든 헤드 부분은 소모품이라 관리 방식에</p><p style="text-align:center;margin:0;color:#000000;">따라 체감이 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">물기를 완전히 말리지 않고 보관하면 내구성 저하가</p><p style="text-align:center;margin:0;color:#000000;">빨라지니,</p><p style="text-align:center;margin:0;color:#000000;">사용 후 헤드를 흔들어 물기를 털어내는 정도는</p><p style="text-align:center;margin:0;color:#000000;">챙기시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260420_50/1776659114828PEie6_JPEG/19673692661241342_1653714137.jpg?type=o1000" alt="필립스 전동칫솔 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">칫솔모 교체, 생각보다 중요한 유지비 항목</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 본체 가격만 보고 끝내면 안 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칫솔모를 얼마나 자주,</p><p style="text-align:center;margin:0;color:#000000;">얼마에 바꿔야 하는지가 실제 유지비를 결정합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">필립스 소닉케어 센서티브 초미세모 HX6052/14는</p><p style="text-align:center;margin:0;color:#000000;">23,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">치아와 잇몸이 예민한 편이라면 이 초미세모로 교체해서</p><p style="text-align:center;margin:0;color:#000000;">쓰는 걸 고려해볼 만합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">칫솔모는 통상 3개월 주기로 교체하는 게 권장되니,</p><p style="text-align:center;margin:0;color:#000000;">본체 가격에 이 소모품 비용을 한 번 더 더해서</p><p style="text-align:center;margin:0;color:#000000;">계산해보시는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">칫솔모 교체 비용까지 계산해보고 싶으시면 아래에서<br>구성을 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5eDvlIOV</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">다른 소닉케어 라인과 가격 차이</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 브랜드 안에서도 라인업 차이가 꽤 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">올인원 칫솔모 세트 프레스티지 9900은</p><p style="text-align:center;margin:0;color:#000000;">374,900원이고,</p><p style="text-align:center;margin:0;color:#000000;">구강세정기까지 포함된 다이아몬드클린9000</p><p style="text-align:center;margin:0;color:#000000;">스페셜에디션은 229,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세정기 기능이나 자동 압력센서까지 필요한 게 아니라면,</p><p style="text-align:center;margin:0;color:#000000;">5500+ 정도에서 시작해도 기본적인 관리</p><p style="text-align:center;margin:0;color:#000000;">기능은 충족됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 잇몸 관리 데이터를 앱으로 확인하고 싶거나 여러</p><p style="text-align:center;margin:0;color:#000000;">헤드를 번갈아 쓰고 싶으시다면 상위 라인</p><p style="text-align:center;margin:0;color:#000000;">쪽이 더 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260420_150/1776659121123Fa7e1_JPEG/2902919220678506_1663888364.jpg?type=o1000" alt="필립스 전동칫솔 사용 예시 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">전동칫솔은 헤드 교체 비용까지<br>포함해서 계산해야 진짜<br>가격이 보입니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">배송과 구성, 확인하고 넘어갈 부분</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배송은 제품 특성상 파손 위험이 크지 않은 품목이라 큰</p><p style="text-align:center;margin:0;color:#000000;">이슈는 적은 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 구성품 확인은 받는 즉시 하시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바디스크럽 증정이 포함된 구성이라,</p><p style="text-align:center;margin:0;color:#000000;">박스 안에 본체와 충전대, 헤드,</p><p style="text-align:center;margin:0;color:#000000;">증정품이 모두 들어있는지 개봉 시점에</p><p style="text-align:center;margin:0;color:#000000;">체크하시는 걸 권합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔은 초기 불량 여부를 며칠 안에 판단해야 교환이</p><p style="text-align:center;margin:0;color:#000000;">수월하니,</p><p style="text-align:center;margin:0;color:#000000;">받은 날 한 번 충전하고 진동 세기를 확인해두시는</p><p style="text-align:center;margin:0;color:#000000;">게 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">전동칫솔을 오래,</p><p style="text-align:center;margin:0;color:#000000;">부담 없이 쓰고 싶다면 결국 본체 내구성과 소모품</p><p style="text-align:center;margin:0;color:#000000;">비용을 같이 보는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">138,900원이라는 가격이 23% 할인된 조건인</p><p style="text-align:center;margin:0;color:#000000;">만큼, 지금 구성을 한 번 확인해보셔도 좋겠습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">몇 년 쓸 칫솔인지 궁금하시다면 지금 구성과 가격을<br>같이 보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 필립스 전동칫솔 올 뉴 소닉케어 화이트닝 5500+플루 바디스크럽 증정 네이비블루<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5eDvlIOV</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#필립스소닉케어5500후기 #필립스전동칫솔추천 #음파전동칫솔내돈내산 #필립스화이트닝전동칫솔 #전동칫솔입문용추천 #필립스소닉케어가격 #치아미백전동칫솔 #필립스전동칫솔교체헤드 #전동칫솔잇몸관리 #필립스칫솔세트</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -322,40 +342,14 @@ https://naver.me/5eDvlIOV
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -445,10 +439,10 @@ https://naver.me/5eDvlIOV
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -501,6 +495,29 @@ https://naver.me/5eDvlIOV
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="씽크웨이 키보드 토체프301 피치소다축, 104키 풀배열 유무선 기계식 후기 전 체크리스트"><span class="tp-num">1</span><span class="tp-text">씽크웨이 키보드 토체프301 피치소다축, 104키 풀배열 유무선 기계식 후기 전 체크리스트</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="사무실에서 타닥타닥 소리 눈치 보이셨다면? 씽크웨이 토체프301 피치소다축 총정리 (재택·사무실 필수 확인)"><span class="tp-num">2</span><span class="tp-text">사무실에서 타닥타닥 소리 눈치 보이셨다면? 씽크웨이 토체프301 피치소다축 총정리 (재택·사무실 필수 확인)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="기계식 키보드 축 선택 하나로 만족도 갈린다는데, 씽크웨이 토체프301 피치소다축 뭐가 다를까"><span class="tp-num">3</span><span class="tp-text">기계식 키보드 축 선택 하나로 만족도 갈린다는데, 씽크웨이 토체프301 피치소다축 뭐가 다를까</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,18 +121,30 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 1장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 1장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 1장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 1장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shopping-phinf.pstatic.net/main_8979256/89792563313.jpg" alt="씽크웨이 키보드 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8979256/89792563313.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8979256/89792563313.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8979256/89792563313.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">회사에서 키보드 두드릴 때마다 옆자리 눈치 보인 적</p><p style="text-align:center;margin:0;color:#000000;">있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">집에서도 마찬가지죠.</p><p style="text-align:center;margin:0;color:#000000;">가족 자고 있는데 타건 소리가 유독 크게 들리는 밤,</p><p style="text-align:center;margin:0;color:#000000;">다들 한 번쯤 겪어보셨을 거고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기계식 키보드는 축에 따라 소음과 손끝 느낌이</p><p style="text-align:center;margin:0;color:#000000;">완전히 달라집니다.</p><p style="text-align:center;margin:0;color:#000000;">그래서 오래 타이핑하는 분일수록 축 선택이 만족도를</p><p style="text-align:center;margin:0;color:#000000;">가르는 편이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8979256/89792563313.jpg" alt="씽크웨이 키보드 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">축부터 확인하고 골라야 하는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기계식 키보드를 처음 사시는 분들이 가장 많이 놓치는</p><p style="text-align:center;margin:0;color:#000000;">부분이 축 종류입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">적축·갈축은 상대적으로 조용한 편이고 청축은 소리가</p><p style="text-align:center;margin:0;color:#000000;">크고 또렷합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사무실이나 거실처럼 다른 사람과 같이 쓰는 공간이면 축</p><p style="text-align:center;margin:0;color:#000000;">종류부터 확인하고 고르시는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">조용해야 하는 곳에서 청축을 고르면 옆에서 싫은 소리</p><p style="text-align:center;margin:0;color:#000000;">들을 수 있거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">씽크웨이 토체프301은 피치소다축을 씁니다.</p><p style="text-align:center;margin:0;color:#000000;">커스텀 스위치로 부드러운 타건감을 만든 제품인데 여기에</p><p style="text-align:center;margin:0;color:#000000;">4중 흡음 구조까지 더해져 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소음을 줄이는 구조가 따로 들어간 셈이라 오래 치는</p><p style="text-align:center;margin:0;color:#000000;">분들이 손끝 피로와 소리 둘 다 신경 쓰셨다는 걸</p><p style="text-align:center;margin:0;color:#000000;">알 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">유선 무선 바꿔가며 쓰고 싶은 분이라면</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">책상 자리 바꿀 때마다 케이블 정리하기 귀찮으셨던</p><p style="text-align:center;margin:0;color:#000000;">분들 계실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 배터리 걱정 없이 확실하게 유선으로만 쓰고</p><p style="text-align:center;margin:0;color:#000000;">싶은 날도 있고요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">토체프301은 유무선 겸용이라 상황에 따라 방식을 바꿔</p><p style="text-align:center;margin:0;color:#000000;">쓸 수 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">3050mAh 배터리가 들어 있어서 무선으로 쓰다가</p><p style="text-align:center;margin:0;color:#000000;">필요할 때만 유선으로 전환하는 것도 가능합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 완전 무선 제품은 몇 주에 한 번은 충전이</p><p style="text-align:center;margin:0;color:#000000;">필요하다는 점, 미리 알아두시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">배터리 다 됐는데 충전 케이블을 못 찾는 상황,</p><p style="text-align:center;margin:0;color:#000000;">은근히 자주 생기거든요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">옆자리 눈치 보며 타이핑하는 게 지겨우셨다면 축</p><p style="text-align:center;margin:0;color:#000000;">종류부터 먼저 확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">옆자리 눈치 보며 타이핑하는 게 지겨우셨다면 축<br>종류부터 먼저 확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G4dFPQNL</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">104키 풀배열과 키캡, 마감 확인하기</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">숫자패드까지 다 쓰시는 분이면 텐키리스보다</p><p style="text-align:center;margin:0;color:#000000;">풀배열이 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">토체프301은 104키 풀배열이라 숫자 입력이나 엑셀</p><p style="text-align:center;margin:0;color:#000000;">작업 많은 분들도 따로 아쉬울 게 없는 구성이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">키캡은 PBT 소재입니다.</p><p style="text-align:center;margin:0;color:#000000;">오래 쓰면 반질반질해지는 ABS와 달리 PBT는 마모에</p><p style="text-align:center;margin:0;color:#000000;">강해서 장시간 사용에도 표면 변화가 적은 편으로</p><p style="text-align:center;margin:0;color:#000000;">알려져 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">RGB LED도 들어가 있어서 불 끄고 작업하거나</p><p style="text-align:center;margin:0;color:#000000;">게임할 때 키보드 자체가 포인트가 되어줍니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">오래 타이핑하는 사람일수록 축 선택이<br>만족도를 가릅니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">살까 말까 고민된다면 이 질문 하나로</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결정이 어려우시면 스스로에게 이 질문</p><p style="text-align:center;margin:0;color:#000000;">하나만 던져보세요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주로 조용한 곳에서 쓰시나요,</p><p style="text-align:center;margin:0;color:#000000;">아니면 소음 신경 안 써도 되는 곳인가요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소음 상관없는 환경이면 청축처럼 확실한 타건감을</p><p style="text-align:center;margin:0;color:#000000;">즐기셔도 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">하지만 사무실이나 거실처럼 조용해야 하는 곳이라면</p><p style="text-align:center;margin:0;color:#000000;">적축·갈축 계열이나 소음 억제 구조가 있는 제품을</p><p style="text-align:center;margin:0;color:#000000;">보시는 게 안전합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">토체프301은 피치소다축에 4중 흡음 구조까지 넣은</p><p style="text-align:center;margin:0;color:#000000;">제품이라 조용한 공간에서 쓰기에도 부담이</p><p style="text-align:center;margin:0;color:#000000;">적은 편입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">유무선을 상황 따라 바꿔 쓰고 싶고 손끝 피로도 줄이고</p><p style="text-align:center;margin:0;color:#000000;">싶으신 분이라면 가격 109,900원과 구성을 같이</p><p style="text-align:center;margin:0;color:#000000;">보시고 직접 비교해보시길 권해드립니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">유선이든 무선이든 상황 따라 바꿔 쓰고 싶으셨다면 지금</p><p style="text-align:center;margin:0;color:#000000;">씽크웨이 토체프301 구성 확인해보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">유선이든 무선이든 상황 따라 바꿔 쓰고 싶으셨다면 지금<br>씽크웨이 토체프301 구성 확인해보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 씽크웨이 토체프301 유무선 기계식 키보드 104키 풀배열 프로포즈핑크, 피치소다축<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G4dFPQNL</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#토체프301기계식키보드 #기계식키보드추천가성비 #무선기계식키보드 #피치소다축키보드 #풀배열키보드추천 #사무용기계식키보드 #키보드입문용 #프로포즈핑크키보드 #데스크테리어키보드 #토체프301리뷰 #유무선키보드추천 #직장인키보드추천</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -309,40 +329,14 @@ https://naver.me/G4dFPQNL
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -432,10 +426,10 @@ https://naver.me/G4dFPQNL
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -488,6 +482,29 @@ https://naver.me/G4dFPQNL
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

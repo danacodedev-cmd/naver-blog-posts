@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="파나소닉 제품 ER-GY60, 바디 트리머 사기 전 확인할 3가지"><span class="tp-num">1</span><span class="tp-text">파나소닉 제품 ER-GY60, 바디 트리머 사기 전 확인할 3가지</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="파나소닉 바디 트리머 ER-GY60, 방수 안 되면 후회하는 이유"><span class="tp-num">2</span><span class="tp-text">파나소닉 바디 트리머 ER-GY60, 방수 안 되면 후회하는 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="파나소닉 남성용 바디 트리머 ER-GY60 (여름 노출 의상 앞두고)"><span class="tp-num">3</span><span class="tp-text">파나소닉 남성용 바디 트리머 ER-GY60 (여름 노출 의상 앞두고)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 4장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 4장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-1.jpg" alt="파나소닉 제품 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,7 +156,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -145,10 +164,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">여름 다가와서 반팔이랑 반바지 꺼냈는데</p><p style="text-align:center;margin:0;color:#000000;">팔다리 털 정리부터</p><p style="text-align:center;margin:0;color:#000000;">막막했던 적 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">왁싱샵 예약은 시간도 아깝고</p><p style="text-align:center;margin:0;color:#000000;">가격도 매번 나가고</p><p style="text-align:center;margin:0;color:#000000;">무엇보다 그 통증이 부담스러워서</p><p style="text-align:center;margin:0;color:#000000;">그냥 미루게 되는 경우 많습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면 매번 왁싱샵</p><p style="text-align:center;margin:0;color:#000000;">가기 부담스럽거나</p><p style="text-align:center;margin:0;color:#000000;">집에서 혼자 위생적으로</p><p style="text-align:center;margin:0;color:#000000;">정리하고 싶은 분한테는</p><p style="text-align:center;margin:0;color:#000000;">파나소닉 ER-GY60이 맞는 선택입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 얼굴 수염 정리까지 하나로</p><p style="text-align:center;margin:0;color:#000000;">해결하고 싶으시면</p><p style="text-align:center;margin:0;color:#000000;">바디 전용 트리머만으로는</p><p style="text-align:center;margin:0;color:#000000;">부족할 수 있으니</p><p style="text-align:center;margin:0;color:#000000;">용도부터 구분하고 보셔야 합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-1.jpg" alt="파나소닉 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> 방수 기능부터 확인하셔야 하는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 길이 조절, 왜 다양하게 필요한가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 피부 민감한 분은 여기 먼저 보세요</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 가격, 129,000원짜리가 109,000원인 이유</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">방수 기능부터 확인하셔야 하는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바디 트리머는 결국 샤워하면서</p><p style="text-align:center;margin:0;color:#000000;">같이 쓰는 물건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거품 바르고 나서 정리하는 게</p><p style="text-align:center;margin:0;color:#000000;">가장 위생적이고 자극도 적은데</p><p style="text-align:center;margin:0;color:#000000;">방수가 안 되는 제품이면</p><p style="text-align:center;margin:0;color:#000000;">이 방법 자체를 못 씁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">ER-GY60은 방수 기능이</p><p style="text-align:center;margin:0;color:#000000;">들어간 모델이라</p><p style="text-align:center;margin:0;color:#000000;">물 닿는 환경에서 바로 사용 가능합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세척도 흐르는 물에 바로 헹구면 되니</p><p style="text-align:center;margin:0;color:#000000;">매번 솔로 틈새 청소할 필요가 없다는 점도</p><p style="text-align:center;margin:0;color:#000000;">관리 부담을 줄여줍니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-2.jpg" alt="파나소닉 제품 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">길이 조절, 왜 다양하게 필요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">몸 부위마다 털 굵기랑 밀도가 다릅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">겨드랑이나 다리처럼 넓은 부위는</p><p style="text-align:center;margin:0;color:#000000;">길게 정리하는 게 편하고</p><p style="text-align:center;margin:0;color:#000000;">민감한 부위는 짧게, 조심스럽게</p><p style="text-align:center;margin:0;color:#000000;">접근해야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">길이 조절 기능이 있는 트리머는</p><p style="text-align:center;margin:0;color:#000000;">부위별로 날을 갈아 끼우거나</p><p style="text-align:center;margin:0;color:#000000;">따로 도구를 살 필요가 없습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 대로 몸 전체를 커버할 수 있다는 게</p><p style="text-align:center;margin:0;color:#000000;">바디 전용 트리머를 따로 사는</p><p style="text-align:center;margin:0;color:#000000;">가장 큰 이유입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-3.jpg" alt="파나소닉 제품 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">매번 왁싱샵 예약 잡는 것부터 번거로우셨다면<br>가격이랑 구성 한번 보고<br>판단하셔도 늦지 않습니다</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xHELKYOI</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">피부 민감한 분은 여기 먼저 보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">민감한 피부는 자극에 예민해서</p><p style="text-align:center;margin:0;color:#000000;">잘못된 도구로 정리하면</p><p style="text-align:center;margin:0;color:#000000;">붉게 올라오거나 따가운 경우가 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바디 트리머는 왁싱보다</p><p style="text-align:center;margin:0;color:#000000;">피부에 닿는 힘이 약한 편이라</p><p style="text-align:center;margin:0;color:#000000;">같은 부위를 반복해서 자극하지만 않으면</p><p style="text-align:center;margin:0;color:#000000;">비교적 순한 편에 속합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 처음 쓰실 때는</p><p style="text-align:center;margin:0;color:#000000;">한 번에 짧게, 살살 밀어보시고</p><p style="text-align:center;margin:0;color:#000000;">피부 반응 보면서 강도를 조절하시는 게</p><p style="text-align:center;margin:0;color:#000000;">안전합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T02-52-42/img/04-4.jpg" alt="파나소닉 제품 색상 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">가격, 129,000원짜리가 109,000원인 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 129,000원에서</p><p style="text-align:center;margin:0;color:#000000;">16% 내려온 109,000원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">왁싱샵 몇 번 다녀오는 비용이랑 비교하면</p><p style="text-align:center;margin:0;color:#000000;">한 대 사서 집에서 계속 쓰는 쪽이</p><p style="text-align:center;margin:0;color:#000000;">장기적으로는 부담이 덜합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이 가격이 언제까지 유지될지는</p><p style="text-align:center;margin:0;color:#000000;">알 수 없으니</p><p style="text-align:center;margin:0;color:#000000;">살지 여부는 지금 필요성으로</p><p style="text-align:center;margin:0;color:#000000;">판단하시는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">매번 예약하고 참는 대신,<br>집에서 정리하는 방법도 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여름 노출 의상 앞두고 바디 라인</p><p style="text-align:center;margin:0;color:#000000;">정리하고 싶으신 분,</p><p style="text-align:center;margin:0;color:#000000;">매번 왁싱샵 가는 시간과 통증이</p><p style="text-align:center;margin:0;color:#000000;">부담스러운 분이라면</p><p style="text-align:center;margin:0;color:#000000;">방수 기능이랑 길이 조절</p><p style="text-align:center;margin:0;color:#000000;">옵션부터 확인하고</p><p style="text-align:center;margin:0;color:#000000;">결정하시면 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">여름 옷 꺼내기 전에 정리하고 싶은 마음,<br>아직 그대로시라면<br>지금 조건 어떤지 한번 살펴보세요</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 파나소닉 남성용 바디 트리머 방수 ER-GY60<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/xHELKYOI</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#바디트리머추천 #남성용바디트리머 #파나소닉ER-GY60 #방수바디트리머 #바디트리머가격 #바디트리머후기 #남성미용기구 #바디트리머비교</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -339,40 +359,14 @@ https://naver.me/xHELKYOI
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -462,10 +456,10 @@ https://naver.me/xHELKYOI
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -518,6 +512,29 @@ https://naver.me/xHELKYOI
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="지수라이프 휴대용선풍기 라이프9 카본블랙, 야외에서 강풍 오래 쓰는 법 (충전 방식 확인)"><span class="tp-num">1</span><span class="tp-text">지수라이프 휴대용선풍기 라이프9 카본블랙, 야외에서 강풍 오래 쓰는 법 (충전 방식 확인)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="지수라이프 라이프9 카본블랙, 손풍기 흡입력 세게 나오는 모델 고르는 기준 (기내·야구장용)"><span class="tp-num">2</span><span class="tp-text">지수라이프 라이프9 카본블랙, 손풍기 흡입력 세게 나오는 모델 고르는 기준 (기내·야구장용)</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="가방에 넣고 다닐 손풍기 고민이라면, 지수라이프 라이프9 카본블랙부터 보세요 (출력·배터리 체크)"><span class="tp-num">3</span><span class="tp-text">가방에 넣고 다닐 손풍기 고민이라면, 지수라이프 라이프9 카본블랙부터 보세요 (출력·배터리 체크)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 2장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 2장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 2장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 2장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shop-phinf.pstatic.net/20260709_259/1783579215076jhVqJ_JPEG/68764180870278430_289583166.jpg?type=o1000" alt="지수라이프 휴대용선풍기 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260709_259/1783579215076jhVqJ_JPEG/68764180870278430_289583166.jpg?type=o1000" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260709_259/1783579215076jhVqJ_JPEG/68764180870278430_289583166.jpg?type=o1000" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260709_259/1783579215076jhVqJ_JPEG/68764180870278430_289583166.jpg?type=o1000" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,10 +148,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20251013_36/1760337017852OSCtq_JPEG/33157071999071085_72221900.jpg?type=o1000" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20251013_36/1760337017852OSCtq_JPEG/33157071999071085_72221900.jpg?type=o1000" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20251013_36/1760337017852OSCtq_JPEG/33157071999071085_72221900.jpg?type=o1000" download="photo-02.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">에어컨 없는 야외에서 부채질만 하다 손 아파본 적</p><p style="text-align:center;margin:0;color:#000000;">있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">야구장, 캠핑장,</p><p style="text-align:center;margin:0;color:#000000;">기내처럼 콘센트도 없는 곳에서는 결국 휴대용 선풍기</p><p style="text-align:center;margin:0;color:#000000;">출력이 전부입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면,</p><p style="text-align:center;margin:0;color:#000000;">이 제품은 밖에서 짧게 강풍으로 쓰실 분께 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">실내에서 몇 시간씩 세게 틀어놓고 쓰실 계획이면 일반</p><p style="text-align:center;margin:0;color:#000000;">선풍기가 낫습니다.</p><p style="text-align:center;margin:0;color:#000000;">휴대성과 바람 세기는 반비례하는 구조라서,</p><p style="text-align:center;margin:0;color:#000000;">작은 만큼 배터리도 작기 때문이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260709_259/1783579215076jhVqJ_JPEG/68764180870278430_289583166.jpg?type=o1000" alt="지수라이프 휴대용선풍기 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">출력이 신경 쓰인다면 이것부터 보세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">판매자 태그에 초강력, 터보,</p><p style="text-align:center;margin:0;color:#000000;">야외선풍기라는 표현이 붙어 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">기내, 야구장,</p><p style="text-align:center;margin:0;color:#000000;">캠핑처럼 바람이 잘 안 통하는 곳에서 쓰는 용도로 잡혀</p><p style="text-align:center;margin:0;color:#000000;">있다는 뜻이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 표기된 사용시간은 보통 약풍 기준입니다.</p><p style="text-align:center;margin:0;color:#000000;">강풍 위주로 쓰실 거면 실제 지속시간은 그 절반 정도로</p><p style="text-align:center;margin:0;color:#000000;">잡아두시는 게 안전합니다.</p><p style="text-align:center;margin:0;color:#000000;">짧게 자주 쓰는 습관이면 크게 문제되지 않지만,</p><p style="text-align:center;margin:0;color:#000000;">계속 세게 틀 계획이면 충전 텀을 미리 계산해두세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">야외에서 오래 버틸 바람 세기가 궁금하시면<br>지금 어떤 구성인지 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FqIuc6lD</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">충전 방식, 사기 전에 꼭 확인하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">C타입 충전인지 먼저 보셔야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">보조배터리로 충전 가능한 구조면 외출 중 배터리가</p><p style="text-align:center;margin:0;color:#000000;">떨어져도 바로 채울 수 있어서 훨씬 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">목걸이형인지 손잡이형인지도 용도에 맞게 확인하시고요.</p><p style="text-align:center;margin:0;color:#000000;">가방에 넣고 다니다 꺼내 쓰는 용도면 손잡이형이 부담</p><p style="text-align:center;margin:0;color:#000000;">없고,</p><p style="text-align:center;margin:0;color:#000000;">아이 유모차나 손 쓰기 불편한 상황이면 지수라이프</p><p style="text-align:center;margin:0;color:#000000;">라이프2S나 라이프5 같은 클립형·거치형이 더</p><p style="text-align:center;margin:0;color:#000000;">나을 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20251013_36/1760337017852OSCtq_JPEG/33157071999071085_72221900.jpg?type=o1000" alt="지수라이프 휴대용선풍기 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">같은 브랜드 안에서 급이 갈립니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지수라이프 라이프9은 카본 블랙과 메탈 블랙 두</p><p style="text-align:center;margin:0;color:#000000;">소재로 나옵니다.</p><p style="text-align:center;margin:0;color:#000000;">메탈 블랙은 59,900원이고,</p><p style="text-align:center;margin:0;color:#000000;">카본 블랙은 39,900원이에요.</p><p style="text-align:center;margin:0;color:#000000;">소재 차이가 크게 신경 쓰이지 않는다면 카본 블랙이</p><p style="text-align:center;margin:0;color:#000000;">가격 면에서 유리합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">출력을 더 끌어올리고 싶으면 울트라2가</p><p style="text-align:center;margin:0;color:#000000;">119,000원으로 올라갑니다.</p><p style="text-align:center;margin:0;color:#000000;">가격 차이만큼 출력·배터리 용량 자체가 다른 라인으로</p><p style="text-align:center;margin:0;color:#000000;">보시면 됩니다.</p><p style="text-align:center;margin:0;color:#000000;">휴대성 위주로 가볍게 들고 다닐 거면 라이프9으로도</p><p style="text-align:center;margin:0;color:#000000;">충분하고,</p><p style="text-align:center;margin:0;color:#000000;">강풍을 더 오래 쓰고 싶으면 울트라2 쪽을</p><p style="text-align:center;margin:0;color:#000000;">검토해볼 만합니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">휴대용 선풍기는 풍속보다 배터리<br>지속시간이 실제 만족도를 가릅니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이동 중,</p><p style="text-align:center;margin:0;color:#000000;">외출 시 짧게 쓰는 용도라면 이 크기와</p><p style="text-align:center;margin:0;color:#000000;">가격대가 딱 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">반대로 실내에서 몇 시간씩 강풍으로 돌릴 계획이라면</p><p style="text-align:center;margin:0;color:#000000;">배터리가 계속 신경 쓰일 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">밖에서 잠깐씩, 자주 꺼내 쓰실 건지.</p><p style="text-align:center;margin:0;color:#000000;">실내에서 오래 틀어놓으실 건지.</p><p style="text-align:center;margin:0;color:#000000;">이 하나만 먼저 정하시면 나머지 선택은 쉬워집니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">손이 아프도록 부채질하던 여름,<br>이번엔 다르게 나셔도 됩니다.<br>지금 상태로 확인 가능한지 살펴보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 지수라이프 미니 손 선풍기 손풍기 무선 소형 에어건 선풍기 라이프9 카본 블랙<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/FqIuc6lD</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#지수라이프미니손풍기 #무선손선풍기추천 #소형휴대용선풍기 #손풍기가격비교 #미니에어건선풍기 #무선휴대용선풍기추천 #라이프9카본 #손풍기무선소형 #휴대용손선풍기추천 #에어건선풍기</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -278,40 +298,14 @@ https://naver.me/FqIuc6lD
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -401,10 +395,10 @@ https://naver.me/FqIuc6lD
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -457,6 +451,29 @@ https://naver.me/FqIuc6lD
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

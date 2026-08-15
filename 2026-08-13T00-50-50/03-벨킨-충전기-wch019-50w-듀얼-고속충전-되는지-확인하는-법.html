@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법"><span class="tp-num">1</span><span class="tp-text">벨킨 충전기 WCH019 50W 듀얼, 고속충전 되는지 확인하는 법</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="아이폰17·갤럭시S26 급속충전, 케이블 안 보면 벨킨도 소용없습니다"><span class="tp-num">2</span><span class="tp-text">아이폰17·갤럭시S26 급속충전, 케이블 안 보면 벨킨도 소용없습니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="벨킨 충전기 WCH019 50W 듀얼 C타입 (노트북·태블릿 동시충전 기준)"><span class="tp-num">3</span><span class="tp-text">벨킨 충전기 WCH019 50W 듀얼 C타입 (노트북·태블릿 동시충전 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -112,15 +120,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 5장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" alt="벨킨 충전기 출력 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -128,7 +147,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-2.jpg" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -136,7 +155,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-3.jpg" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -144,7 +163,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-4.jpg" download="photo-4.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -152,10 +171,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-5.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-5.jpg" download="photo-5.jpg">저장</a>
+          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-5.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">자기 전에 폰 충전기 꽂고,</p><p style="text-align:center;margin:0;color:#000000;">아이패드 충전기 또 찾고,</p><p style="text-align:center;margin:0;color:#000000;">콘센트 두 자리 다 차지했던 밤,</p><p style="text-align:center;margin:0;color:#000000;">다들 한 번쯤 있으실 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">빠른 충전기라고 사놨는데</p><p style="text-align:center;margin:0;color:#000000;">막상 충전 속도가 그대로인</p><p style="text-align:center;margin:0;color:#000000;">경우도 흔합니다.</p><p style="text-align:center;margin:0;color:#000000;">결론부터 말하면,</p><p style="text-align:center;margin:0;color:#000000;">이건 충전기 성능 문제가 아니라</p><p style="text-align:center;margin:0;color:#000000;">내 기기가 그 와트수를 받는지부터</p><p style="text-align:center;margin:0;color:#000000;">확인 안 해서 생기는 문제예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-1.jpg" alt="벨킨 충전기 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:15px;">이 글에서 다루는 것</span></b></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">①</span> PD랑 PPS, 그냥 넘기면 안 되는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">②</span> 케이블도 같이 봐야 하는 이유</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">③</span> 듀얼 포트, 누구한테 진짜 필요한가</p><p style="text-align:center;margin:0;color:#000000;"><span style="font-weight:700;">④</span> 22,900원이라는 가격이 의미하는 것</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">PD랑 PPS, 그냥 넘기면 안 되는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상세페이지에 PD, PPS라고</p><p style="text-align:center;margin:0;color:#000000;">작게 붙어있는 거 보신 적 있으실 텐데요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PD는 C타입 고속충전 표준이고,</p><p style="text-align:center;margin:0;color:#000000;">PPS는 전압을 잘게</p><p style="text-align:center;margin:0;color:#000000;">조절해주는 기술입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">PPS가 있으면 배터리 상태에 맞춰</p><p style="text-align:center;margin:0;color:#000000;">전압을 그때그때 미세하게 조정해줘요.</p><p style="text-align:center;margin:0;color:#000000;">그만큼 발열이 줄고,</p><p style="text-align:center;margin:0;color:#000000;">배터리 수명에도 유리하게 작용합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">와트수 숫자만 크게 써놓고</p><p style="text-align:center;margin:0;color:#000000;">PPS가 빠진 저가 충전기도 있거든요.</p><p style="text-align:center;margin:0;color:#000000;">그럼 숫자만 크고 실제 속도는</p><p style="text-align:center;margin:0;color:#000000;">정품 충전기만 못한 경우가 생깁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">벨킨 WCH019는 50W 듀얼 C타입</p><p style="text-align:center;margin:0;color:#000000;">GaN 방식으로,</p><p style="text-align:center;margin:0;color:#000000;">PD·PPS 둘 다 지원하는 구성이라</p><p style="text-align:center;margin:0;color:#000000;">표기 와트수와 실제 충전 속도 차이가</p><p style="text-align:center;margin:0;color:#000000;">크게 나지 않는 편입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-2.jpg" alt="벨킨 충전기 배터리 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">케이블도 같이 봐야 하는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">충전기가 아무리 좋아도</p><p style="text-align:center;margin:0;color:#000000;">케이블이 못 받쳐주면 소용없어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">45W급 이상 고속충전은</p><p style="text-align:center;margin:0;color:#000000;">보통 5A 지원 케이블이 필요합니다.</p><p style="text-align:center;margin:0;color:#000000;">서랍에 굴러다니던 아무 C타입 케이블 꽂으면</p><p style="text-align:center;margin:0;color:#000000;">속도가 안 나오는데, 이건 충전기가 아니라</p><p style="text-align:center;margin:0;color:#000000;">케이블이 발목 잡는 경우예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구성품에 케이블이 포함되는지</p><p style="text-align:center;margin:0;color:#000000;">구매 전에 꼭 확인하셔야 합니다.</p><p style="text-align:center;margin:0;color:#000000;">따로 사면 1~2만 원이</p><p style="text-align:center;margin:0;color:#000000;">추가로 드는 부분이거든요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-3.jpg" alt="벨킨 충전기 출력 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">지금 쓰는 충전기가 몇 W인지<br>여기서 한번 확인해보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5OlifRPC</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">듀얼 포트, 누구한테 진짜 필요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">포트가 두 개라는 건</p><p style="text-align:center;margin:0;color:#000000;">동시에 두 기기를 충전한다는 뜻이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">노트북, 태블릿까지</p><p style="text-align:center;margin:0;color:#000000;">하나로 충전하고 싶으신 분이라면</p><p style="text-align:center;margin:0;color:#000000;">듀얼 포트가 확실히 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여행이나 출장 갈 때</p><p style="text-align:center;margin:0;color:#000000;">충전기 여러 개 챙기는 게 번거로웠던 분도</p><p style="text-align:center;margin:0;color:#000000;">포트 하나 줄이는 효과를 보실 수 있어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다만 이미 정품 고속충전기를</p><p style="text-align:center;margin:0;color:#000000;">갖고 계신 분이라면 굳이 바꿀</p><p style="text-align:center;margin:0;color:#000000;">이유는 없습니다.</p><p style="text-align:center;margin:0;color:#000000;">그리고 폰이 저전력 충전만 지원한다면</p><p style="text-align:center;margin:0;color:#000000;">충전기를 바꿔도 속도는 그대로예요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-4.jpg" alt="벨킨 충전기 배터리 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">충전기는 보통 5년 넘게 씁니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 폰뿐 아니라</p><p style="text-align:center;margin:0;color:#000000;">다음에 바꿀 폰까지 고려하고</p><p style="text-align:center;margin:0;color:#000000;">사시는 게 맞는 물건이라는 뜻이에요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">22,900원이라는 가격이 의미하는 것</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정가 39,900원에서</p><p style="text-align:center;margin:0;color:#000000;">43% 내려온 22,900원입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">같은 급 GaN 듀얼 충전기가</p><p style="text-align:center;margin:0;color:#000000;">케이블 별도 구매까지 더하면</p><p style="text-align:center;margin:0;color:#000000;">가격 차이가 더 벌어지는 경우가 많은데,</p><p style="text-align:center;margin:0;color:#000000;">이 부분은 구성품 확인으로</p><p style="text-align:center;margin:0;color:#000000;">직접 따져보시는 게 정확합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 쓰시는 폰이</p><p style="text-align:center;margin:0;color:#000000;">고속충전을 어디까지 지원하는지가</p><p style="text-align:center;margin:0;color:#000000;">사실 가장 먼저 확인할 부분이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상위 모델이라면 충전기가</p><p style="text-align:center;margin:0;color:#000000;">그동안 발목을 잡고 있었던 거고,</p><p style="text-align:center;margin:0;color:#000000;">잘 모르시겠다면 스펙표에서</p><p style="text-align:center;margin:0;color:#000000;">지원 와트수부터 확인하시는 게 순서입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-13T00-50-50/img/03-5.jpg" alt="벨킨 충전기 센서 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">사진은 공식 상품 페이지 기준입니다</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">폰이랑 태블릿,<br>매일 밤 충전기 나눠 꽂고 계셨다면<br>하나로 정리할 타이밍인지 살펴보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 벨킨 50W 듀얼 C타입 GaN ZSP 초고속 충전기 WCH019 아이폰17 갤럭시 S26 호환<br>지금 가격 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/5OlifRPC</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#벨킨듀얼C타입충전기 #50WGaN충전기 #아이폰17빠른충전 #갤럭시S26충전기 #듀얼포트충전기추천 #C타입멀티충전기 #초고속충전기비교 #휴대폰2개동시충전</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -350,40 +370,14 @@ https://naver.me/5OlifRPC
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -473,10 +467,10 @@ https://naver.me/5OlifRPC
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -529,6 +523,29 @@ https://naver.me/5OlifRPC
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 

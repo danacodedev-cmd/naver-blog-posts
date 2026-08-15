@@ -62,6 +62,14 @@
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -99,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요"><span class="tp-num">1</span><span class="tp-text">테팔 스팀다리미 FV6642K0, 다림질 미루던 옷 몇 장 있으세요</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질"><span class="tp-num">2</span><span class="tp-text">테팔 무선 다리미 프리무브 파워, 10분 준비 없이 3분 다림질</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답"><span class="tp-num">3</span><span class="tp-text">다리미 꺼내기 귀찮아서 안 쓰신다면, 테팔 FV6642K0가 답</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -113,15 +121,26 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 3장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
-  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
+  <h2>사진 3장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 둘 중 편한 쪽으로 넣으세요.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 한 번에 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 3장 저장</button>
+      <span>내려받은 뒤 네이버 <b>사진</b> 버튼에서 3장을 한 번에 선택하세요. 파일 이름 순서대로 들어갑니다.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 자리마다 하나씩</b>
+      <span>아래 <b>사진 복사</b>를 누르고 본문의 <b>[사진 N 넣기]</b> 자리에 붙여넣으세요.</span>
+    </div>
+  </div>
   <ul>
       <li class="photo-item">
         <img src="https://shop-phinf.pstatic.net/20260421_50/1776747669546bS5KQ_JPEG/56144190698529017_1559707210.jpg?type=o1000" alt="테팔 스팀다리미 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260421_50/1776747669546bS5KQ_JPEG/56144190698529017_1559707210.jpg?type=o1000" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260421_50/1776747669546bS5KQ_JPEG/56144190698529017_1559707210.jpg?type=o1000" download="photo-1.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260421_50/1776747669546bS5KQ_JPEG/56144190698529017_1559707210.jpg?type=o1000" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -129,7 +148,7 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260323_235/1774242491126oX0Gx_JPEG/37231560247129708_395080523.jpg?type=o1000" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260323_235/1774242491126oX0Gx_JPEG/37231560247129708_395080523.jpg?type=o1000" download="photo-2.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260323_235/1774242491126oX0Gx_JPEG/37231560247129708_395080523.jpg?type=o1000" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -137,10 +156,11 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://shop-phinf.pstatic.net/20260323_266/1774242491448Bjmt5_JPEG/37231560565384615_2084756417.jpg?type=o1000" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260323_266/1774242491448Bjmt5_JPEG/37231560565384615_2084756417.jpg?type=o1000" download="photo-3.jpg">저장</a>
+          <a class="photo-save" href="https://shop-phinf.pstatic.net/20260323_266/1774242491448Bjmt5_JPEG/37231560565384615_2084756417.jpg?type=o1000" download="photo-03.jpg">저장</a>
         </div>
       </li>
   </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">다리는 시간은 3분인데,</p><p style="text-align:center;margin:0;color:#000000;">준비하는 데 10분 걸리는 경험 있으시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다리미판 펴고, 콘센트 찾고, 선이 옷에 걸리고.</p><p style="text-align:center;margin:0;color:#000000;">그러다 결국 &quot;나중에 다리지&quot;하고 옷을 다시</p><p style="text-align:center;margin:0;color:#000000;">옷장에 넣습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">테팔 무선 스팀다리미 프리무브 파워 FV6642K0는</p><p style="text-align:center;margin:0;color:#000000;">이 &quot;준비 과정&quot;을 줄이려고 만든 물건입니다.</p><p style="text-align:center;margin:0;color:#000000;">성능이 아니라 편의를 사는 제품이라는 뜻입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260421_50/1776747669546bS5KQ_JPEG/56144190698529017_1559707210.jpg?type=o1000" alt="테팔 스팀다리미 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">무선 다리미, 진짜 봐야 할 숫자는 따로 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">상세페이지에서 제일 큰 글씨는 대개 최대</p><p style="text-align:center;margin:0;color:#000000;">스팀 분사량입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그런데 무선 다리미는 이 숫자가 오래 유지되지 않아요.</p><p style="text-align:center;margin:0;color:#000000;">거치대에서 열을 채우고,</p><p style="text-align:center;margin:0;color:#000000;">들어서 쓰는 구조라 들고 있는 동안 온도가 계속</p><p style="text-align:center;margin:0;color:#000000;">떨어지기 때문입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">정말 봐야 할 건 두 가지입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번 들었을 때 몇 초를 쓸 수 있는지.</p><p style="text-align:center;margin:0;color:#000000;">그리고 다시 채우는 데 몇 초가 걸리는지.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 두 숫자가 무선 다리미의 실제 만족도를 결정합니다.</p><p style="text-align:center;margin:0;color:#000000;">분사량 숫자만 보고 고르면 나중에 아쉬울 수 있어요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">다림질을 안 하시는 게 아니라,<br>못 하고 계신 겁니다.<br>꺼내는 게 귀찮아서요.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 분에게 맞습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">주 1~2회,</p><p style="text-align:center;margin:0;color:#000000;">한두 장씩 급하게 다리는 경우라면 잘 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다리미판 없이 침대나 소파 위에 대충 펴고 다리는</p><p style="text-align:center;margin:0;color:#000000;">스타일도 마찬가지예요.</p><p style="text-align:center;margin:0;color:#000000;">방이 좁아서 콘센트 위치가 애매한 집도 무선</p><p style="text-align:center;margin:0;color:#000000;">쪽이 편합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 매일 정장 셔츠를 여러 장 다려야 한다면 유선</p><p style="text-align:center;margin:0;color:#000000;">다리미가 더 낫습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 번에 오래 연속으로 다려야 하거나 다리미판을 제대로</p><p style="text-align:center;margin:0;color:#000000;">펴고 각 잡아 다리는 스타일도 무선보다는</p><p style="text-align:center;margin:0;color:#000000;">유선이 어울립니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이건 성능이 부족해서가 아니라 무선 구조 자체가 짧게</p><p style="text-align:center;margin:0;color:#000000;">자주 쓰는 데 맞춰져 있기 때문입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 104,900원,</p><p style="text-align:center;margin:0;color:#000000;">정가보다 24,100원 낮은 가격입니다.</p><p style="text-align:center;margin:0;color:#000000;">이 조건이 계속 유지될지는 알 수 없으니 지금</p><p style="text-align:center;margin:0;color:#000000;">확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260323_235/1774242491126oX0Gx_JPEG/37231560247129708_395080523.jpg?type=o1000" alt="테팔 스팀다리미 제품 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">지금 104,900원,<br>정가보다 24,100원 낮은 가격입니다.<br>이 조건이 계속 유지될지는 알 수 없으니 지금<br>확인해보시는 게 좋습니다.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GbyXIS9t</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사기 전에 이것부터 정하세요</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가장 먼저 정할 건 보관 자리입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무선 다리미는 거치대가 같이 있어서 유선보다</p><p style="text-align:center;margin:0;color:#000000;">부피가 큽니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이걸 안 정하고 사면 결국 박스째</p><p style="text-align:center;margin:0;color:#000000;">베란다로 가게 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">물통 용량과 급수 방식도 확인하세요.</p><p style="text-align:center;margin:0;color:#000000;">자주 채워야 하는 구조면 무선의 편함이 반감됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">옷 세탁 라벨도 한 번 보시고요.</p><p style="text-align:center;margin:0;color:#000000;">스팀 온도가 안 맞는 소재는 눌어붙을 수 있습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">전원 관리, 생각보다 중요합니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">무선 다리미를 쓰다가 자주 나오는 불편 중 하나가 쓰고</p><p style="text-align:center;margin:0;color:#000000;">나서 전원을 껐는지 헷갈리는 부분입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">거치대에 올려두고도 전원이 켜진 채 방치되면 불안한</p><p style="text-align:center;margin:0;color:#000000;">마음이 남습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이런 구조를 감안해서 전원 차단이 어떻게 되는지는 구매</p><p style="text-align:center;margin:0;color:#000000;">전에 한 번 짚어보실 부분입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">평점 4.69점,</p><p style="text-align:center;margin:0;color:#000000;">리뷰 2,709건이라는 숫자는 이 제품이 오랜 기간</p><p style="text-align:center;margin:0;color:#000000;">꾸준히 팔려온 스테디셀러라는 걸 보여주는 근거입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shop-phinf.pstatic.net/20260323_266/1774242491448Bjmt5_JPEG/37231560565384615_2084756417.jpg?type=o1000" alt="테팔 스팀다리미 추가 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결론은 결국 옷장 안에 있습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">다림질 도구는 성능표를 아무리 봐도 결정이 잘 안</p><p style="text-align:center;margin:0;color:#000000;">나는 물건입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 판단 기준을 하나로 좁혀보시길 권합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">지금 옷장에,</p><p style="text-align:center;margin:0;color:#000000;">다려야 하는데 미뤄둔 옷이 몇 장 있는지 세어보세요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">세 장 이상이면 사셔도 됩니다.</p><p style="text-align:center;margin:0;color:#000000;">안 다린 게 아니라 못 다린 것뿐이니까요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">한 장도 없다면 사지 않는 게 맞습니다.</p><p style="text-align:center;margin:0;color:#000000;">가격이 아무리 내려가도 안 쓸 물건은 결국</p><p style="text-align:center;margin:0;color:#000000;">안 쓰게 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">옷장 속 미뤄둔 옷이 세 장 넘는다면,</p><p style="text-align:center;margin:0;color:#000000;">지금이 확인해볼 타이밍입니다.</p><p style="text-align:center;margin:0;color:#000000;">아래 링크에서 가격과 구성을 살펴보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">옷장 속 미뤄둔 옷이 세 장 넘는다면,<br>지금이 확인해볼 타이밍입니다.<br>아래 링크에서 가격과 구성을 살펴보세요.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 테팔 무선 스팀다리미 프리무브 파워 FV6642K0<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/GbyXIS9t</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#무선스팀다리미 #테팔무선다리미 #스팀다리미추천 #무선다리미가격 #프리무브파워 #셔츠다림질 #옷관리용품 #다림질효과 #무선다리미비교 #테팔다리미성능</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -345,40 +365,14 @@ https://naver.me/GbyXIS9t
     sel.addRange(range);
   }
 
-  // The body with each photo carried inside the clipboard as a data: URI instead of a link
-  // to this site.
-  //
-  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
-  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
-  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
-  // are in the paste itself, which is the same position the editor is in when an image is
-  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
-  //
-  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
-  // base64's ~33% overhead the payload stays a few hundred KB.
-  //
-  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
-  function bodyHtmlWithPhotos() {
-    var clone = post.cloneNode(true);
-    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
-    return Promise.all(
-      imgs.map(function (img) {
-        return fetch(img.getAttribute('src'))
-          .then(function (r) { return r.blob(); })
-          .then(function (blob) {
-            return new Promise(function (resolve, reject) {
-              var fr = new FileReader();
-              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
-              fr.onerror = function () { reject(new Error('read')); };
-              fr.readAsDataURL(blob);
-            });
-          });
-      })
-    ).then(function () { return clone.innerHTML; });
-  }
-
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
+  // spots, and the photos are uploaded separately from the 사진 strip below.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -468,10 +462,10 @@ https://naver.me/GbyXIS9t
 
   document.getElementById('copyBtn').addEventListener('click', function () {
     say('');
-    var html = bodyHtmlWithPhotos()
-      .catch(function () { return bodyHtmlForPaste(); })
-      .then(function (body) { return titleHtml() + body; });
-    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+    );
   });
 
   var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
@@ -524,6 +518,29 @@ https://naver.me/GbyXIS9t
       };
       img.onerror = function () { reject(new Error('load')); };
       img.src = src;
+    });
+  }
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
     });
   }
 
