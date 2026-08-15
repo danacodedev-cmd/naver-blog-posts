@@ -57,9 +57,11 @@
     background: #f1f3f5; }
   .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
-  .photo-copy { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px; }
+  .photo-copy { background: #eef4ff; color: #2563eb; padding: 9px 16px; font-size: 13.5px; }
   .photo-copy.done { background: #e6f8ee; color: #03a353; }
   .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
+  #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
+    border-radius: 6px; vertical-align: 1px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -97,7 +99,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="필립스 전기포트 HD9318/00, 안전 기능 안 보고 사면 나중에 후회합니다"><span class="tp-num">1</span><span class="tp-text">필립스 전기포트 HD9318/00, 안전 기능 안 보고 사면 나중에 후회합니다</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="물 끓일 때마다 옆에서 지켜보고 계신가요, 필립스 무선 전기포트 HD9318/00"><span class="tp-num">2</span><span class="tp-text">물 끓일 때마다 옆에서 지켜보고 계신가요, 필립스 무선 전기포트 HD9318/00</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="필립스 전기포트 HD9318/00 화이트, 대용량 커피포트 (자취방·신혼 주방 기준)"><span class="tp-num">3</span><span class="tp-text">필립스 전기포트 HD9318/00 화이트, 대용량 커피포트 (자취방·신혼 주방 기준)</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사</button>
+  <button id="copyBtn" type="button">본문 복사 (사진 포함)</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -111,8 +113,8 @@
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
 </div>
 <div id="photos">
-  <h2>사진 5장</h2>
-  <p class="note">본문을 붙여넣은 뒤, 본문 속 <b>[사진 N 넣기]</b> 자리에 아래 사진을 하나씩 복사해 넣으세요. 이렇게 넣어야 네이버에 실제로 업로드돼 <b>대표 이미지로 지정</b>할 수 있습니다.</p>
+  <h2>사진 5장 — 위 "본문 복사"에 이미 포함돼 있습니다</h2>
+  <p class="note">사진이 함께 붙지 않았을 때만 아래를 쓰세요. <button type="button" id="copyBodyOnlyBtn">본문만 복사</button> 로 본문을 넣으면 사진 자리에 <b>[사진 N 넣기]</b> 표시가 들어갑니다. 그 자리에 아래 사진을 하나씩 복사해 넣으면 됩니다.</p>
   <ul>
       <li class="photo-item">
         <img src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-15T00-08-19/img/02-1.jpg" alt="필립스 전기포트 상세 스펙 이미지" loading="lazy">
@@ -413,12 +415,40 @@ https://naver.me/5CCjsBN4
     sel.addRange(range);
   }
 
+  // The body with each photo carried inside the clipboard as a data: URI instead of a link
+  // to this site.
+  //
+  // A pasted <img src="https://…"> is kept by Naver as a remote reference — it never copies
+  // the file into its own storage, so the image gets no 대표 button, no search thumbnail, and
+  // does not count as a photo on the post. A data: URI has no server to point at: the bytes
+  // are in the paste itself, which is the same position the editor is in when an image is
+  // dropped or pasted from the OS clipboard, and that is the case where it uploads.
+  //
+  // Size is not a concern here — a post carries 3~5 photos totalling 100~170KB, so even after
+  // base64's ~33% overhead the payload stays a few hundred KB.
+  //
+  // Falls back to bodyHtmlForPaste()'s markers if any photo can't be read.
+  function bodyHtmlWithPhotos() {
+    var clone = post.cloneNode(true);
+    var imgs = Array.prototype.slice.call(clone.querySelectorAll('img'));
+    return Promise.all(
+      imgs.map(function (img) {
+        return fetch(img.getAttribute('src'))
+          .then(function (r) { return r.blob(); })
+          .then(function (blob) {
+            return new Promise(function (resolve, reject) {
+              var fr = new FileReader();
+              fr.onload = function () { img.setAttribute('src', fr.result); resolve(); };
+              fr.onerror = function () { reject(new Error('read')); };
+              fr.readAsDataURL(blob);
+            });
+          });
+      })
+    ).then(function () { return clone.innerHTML; });
+  }
+
   // The body without its photos, each one replaced by the marker the plain-text flavour
-  // already uses. Naver keeps a pasted <img src="https://…"> as a remote reference and never
-  // uploads the file, so those images arrive with no 대표 button, no search thumbnail, and
-  // do not count as photos on the post — they looked fine while being useless. Sending the
-  // spot instead, and the real bitmap separately from the 사진 strip, is what gets a photo
-  // Naver actually stores.
+  // already uses. Used by the 본문만 복사 fallback, and whenever the photos can't be inlined.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -437,14 +467,13 @@ https://naver.me/5CCjsBN4
     return clone.innerHTML;
   }
 
-  document.getElementById('copyBtn').addEventListener('click', function () {
-    say('');
-    // Built via DOM APIs (not string concatenation) so the title's own text is safely
-    // escaped the same way the rest of #post already is.
-    // Plain bold text, not <blockquote> — the quote-icon box (tried, then explicitly asked
-    // to be removed) was too much for a title. margin isn't in the small set of CSS the
-    // editor is known to keep on paste (see the file header comment), so a real empty
-    // paragraph is used for the gap below the title instead of relying on it.
+  // The title line the body is pasted under. Built via DOM APIs (not string concatenation)
+  // so the title's own text is safely escaped the same way the rest of #post already is.
+  // Plain bold text, not <blockquote> — the quote-icon box (tried, then explicitly asked to
+  // be removed) was too much for a title. margin isn't in the small set of CSS the editor is
+  // known to keep on paste (see the file header comment), so a real empty paragraph is used
+  // for the gap below the title instead of relying on it.
+  function titleHtml() {
     var titleP = document.createElement('p');
     titleP.setAttribute('style', 'text-align:center;margin:0;');
     var titleB = document.createElement('b');
@@ -456,42 +485,75 @@ https://naver.me/5CCjsBN4
     var titleGap = document.createElement('p');
     titleGap.setAttribute('style', 'margin:0;');
     titleGap.innerHTML = '<br>';
-    var html = titleP.outerHTML + titleGap.outerHTML + bodyHtmlForPaste();
+    return titleP.outerHTML + titleGap.outerHTML;
+  }
+
+  // The plain-text flavour always uses the [사진 N 넣기] markers, whichever button was
+  // pressed: it exists for the Naver Blog app, which drops HTML entirely, so its photos
+  // have to be placed by hand no matter what the HTML carried.
+  function plainTextPayload() {
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
-    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+    return document.getElementById('titleText').textContent + '\n\n' + bodyText;
+  }
 
-    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
-    // HTML on mobile. This page is always served over https, so it's always available where
-    // the browser supports it at all — there's no plain-http case here that would need a
-    // fallback API.
-    //
-    // document.execCommand('copy') used to be tried first, even from inside a hidden
-    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
-    // execCommand('copy') returns true — reporting success — while silently copying
-    // plain text only, images and formatting both dropped. Because it "succeeded", the
-    // code never fell through to the manual copy box below, which is the one path that
-    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
-    // execCommand triggered from script cannot). So: real API or the manual box — nothing
-    // in between that can lie about whether it worked.
-    if (navigator.clipboard && window.ClipboardItem) {
-      navigator.clipboard.write([
-        new ClipboardItem({
-          'text/html': new Blob([html], { type: 'text/html' }),
-          'text/plain': new Blob([text], { type: 'text/plain' })
-        })
-      ]).then(function () {
-        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
-      }).catch(function () {
+  // navigator.clipboard.write() is the only copy mechanism that reliably carries rich HTML on
+  // mobile. This page is always served over https, so it's always available where the browser
+  // supports it at all — there's no plain-http case here that would need a fallback API.
+  //
+  // document.execCommand('copy') used to be tried first, even from inside a hidden
+  // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+  // execCommand('copy') returns true — reporting success — while silently copying plain text
+  // only, images and formatting both dropped. Because it "succeeded", the code never fell
+  // through to the manual copy box below, which is the one path that actually works on iOS (a
+  // real long-press invokes the OS's own rich copy, which execCommand triggered from script
+  // cannot). So: real API or the manual box — nothing in between that can lie about whether
+  // it worked.
+  //
+  // htmlPromise is handed to ClipboardItem unresolved on purpose: inlining the photos is
+  // async, and Safari rejects a write() that isn't issued in the same tick as the click.
+  function copyBody(htmlPromise, okMessage) {
+    var text = plainTextPayload();
+    if (!(navigator.clipboard && window.ClipboardItem)) {
+      htmlPromise.then(function (html) {
         showManualCopyBox(html);
-        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+        say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (사진 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
+    navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html': htmlPromise.then(function (html) { return new Blob([html], { type: 'text/html' }); }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })
+    ]).then(function () {
+      say(okMessage);
+    }).catch(function () {
+      htmlPromise.then(function (html) {
+        showManualCopyBox(html);
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (사진 포함, 이미 전체 선택되어 있습니다).');
+      });
+    });
+  }
 
-    showManualCopyBox(html);
-    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    say('');
+    var html = bodyHtmlWithPhotos()
+      .catch(function () { return bodyHtmlForPaste(); })
+      .then(function (body) { return titleHtml() + body; });
+    copyBody(html, '복사됐습니다. 네이버 블로그 본문에 붙여넣으세요. 사진도 함께 들어갑니다.');
   });
+
+  var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
+  if (bodyOnlyBtn) {
+    bodyOnlyBtn.addEventListener('click', function () {
+      say('');
+      copyBody(
+        Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+        '본문만 복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 아래 사진을 하나씩 넣으세요.'
+      );
+    });
+  }
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
