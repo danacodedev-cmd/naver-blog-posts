@@ -59,17 +59,9 @@
   .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
   .photo-copy { background: #eef4ff; color: #2563eb; padding: 9px 16px; font-size: 13.5px; }
   .photo-copy.done { background: #e6f8ee; color: #03a353; }
-  .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
   #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
     border-radius: 6px; vertical-align: 1px; }
   #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
-  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
-  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
-    line-height: 1.6; color: #555; }
-  .photo-way b { color: #111; }
-  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
-  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
-    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -122,25 +114,13 @@
 </div>
 <div id="photos">
   <h2>사진 5장</h2>
-  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다.</p>
-  <div class="photo-ways">
-    <div class="photo-way">
-      <b>방법 1 · 하나씩 복사해 붙여넣기</b>
-      <span>아래 <b>사진 복사</b>를 누르고, 본문에 있는 <b>사진N</b> 글자를 <b>세 번 클릭</b>해 줄째로 선택한 뒤 붙여넣으세요. 사진이 그 글자를 <b>대신 차지해서 따로 지울 게 없습니다</b>.</span>
-    </div>
-    <div class="photo-way">
-      <b>방법 2 · 한 번에 내려받아 올리기</b>
-      <button type="button" id="saveAllPhotosBtn">사진 5장 저장</button>
-      <span>네이버 <b>사진</b> 버튼에서 5장을 한 번에 선택하세요. 파일 이름 순서대로 들어가지만 전부 커서 자리에 쌓이므로, 4장 옮기고 사진N 글자도 지워야 합니다.</span>
-    </div>
-  </div>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다. 아래 <b>사진 복사</b>를 누르고, 본문에 있는 <b>사진N</b> 글자를 <b>세 번 클릭</b>해 줄째로 선택한 뒤 붙여넣으세요. 사진이 그 글자를 <b>대신 차지해서 따로 지울 게 없습니다</b>.</p>
   <ul>
       <li class="photo-item">
         <img class="photo-thumb" src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-1.jpg" alt="삼성전자 이어폰 상세 스펙 이미지" loading="lazy">
         <div class="photo-meta">
           <span class="photo-n">사진 1</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-1.jpg" data-n="1">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-1.jpg" download="photo-01.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -148,7 +128,6 @@
         <div class="photo-meta">
           <span class="photo-n">사진 2</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-2.jpg" data-n="2">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-2.jpg" download="photo-02.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -156,7 +135,6 @@
         <div class="photo-meta">
           <span class="photo-n">사진 3</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-3.jpg" data-n="3">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-3.jpg" download="photo-03.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -164,7 +142,6 @@
         <div class="photo-meta">
           <span class="photo-n">사진 4</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-4.jpg" data-n="4">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-4.jpg" download="photo-04.jpg">저장</a>
         </div>
       </li>
       <li class="photo-item">
@@ -172,7 +149,6 @@
         <div class="photo-meta">
           <span class="photo-n">사진 5</span>
           <button type="button" class="photo-copy" data-src="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-5.jpg" data-n="5">사진 복사</button>
-          <a class="photo-save" href="https://danacodedev-cmd.github.io/naver-blog-posts/2026-08-09T22-05-57/img/05-5.jpg" download="photo-05.jpg">저장</a>
         </div>
       </li>
   </ul>
@@ -584,29 +560,6 @@ https://naver.me/5LQXj5dj
   // same remote URL it refuses to upload. Nothing to salvage there; the thumbnails are plain
   // images again.
 
-  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
-  // multi-selection in filename order — drops them into the post in the order they appear
-  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
-  // burst of programmatic downloads fired in the same tick.
-  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
-  if (saveAllBtn) {
-    saveAllBtn.addEventListener('click', function () {
-      say('');
-      var links = document.querySelectorAll('.photo-save');
-      Array.prototype.forEach.call(links, function (link, i) {
-        setTimeout(function () {
-          var a = document.createElement('a');
-          a.href = link.getAttribute('href');
-          a.download = link.getAttribute('download');
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        }, i * 250);
-      });
-      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
-    });
-  }
-
   var photoBtns = document.querySelectorAll('.photo-copy');
   Array.prototype.forEach.call(photoBtns, function (btn) {
     cachePng(btn.getAttribute('data-src'));
@@ -615,7 +568,7 @@ https://naver.me/5LQXj5dj
       var n = btn.getAttribute('data-n');
       var src = btn.getAttribute('data-src');
       if (!(navigator.clipboard && window.ClipboardItem)) {
-        say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        say('이 브라우저는 사진 복사를 지원하지 않습니다. 사진을 길게 눌러(또는 오른쪽 클릭해) 복사한 뒤 붙여넣으세요.');
         return;
       }
       // The already-converted blob when it's ready, which is the case that actually works;
@@ -641,7 +594,7 @@ https://naver.me/5LQXj5dj
             return;
           }
           var why = e && e.name ? e.name + ': ' + msg : msg;
-          say('사진 복사 실패 — ' + why + ' / "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+          say('사진 복사 실패 — ' + why);
         });
     });
   });
