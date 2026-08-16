@@ -476,20 +476,49 @@ https://naver.me/FAAaHIst
   // own storage — the whole point of the 사진 strip. PNG because it is the only image type
   // browsers will put on the clipboard; the source JPEG is redrawn through a canvas to get
   // there. The page and its images share an origin, so the canvas is never tainted.
-  function pngBlob(src) {
+  // Decoded from a blob: URL rather than the original address, so the canvas can never be
+  // tainted regardless of how the page was opened.
+  function decodeImage(blob) {
+    if (window.createImageBitmap) return createImageBitmap(blob);
     return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(blob);
       var img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = function () {
-        var c = document.createElement('canvas');
-        c.width = img.naturalWidth;
-        c.height = img.naturalHeight;
-        c.getContext('2d').drawImage(img, 0, 0);
-        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/png');
-      };
-      img.onerror = function () { reject(new Error('load')); };
-      img.src = src;
+      img.onload = function () { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('이미지 해석 실패')); };
+      img.src = url;
     });
+  }
+
+  function pngBlob(src) {
+    return fetch(src)
+      .then(function (r) {
+        if (!r.ok) throw new Error('내려받기 실패 ' + r.status);
+        return r.blob();
+      })
+      .then(function (blob) {
+        if (blob.type === 'image/png') return blob;
+        return decodeImage(blob).then(function (img) {
+          var c = document.createElement('canvas');
+          c.width = img.width || img.naturalWidth;
+          c.height = img.height || img.naturalHeight;
+          c.getContext('2d').drawImage(img, 0, 0);
+          return new Promise(function (resolve, reject) {
+            c.toBlob(function (b) { b ? resolve(b) : reject(new Error('PNG 변환 실패')); }, 'image/png');
+          });
+        });
+      });
+  }
+
+  // PNG copies made as soon as the page opens, not when the button is pressed.
+  //
+  // Browsers tie a clipboard write to the click that started it. Converting on click meant
+  // handing ClipboardItem a Promise that only settled after a fetch, a decode and a re-encode
+  // — by then the permission had lapsed and the write came back refused ("사진 복사가
+  // 차단됐습니다"). The photos are small, so preparing them up front costs nothing and lets
+  // the click hand over a blob that already exists.
+  var pngCache = {};
+  function cachePng(src) {
+    pngBlob(src).then(function (b) { pngCache[src] = b; }).catch(function () {});
   }
 
   // Dragging a thumbnail into the editor was tried and does not work. dataTransfer.files was
@@ -523,24 +552,39 @@ https://naver.me/FAAaHIst
 
   var photoBtns = document.querySelectorAll('.photo-copy');
   Array.prototype.forEach.call(photoBtns, function (btn) {
+    cachePng(btn.getAttribute('data-src'));
     btn.addEventListener('click', function () {
       say('');
       var n = btn.getAttribute('data-n');
+      var src = btn.getAttribute('data-src');
       if (!(navigator.clipboard && window.ClipboardItem)) {
         say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
         return;
       }
-      // ClipboardItem is handed the pending Promise rather than an awaited Blob: Safari
-      // rejects a write() that is not issued in the same tick as the click.
+      // The already-converted blob when it's ready, which is the case that actually works;
+      // the pending Promise only as a stopgap for a click that beats the conversion.
+      var data = pngCache[src] || pngBlob(src);
       navigator.clipboard
-        .write([new ClipboardItem({ 'image/png': pngBlob(btn.getAttribute('data-src')) })])
+        .write([new ClipboardItem({ 'image/png': data })])
         .then(function () {
           Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
           btn.classList.add('done');
           say('사진 ' + n + '이(가) 복사됐습니다. 본문의 사진' + n + ' 글자를 세 번 클릭해 선택한 뒤 붙여넣으세요.');
         })
-        .catch(function () {
-          say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        .catch(function (e) {
+          // "Document is not focused" is its own case and by far the most likely one: the
+          // browser refuses a clipboard write while another window has focus, so switching to
+          // the editor before the copy lands kills it. Worth naming, because the generic
+          // wording sent people off to the download fallback for something they just have to
+          // do in a different order. Anything else prints the real error rather than being
+          // swallowed — the old message named the symptom only.
+          var msg = e && e.message ? e.message : String(e);
+          if (/not focused/i.test(msg)) {
+            say('이 창이 활성 상태가 아니어서 복사되지 않았습니다. 이 페이지를 한 번 누른 뒤 다시 "사진 복사"를 누르고, 그다음에 네이버 창으로 넘어가세요.');
+            return;
+          }
+          var why = e && e.name ? e.name + ': ' + msg : msg;
+          say('사진 복사 실패 — ' + why + ' / "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
         });
     });
   });
