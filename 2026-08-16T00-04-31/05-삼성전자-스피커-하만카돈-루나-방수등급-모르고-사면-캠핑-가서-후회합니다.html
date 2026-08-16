@@ -54,8 +54,7 @@
   #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
   .photo-item { display: flex; align-items: center; gap: 12px; }
   .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
-    background: #f1f3f5; cursor: grab; }
-  .photo-item img:active { cursor: grabbing; }
+    background: #f1f3f5; }
   .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
   .photo-copy { background: #eef4ff; color: #2563eb; padding: 9px 16px; font-size: 13.5px; }
@@ -318,8 +317,15 @@ https://naver.me/5t7QYNRC
   // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
   // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
   // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
-  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. So the body marks the
-  // spots, and the photos are uploaded separately from the 사진 strip below.
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. Dragging a thumbnail in
+  // was tried after that and fails for the same underlying reason: a drag between browser tabs
+  // hands over the image's address, not the file. So the body marks the spots, and the photos
+  // go in from the 사진 strip below.
+  //
+  // The marker is one short token alone on its own line so it can be selected with a single
+  // triple-click and pasted straight over — the photo replaces it, and there is nothing left
+  // to delete afterwards. It used to read "[사진 1 넣기]", which had to be deleted by hand
+  // after every photo.
   //
   // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
   // markup this page has already proven pastes correctly; the only edit is the swap.
@@ -331,7 +337,7 @@ https://naver.me/5t7QYNRC
       p.setAttribute('style', 'text-align:center;margin:0;');
       var span = document.createElement('span');
       span.setAttribute('style', 'color:#999999;');
-      span.textContent = '[사진 ' + (i + 1) + ' 넣기]';
+      span.textContent = '사진' + (i + 1);
       p.appendChild(span);
       imgs[i].parentNode.replaceChild(p, imgs[i]);
     }
@@ -411,7 +417,7 @@ https://naver.me/5t7QYNRC
     say('');
     copyBody(
       Promise.resolve(titleHtml() + bodyHtmlForPaste()),
-      '복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 사진을 넣으세요.'
+      '복사됐습니다. 붙여넣은 뒤 본문의 사진N 글자를 세 번 클릭해 선택하고 사진을 붙여넣으세요.'
     );
   });
 
@@ -421,7 +427,7 @@ https://naver.me/5t7QYNRC
       say('');
       copyBody(
         Promise.resolve(titleHtml() + bodyHtmlForPaste()),
-        '본문만 복사됐습니다. 붙여넣은 뒤 [사진 N 넣기] 자리에 아래 사진을 하나씩 넣으세요.'
+        '본문만 복사됐습니다. 붙여넣은 뒤 사진N 글자를 세 번 클릭해 선택하고 아래 사진을 붙여넣으세요.'
       );
     });
   }
@@ -468,40 +474,11 @@ https://naver.me/5t7QYNRC
     });
   }
 
-  // Dragging a thumbnail into the editor carries the actual file, which is what makes Naver
-  // upload it — the same path as picking it with 사진, except it lands where it was dropped,
-  // so nothing has to be moved afterwards. This is the cheapest route available: pasting the
-  // body and bulk-inserting still leaves every photo but the first sitting in the wrong place.
-  //
-  // The files are fetched up front because dragstart is synchronous — there is no chance to
-  // await anything once the drag has begun. They are small (a post's photos total 100~170KB),
-  // so loading them on open costs nothing noticeable.
-  var photoFiles = {};
-  Array.prototype.forEach.call(document.querySelectorAll('.photo-item'), function (li) {
-    var link = li.querySelector('.photo-save');
-    var thumb = li.querySelector('.photo-thumb');
-    if (!link || !thumb) return;
-    var src = link.getAttribute('href');
-    fetch(src)
-      .then(function (r) { return r.blob(); })
-      .then(function (blob) {
-        photoFiles[src] = new File([blob], link.getAttribute('download'), {
-          type: blob.type || 'image/jpeg',
-        });
-      })
-      .catch(function () {});
-    thumb.addEventListener('dragstart', function (e) {
-      var file = photoFiles[src];
-      if (!file || !e.dataTransfer) return;
-      try {
-        e.dataTransfer.items.add(file);
-        e.dataTransfer.effectAllowed = 'copy';
-      } catch (err) {
-        // items.add isn't available everywhere; the browser's own image drag still happens,
-        // which some editors accept, and the 복사/저장 buttons remain either way.
-      }
-    });
-  });
+  // Dragging a thumbnail into the editor was tried and does not work. dataTransfer.files was
+  // populated with the real JPEG — verified — but a drag between two browser tabs is handed to
+  // the target as the image's address rather than as a dropped file, so Naver ends up with the
+  // same remote URL it refuses to upload. Nothing to salvage there; the thumbnails are plain
+  // images again.
 
   // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
   // multi-selection in filename order — drops them into the post in the order they appear
@@ -542,7 +519,7 @@ https://naver.me/5t7QYNRC
         .then(function () {
           Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
           btn.classList.add('done');
-          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 [사진 ' + n + ' 넣기] 자리에 붙여넣으세요.');
+          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 사진' + n + ' 글자를 세 번 클릭해 선택한 뒤 붙여넣으세요.');
         })
         .catch(function () {
           say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');

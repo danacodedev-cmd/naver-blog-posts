@@ -46,6 +46,30 @@
   #refs li { margin: 5px 0; line-height: 1.5; }
   #refs a { color: #2563eb; }
   #refs .note { margin: 9px 0 0; font-size: 12px; color: #94a3b8; }
+  /* 사진 목록. #refs 와 같은 이유로 #post 밖에 둡니다 — "본문 복사"가 절대 집어가지 않습니다. */
+  #photos { max-width: 700px; margin: 14px auto 0; padding: 14px 18px; background: #fff;
+    border: 1px solid #e5e7eb; border-radius: 8px; }
+  #photos h2 { font-size: 13px; margin: 0 0 6px; color: #111; font-weight: 700; }
+  #photos .note { margin: 0 0 12px; font-size: 12.5px; line-height: 1.6; color: #555; }
+  #photos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .photo-item { display: flex; align-items: center; gap: 12px; }
+  .photo-item img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; flex-shrink: 0;
+    background: #f1f3f5; }
+  .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .photo-n { font-size: 12.5px; color: #868e96; font-weight: 700; }
+  .photo-copy { background: #eef4ff; color: #2563eb; padding: 9px 16px; font-size: 13.5px; }
+  .photo-copy.done { background: #e6f8ee; color: #03a353; }
+  .photo-save { font-size: 12.5px; color: #2563eb; text-decoration: none; font-weight: 700; }
+  #copyBodyOnlyBtn { background: #f1f3f5; color: #495057; padding: 4px 9px; font-size: 12.5px;
+    border-radius: 6px; vertical-align: 1px; }
+  #photos .note-last { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #f1f3f5; }
+  .photo-ways { display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+  .photo-way { background: #f8f9fa; border-radius: 8px; padding: 11px 13px; font-size: 12.5px;
+    line-height: 1.6; color: #555; }
+  .photo-way b { color: #111; }
+  .photo-way > b { display: block; margin-bottom: 6px; font-size: 13px; }
+  #saveAllPhotosBtn { background: #03c75a; color: #fff; padding: 9px 16px; font-size: 13.5px;
+    margin-bottom: 7px; }
   /* Always open. Hiding these behind a toggle meant the one decision this page exists for —
      which of the three titles to publish — took a tap to even see. They are the page's main
      content, so they are laid out as such, and the selected one doubles as the heading:
@@ -83,7 +107,7 @@
 <div id="titlePicker"><button type="button" class="title-opt active" data-title="LG전자 TV 75QNED75AEA, 사운드바 포함 189만원대 구성 뜯어보기"><span class="tp-num">1</span><span class="tp-text">LG전자 TV 75QNED75AEA, 사운드바 포함 189만원대 구성 뜯어보기</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="거실 TV 75인치 안 보고 사면 후회하는 이유, 줄자부터 꺼내야 하는 진짜 이유"><span class="tp-num">2</span><span class="tp-text">거실 TV 75인치 안 보고 사면 후회하는 이유, 줄자부터 꺼내야 하는 진짜 이유</span><span class="tp-mark">사용 중</span></button><button type="button" class="title-opt" data-title="소파 거리 안 재고 대형 TV 골랐다가 반품하는 분들 많은데, LG 75QNED75AEA 34% 할인 지금 확인해야 하는 이유"><span class="tp-num">3</span><span class="tp-text">소파 거리 안 재고 대형 TV 골랐다가 반품하는 분들 많은데, LG 75QNED75AEA 34% 할인 지금 확인해야 하는 이유</span><span class="tp-mark">사용 중</span></button></div>
 </div>
 <div class="actionbar">
-  <button id="copyBtn" type="button">본문 복사 (이미지 포함)</button>
+  <button id="copyBtn" type="button">본문 복사</button>
   <button id="copyProductNameBtn" type="button">제품명 복사</button>
 </div>
 <div id="msg"></div>
@@ -93,6 +117,56 @@
       <li><a href="https://blog.naver.com/mitsru79/224259708874" target="_blank" rel="noopener noreferrer">75QNED75AEA 후기 LG 75인치 QNED TV 장점</a></li>
   </ol>
   <p class="note">글 작성에 참고한 글입니다. 이 영역은 "본문 복사"에 포함되지 않습니다.</p>
+</div>
+<div id="photos">
+  <h2>사진 4장</h2>
+  <p class="note">사진은 붙여넣기로 함께 보낼 수 없습니다 — 네이버가 외부 주소는 자기 서버에 올리지 않고, 이미지 데이터를 직접 넣으면 "허용되지 않는 이미지 형식"으로 막습니다.</p>
+  <div class="photo-ways">
+    <div class="photo-way">
+      <b>방법 1 · 하나씩 복사해 붙여넣기</b>
+      <span>아래 <b>사진 복사</b>를 누르고, 본문에 있는 <b>사진N</b> 글자를 <b>세 번 클릭</b>해 줄째로 선택한 뒤 붙여넣으세요. 사진이 그 글자를 <b>대신 차지해서 따로 지울 게 없습니다</b>.</span>
+    </div>
+    <div class="photo-way">
+      <b>방법 2 · 한 번에 내려받아 올리기</b>
+      <button type="button" id="saveAllPhotosBtn">사진 4장 저장</button>
+      <span>네이버 <b>사진</b> 버튼에서 4장을 한 번에 선택하세요. 파일 이름 순서대로 들어가지만 전부 커서 자리에 쌓이므로, 3장 옮기고 사진N 글자도 지워야 합니다.</span>
+    </div>
+  </div>
+  <ul>
+      <li class="photo-item">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" alt="LG전자 TV 상세 스펙 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 1</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" data-n="1">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" download="photo-01.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" alt="LG전자 TV 크기 비교 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 2</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" data-n="2">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" download="photo-02.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" alt="LG전자 TV 사용 예시 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 3</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" data-n="3">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" download="photo-03.jpg">저장</a>
+        </div>
+      </li>
+      <li class="photo-item">
+        <img class="photo-thumb" src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" alt="LG전자 TV 상세 스펙 이미지" loading="lazy">
+        <div class="photo-meta">
+          <span class="photo-n">사진 4</span>
+          <button type="button" class="photo-copy" data-src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" data-n="4">사진 복사</button>
+          <a class="photo-save" href="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" download="photo-04.jpg">저장</a>
+        </div>
+      </li>
+  </ul>
+  <p class="note note-last">본문은 위 "본문 복사"로 먼저 넣으세요. 사진 없이 본문만 다시 복사하려면 <button type="button" id="copyBodyOnlyBtn">본문만 복사</button>.</p>
 </div>
 <div id="post"><div style="text-align:center;"><p style="text-align:center;margin:0;color:#000000;">거실 TV 하나 바꾸려고 마음먹었는데,</p><p style="text-align:center;margin:0;color:#000000;">막상 매장에 가면 다 커 보이고 다 좋아 보이시죠.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">집에 와서 재보면 얘기가 달라집니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">매장 조명 아래 3m 거리에서 본 75인치와,</p><p style="text-align:center;margin:0;color:#000000;">우리 집 거실에서 2m 거리에 두고 보는 75인치는</p><p style="text-align:center;margin:0;color:#000000;">완전히 다른 물건이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 대형 TV는 모델보다 순서가 먼저입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8968811/89688111574.48.jpg" alt="LG전자 TV 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">인치를 정하기 전에 줄자부터 꺼내야 하는 이유</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV 고를 때 다들 인치부터 봅니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">근데 순서가 거꾸로예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">줄자로 소파에서 TV 자리까지 거리를 먼저 재고,</p><p style="text-align:center;margin:0;color:#000000;">그 거리에 맞는 인치를 확인하고,</p><p style="text-align:center;margin:0;color:#000000;">그다음에 모델을 골라야 반품을 안 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">4K 기준으로 보면 이렇습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">2.0m면 55~65인치가 적당합니다.</p><p style="text-align:center;margin:0;color:#000000;">2.5m면 65~75인치가 무난하고요.</p><p style="text-align:center;margin:0;color:#000000;">3.0m면 75~85인치까지 가도 됩니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">75QNED75AEA는 시청거리 2.5m 이상,</p><p style="text-align:center;margin:0;color:#000000;">넓은 거실에 어울리는 사이즈예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">2m 이하 거리에서 75인치를 보면 고개를 좌우로</p><p style="text-align:center;margin:0;color:#000000;">돌려가며 봐야 합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이건 화질 문제가 아니라 배치 문제라서,</p><p style="text-align:center;margin:0;color:#000000;">아무리 좋은 TV를 사도 해결이 안 됩니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_5557675/55576758063.20251205141905.jpg" alt="LG전자 TV 크기 비교 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">TV장 폭과 엘리베이터, 의외로 여기서 막힙니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">인치를 정했다고 끝난 게 아닙니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">75인치의 실제 가로 길이는 약 167cm예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV장 폭이 160cm면 애초에 안 올라갑니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">스탠드형이라면 다리 간격도 따로 확인하셔야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여기까지 재고 나면 마지막 관문이 하나 더 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">바로 현관문과 엘리베이터 폭인데요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">구형 아파트나 빌라라면 대형 TV가 여기서 막히는</p><p style="text-align:center;margin:0;color:#000000;">경우가 실제로 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이사나 배송 전에 미리 확인해두시는 걸 추천드려요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">사운드바까지 포함된 구성인지 확인하고 싶으시면 지금<br>가격과 구성을 링크에서 살펴보세요.</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G6RL4V4T</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">사운드바 포함, 이 구성이 왜 중요한가</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">요즘 TV는 화질은 좋아졌는데 소리는 아쉽다는 이야기,</p><p style="text-align:center;margin:0;color:#000000;">한 번쯤 들어보셨을 거예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV가 얇아지면서 스피커 넣을 공간 자체가</p><p style="text-align:center;margin:0;color:#000000;">줄었기 때문입니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">그래서 대형 TV를 살 때는 사운드바가 별도인지,</p><p style="text-align:center;margin:0;color:#000000;">포함인지를 꼭 확인해야 해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사운드바만 따로 사면 30~50만 원대부터 시작합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">75QNED75AEA는 사운드바가 포함된 구성이에요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">가격표만 보면 정가 2,990,000원에서 34%</p><p style="text-align:center;margin:0;color:#000000;">할인된 1,962,000원인데,</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">여기에 사운드바 값까지 이미 포함돼 있다는 점을</p><p style="text-align:center;margin:0;color:#000000;">고려하면 체감가는 더 낮아지는 셈입니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_8968811/89688113918.47.jpg" alt="LG전자 TV 사용 예시 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:17px;color:#0f172a;">사운드바를 따로 알아볼 계획이었다면,<br>그 예산이 이미 이 구성 안에<br>들어있는 겁니다.</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">사운드바까지 포함된 구성인지 확인하고 싶으시면 지금</p><p style="text-align:center;margin:0;color:#000000;">가격과 구성을 링크에서 살펴보세요.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">이런 거실이라면 잘 맞습니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">75QNED75AEA가 잘 맞는 조건은 명확합니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">시청거리 2.5m 이상의 거실.</p><p style="text-align:center;margin:0;color:#000000;">낮에 예능이나 스포츠를 밝은 곳에서 자주 보시는 분.</p><p style="text-align:center;margin:0;color:#000000;">TV와 사운드바를 한 번에 해결하고 싶은 분.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">반대로 안 맞는 경우도 있습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">시청거리가 2m 이하인데 대형을 고민 중이시라면</p><p style="text-align:center;margin:0;color:#000000;">사이즈를 한 단계 낮추는 게 낫습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">어두운 방에서 영화 감상이 주 목적이라면 QNED보다</p><p style="text-align:center;margin:0;color:#000000;">OLED 쪽이 더 유리해요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">TV장 폭이나 엘리베이터 크기를 아직 안 재보셨다면</p><p style="text-align:center;margin:0;color:#000000;">지금 재보시는 걸 추천드립니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><img src="https://shopping-phinf.pstatic.net/main_9017323/90173239513.jpg" alt="LG전자 TV 상세 스펙 이미지" width="600"><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:11px;color:#999;">이미지 출처: 공식 상품 페이지</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><b><span style="font-size:19px;">결론, 재보셨다면 판단은 이미 끝난 겁니다</span></b></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">이 글에서 계속 강조한 건 하나예요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">줄자로 거리를 재는 게 먼저고,</p><p style="text-align:center;margin:0;color:#000000;">인치와 모델은 그다음이라는 겁니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소파에서 TV 자리까지 거리가 2.5m 이상</p><p style="text-align:center;margin:0;color:#000000;">나오셨다면, 대형으로 가시는 게 맞습니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">작게 사서 답답해하는 경우는 흔해도,</p><p style="text-align:center;margin:0;color:#000000;">크게 사서 후회하는 경우는 드물어요.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">아직 거리를 안 재보셨다면 지금 줄자부터 꺼내보시는</p><p style="text-align:center;margin:0;color:#000000;">걸 권해드립니다.</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">소파와 TV 자리 거리,</p><p style="text-align:center;margin:0;color:#000000;">이미 재보셨다면 지금 34% 할인된 가격을</p><p style="text-align:center;margin:0;color:#000000;">확인해보시는 게 좋습니다.</p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><blockquote style="text-align:center;font-style:normal;"><b><span style="font-size:18px;color:#2563eb;">소파와 TV 자리 거리,<br>이미 재보셨다면 지금 34% 할인된 가격을<br>확인해보시는 게 좋습니다.</span></b><br><br><b><span style="font-size:16px;color:#2563eb;">👉 LG전자 QNED 4K 대형 TV 사운드바 포함 75QNED75AEA (189cm), 스탠드<br>가격·구성 확인하기</span></b></blockquote><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;">https://naver.me/G6RL4V4T</p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="font-size:12px;color:#999999;">※ 가격·재고는 글 작성 시점 기준이라 달라질 수 있어요.</span></p><p style="margin:0;"><br></p><p style="margin:0;"><br></p><p style="text-align:center;margin:0;color:#000000;"><span style="color:#02a94e;">#75인치QNEDTV #LGQNED75사운드바포함 #75인치4KTV추천 #대형TV75인치 #QNEDTV가격비교 #75인치TV스탠드형 #LG4K대형TV #75인치TV구매 #QNED퀀텀닷TV #거실대형TV설치</span></p></div></div>
 <div id="manualCopyBox" contenteditable="true"></div>
@@ -321,14 +395,46 @@ https://naver.me/G6RL4V4T
     sel.addRange(range);
   }
 
-  document.getElementById('copyBtn').addEventListener('click', function () {
-    say('');
-    // Built via DOM APIs (not string concatenation) so the title's own text is safely
-    // escaped the same way the rest of #post already is.
-    // Plain bold text, not <blockquote> — the quote-icon box (tried, then explicitly asked
-    // to be removed) was too much for a title. margin isn't in the small set of CSS the
-    // editor is known to keep on paste (see the file header comment), so a real empty
-    // paragraph is used for the gap below the title instead of relying on it.
+  // The body without its photos, each one replaced by the marker the plain-text flavour
+  // already uses.
+  //
+  // Photos cannot ride along in the paste at all. A remote <img src="https://…"> is kept by
+  // Naver as a reference it never uploads, so the image gets no 대표 button and does not count
+  // as a photo on the post. Inlining the bytes as a data: URI was tried next and the editor
+  // rejects it outright — "허용되지 않는 이미지 형식", nothing inserted. Dragging a thumbnail in
+  // was tried after that and fails for the same underlying reason: a drag between browser tabs
+  // hands over the image's address, not the file. So the body marks the spots, and the photos
+  // go in from the 사진 strip below.
+  //
+  // The marker is one short token alone on its own line so it can be selected with a single
+  // triple-click and pasted straight over — the photo replaces it, and there is nothing left
+  // to delete afterwards. It used to read "[사진 1 넣기]", which had to be deleted by hand
+  // after every photo.
+  //
+  // Built by cloning the rendered #post rather than re-rendering, so the paste stays the
+  // markup this page has already proven pastes correctly; the only edit is the swap.
+  function bodyHtmlForPaste() {
+    var clone = post.cloneNode(true);
+    var imgs = clone.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var p = document.createElement('p');
+      p.setAttribute('style', 'text-align:center;margin:0;');
+      var span = document.createElement('span');
+      span.setAttribute('style', 'color:#999999;');
+      span.textContent = '사진' + (i + 1);
+      p.appendChild(span);
+      imgs[i].parentNode.replaceChild(p, imgs[i]);
+    }
+    return clone.innerHTML;
+  }
+
+  // The title line the body is pasted under. Built via DOM APIs (not string concatenation)
+  // so the title's own text is safely escaped the same way the rest of #post already is.
+  // Plain bold text, not <blockquote> — the quote-icon box (tried, then explicitly asked to
+  // be removed) was too much for a title. margin isn't in the small set of CSS the editor is
+  // known to keep on paste (see the file header comment), so a real empty paragraph is used
+  // for the gap below the title instead of relying on it.
+  function titleHtml() {
     var titleP = document.createElement('p');
     titleP.setAttribute('style', 'text-align:center;margin:0;');
     var titleB = document.createElement('b');
@@ -340,42 +446,75 @@ https://naver.me/G6RL4V4T
     var titleGap = document.createElement('p');
     titleGap.setAttribute('style', 'margin:0;');
     titleGap.innerHTML = '<br>';
-    var html = titleP.outerHTML + titleGap.outerHTML + post.innerHTML;
+    return titleP.outerHTML + titleGap.outerHTML;
+  }
+
+  // The plain-text flavour always uses the [사진 N 넣기] markers, whichever button was
+  // pressed: it exists for the Naver Blog app, which drops HTML entirely, so its photos
+  // have to be placed by hand no matter what the HTML carried.
+  function plainTextPayload() {
     var plainSource = document.getElementById('plainSource');
     var bodyText = plainSource && plainSource.textContent ? plainSource.textContent : post.innerText;
-    var text = document.getElementById('titleText').textContent + '\n\n' + bodyText;
+    return document.getElementById('titleText').textContent + '\n\n' + bodyText;
+  }
 
-    // navigator.clipboard.write() is the only copy mechanism that reliably carries rich
-    // HTML on mobile. This page is always served over https, so it's always available where
-    // the browser supports it at all — there's no plain-http case here that would need a
-    // fallback API.
-    //
-    // document.execCommand('copy') used to be tried first, even from inside a hidden
-    // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
-    // execCommand('copy') returns true — reporting success — while silently copying
-    // plain text only, images and formatting both dropped. Because it "succeeded", the
-    // code never fell through to the manual copy box below, which is the one path that
-    // actually works on iOS (a real long-press invokes the OS's own rich copy, which
-    // execCommand triggered from script cannot). So: real API or the manual box — nothing
-    // in between that can lie about whether it worked.
-    if (navigator.clipboard && window.ClipboardItem) {
-      navigator.clipboard.write([
-        new ClipboardItem({
-          'text/html': new Blob([html], { type: 'text/html' }),
-          'text/plain': new Blob([text], { type: 'text/plain' })
-        })
-      ]).then(function () {
-        say('복사됐습니다. 네이버 블로그 본문에 붙여넣으세요.');
-      }).catch(function () {
+  // navigator.clipboard.write() is the only copy mechanism that reliably carries rich HTML on
+  // mobile. This page is always served over https, so it's always available where the browser
+  // supports it at all — there's no plain-http case here that would need a fallback API.
+  //
+  // document.execCommand('copy') used to be tried first, even from inside a hidden
+  // contenteditable holder. That turned out to be worse than not trying: on iOS Safari,
+  // execCommand('copy') returns true — reporting success — while silently copying plain text
+  // only, images and formatting both dropped. Because it "succeeded", the code never fell
+  // through to the manual copy box below, which is the one path that actually works on iOS (a
+  // real long-press invokes the OS's own rich copy, which execCommand triggered from script
+  // cannot). So: real API or the manual box — nothing in between that can lie about whether
+  // it worked.
+  //
+  // htmlPromise is handed to ClipboardItem unresolved on purpose: inlining the photos is
+  // async, and Safari rejects a write() that isn't issued in the same tick as the click.
+  function copyBody(htmlPromise, okMessage) {
+    var text = plainTextPayload();
+    if (!(navigator.clipboard && window.ClipboardItem)) {
+      htmlPromise.then(function (html) {
         showManualCopyBox(html);
-        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+        say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (사진 포함, 이미 전체 선택되어 있습니다).');
       });
       return;
     }
+    navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html': htmlPromise.then(function (html) { return new Blob([html], { type: 'text/html' }); }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })
+    ]).then(function () {
+      say(okMessage);
+    }).catch(function () {
+      htmlPromise.then(function (html) {
+        showManualCopyBox(html);
+        say('자동 복사가 차단됐습니다. 아래 글을 길게 눌러 복사하세요 (사진 포함, 이미 전체 선택되어 있습니다).');
+      });
+    });
+  }
 
-    showManualCopyBox(html);
-    say('이 브라우저는 자동 복사를 지원하지 않습니다. 아래 글을 길게 눌러 복사하세요 (이미지 포함, 이미 전체 선택되어 있습니다).');
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    say('');
+    copyBody(
+      Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+      '복사됐습니다. 붙여넣은 뒤 본문의 사진N 글자를 세 번 클릭해 선택하고 사진을 붙여넣으세요.'
+    );
   });
+
+  var bodyOnlyBtn = document.getElementById('copyBodyOnlyBtn');
+  if (bodyOnlyBtn) {
+    bodyOnlyBtn.addEventListener('click', function () {
+      say('');
+      copyBody(
+        Promise.resolve(titleHtml() + bodyHtmlForPaste()),
+        '본문만 복사됐습니다. 붙여넣은 뒤 사진N 글자를 세 번 클릭해 선택하고 아래 사진을 붙여넣으세요.'
+      );
+    });
+  }
 
   // Plain text only, so this works even where the rich-copy button above can't (e.g. the
   // Naver Blog app, which drops formatted paste entirely but takes plain text fine).
@@ -398,6 +537,79 @@ https://naver.me/G6RL4V4T
       copyPlainText(document.getElementById('productNameText').textContent, '제품명');
     });
   }
+
+  // A photo as an actual bitmap on the clipboard, which is what makes Naver upload it to its
+  // own storage — the whole point of the 사진 strip. PNG because it is the only image type
+  // browsers will put on the clipboard; the source JPEG is redrawn through a canvas to get
+  // there. The page and its images share an origin, so the canvas is never tainted.
+  function pngBlob(src) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        var c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/png');
+      };
+      img.onerror = function () { reject(new Error('load')); };
+      img.src = src;
+    });
+  }
+
+  // Dragging a thumbnail into the editor was tried and does not work. dataTransfer.files was
+  // populated with the real JPEG — verified — but a drag between two browser tabs is handed to
+  // the target as the image's address rather than as a dropped file, so Naver ends up with the
+  // same remote URL it refuses to upload. Nothing to salvage there; the thumbnails are plain
+  // images again.
+
+  // Saves every photo in one click, named 01·02·03… so Naver's 사진 picker — which inserts a
+  // multi-selection in filename order — drops them into the post in the order they appear
+  // here. Anchors are clicked one at a time with a small gap; browsers drop the rest of a
+  // burst of programmatic downloads fired in the same tick.
+  var saveAllBtn = document.getElementById('saveAllPhotosBtn');
+  if (saveAllBtn) {
+    saveAllBtn.addEventListener('click', function () {
+      say('');
+      var links = document.querySelectorAll('.photo-save');
+      Array.prototype.forEach.call(links, function (link, i) {
+        setTimeout(function () {
+          var a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.download = link.getAttribute('download');
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, i * 250);
+      });
+      say('사진 ' + links.length + '장을 저장합니다. 네이버 "사진" 버튼에서 한 번에 선택해 올리세요.');
+    });
+  }
+
+  var photoBtns = document.querySelectorAll('.photo-copy');
+  Array.prototype.forEach.call(photoBtns, function (btn) {
+    btn.addEventListener('click', function () {
+      say('');
+      var n = btn.getAttribute('data-n');
+      if (!(navigator.clipboard && window.ClipboardItem)) {
+        say('이 브라우저는 사진 복사를 지원하지 않습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        return;
+      }
+      // ClipboardItem is handed the pending Promise rather than an awaited Blob: Safari
+      // rejects a write() that is not issued in the same tick as the click.
+      navigator.clipboard
+        .write([new ClipboardItem({ 'image/png': pngBlob(btn.getAttribute('data-src')) })])
+        .then(function () {
+          Array.prototype.forEach.call(photoBtns, function (b) { b.classList.remove('done'); });
+          btn.classList.add('done');
+          say('사진 ' + n + '이(가) 복사됐습니다. 본문의 사진' + n + ' 글자를 세 번 클릭해 선택한 뒤 붙여넣으세요.');
+        })
+        .catch(function () {
+          say('사진 복사가 차단됐습니다. "저장"으로 내려받아 네이버 사진 버튼으로 올려주세요.');
+        });
+    });
+  });
 
   // Publish status has no backend to live in on a static site — tracked in this browser's
   // localStorage instead, keyed by this exact page's path so the list pages (which resolve
