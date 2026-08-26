@@ -83,6 +83,8 @@
   /* The copy script reads the selected title from here. It stays in the DOM as the page's
      real heading for assistive tech, but is not painted — the highlighted row above is what
      a sighted reader sees, and printing it twice was the original complaint. */
+  .cat-chip { display: inline-block; margin-bottom: 8px; padding: 3px 10px; border-radius: 999px;
+    background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 700; letter-spacing: -0.2px; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 </style>
@@ -93,6 +95,7 @@
     <a class="back-btn" href="https://danacodedev-cmd.github.io/naver-blog-posts/">← 목록</a>
     <button id="publishToggle" type="button">발행 전</button>
   </div>
+  <div class="cat-chip">디지털/가전</div>
   <h1 id="titleText" class="visually-hidden">액정필름 미뤄둔 아이폰17, 먼지없는 이지핏 보호필름 2매입</h1>
   <div class="product-name">엑셀 상품명: <span id="productNameText">먼지없는 강화유리 액정 보호 필름 글라스tR 이지핏 아이폰17, 2매입</span></div>
   <div class="tp-label">제목 — 누르면 그 제목으로 복사됩니다</div>
